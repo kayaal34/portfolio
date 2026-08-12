@@ -149,7 +149,6 @@ src/
 └── components/
     ├── Preloader.jsx           Açılış sahnesi: isim + Portfolyo, dikey perde
     ├── AuroraBackground.jsx    Statik yumuşak ışık, ince grid, film grain
-    ├── CustomCursor.jsx        Nokta + gecikmeli halka imleç (yalnız masaüstü)
     ├── ScrollProgress.jsx      Üstteki okuma ilerleme çubuğu
     ├── Navbar.jsx              Sağ kenar dikey ray + mobil üst bar/sheet
     ├── LanguageSwitcher.jsx    TR/EN/RU açılır menüsü (klavye destekli)
@@ -295,5 +294,3 @@ devreye girer.
   "İletişim formunu çalışır hâle getirme" bölümüne bakın.
 - İşletim sisteminde "hareketi azalt" (reduced motion) açıksa tüm animasyonlar devre dışı
   kalır ve içerik statik olarak görüntülenir.
-- Özel imleç yalnızca gerçek fare kullanan cihazlarda çalışır; dokunmatik cihazlarda
-  sistem davranışı korunur.

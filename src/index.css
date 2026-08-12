@@ -138,6 +138,13 @@
       color 0.6s var(--ease-out-expo);
   }
 
+  /* Buttons carry navigation and the main actions here, so they should read
+     as clickable the way links do. */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
   ::selection {
     background: color-mix(in oklab, var(--c-accent) 35%, transparent);
     color: var(--c-fg);
@@ -343,13 +350,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Hide the native cursor only where the custom one actually runs. */
-@media (hover: hover) and (pointer: fine) {
-  html.yk-custom-cursor,
-  html.yk-custom-cursor * {
-    cursor: none !important;
   }
 }

@@ -7,7 +7,6 @@ import { useActiveSection } from './hooks/useActiveSection';
 
 import { AuroraBackground } from './components/AuroraBackground';
 import { ScrollProgress } from './components/ScrollProgress';
-import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -43,7 +42,6 @@ function Site() {
 
       <AuroraBackground />
       <ScrollProgress />
-      <CustomCursor />
 
       {/*
         Language changes cross-fade the whole document instead of remounting

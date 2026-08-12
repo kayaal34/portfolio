@@ -45,7 +45,7 @@ const ProjectCard = forwardRef(function ProjectCard({ project, copy, categoryLab
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="h-full"
     >
-      <TiltCard intensity={10} scale={1.015} className="h-full" data-cursor="hover">
+      <TiltCard intensity={10} scale={1.015} className="h-full">
         <article className="spotlight ring-gradient glass group relative isolate flex h-full flex-col overflow-hidden rounded-3xl p-7 shadow-card sm:p-8">
           {/* Corner bloom */}
           <span

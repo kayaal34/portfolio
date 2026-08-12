@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { sectionIds } from '../data/profile';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { contactPath, sectionIds } from '../data/profile';
 import { useT } from '../i18n';
 import { ThemeToggle } from './ThemeToggle';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useMotionLevel } from '../hooks/useMotionLevel';
-import { goToContactForm, scrollToSection } from '../hooks/useSmoothScroll';
+import { scrollToSection } from '../hooks/useSmoothScroll';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -59,6 +60,9 @@ export function Navbar({ active, isDark, onToggleTheme, lenisRef }) {
   const t = useT();
   const gentle = useMotionLevel() === 'gentle';
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const onHome = pathname === '/';
 
   const navItems = useMemo(() => sectionIds.map((id) => ({ id, label: t.nav[id] })), [t]);
 
@@ -79,8 +83,22 @@ export function Navbar({ active, isDark, onToggleTheme, lenisRef }) {
 
   const go = (id) => {
     setMenuOpen(false);
+
+    if (!onHome) {
+      // Come home first, then scroll once the sections actually exist.
+      navigate('/');
+      // The sections only exist after the home route renders.
+      window.setTimeout(() => scrollToSection(id, lenisRef?.current, { immediate: true }), 140);
+      return;
+    }
+
     // Let the overflow lock lift before Lenis measures the document.
     window.setTimeout(() => scrollToSection(id, lenisRef?.current), 10);
+  };
+
+  const goContact = () => {
+    setMenuOpen(false);
+    navigate(contactPath);
   };
 
   const fadeIn = (delay) => ({
@@ -141,8 +159,13 @@ export function Navbar({ active, isDark, onToggleTheme, lenisRef }) {
           >
             <button
               type="button"
-              onClick={() => goToContactForm(lenisRef?.current)}
-              className="group relative overflow-hidden rounded-full border border-fg/25 px-4 py-2 text-[12px] font-light tracking-[0.02em] whitespace-nowrap text-fg transition-colors duration-500 hover:border-fg/60"
+              onClick={goContact}
+              aria-current={active === 'contact' ? 'page' : undefined}
+              className={`group relative overflow-hidden rounded-full px-4 py-2 text-[12px] font-light tracking-[0.02em] whitespace-nowrap transition-colors duration-500 ${
+                active === 'contact'
+                  ? 'border border-fg bg-fg text-bg'
+                  : 'border border-fg/25 text-fg hover:border-fg/60'
+              }`}
             >
               <span
                 aria-hidden="true"
@@ -276,9 +299,7 @@ export function Navbar({ active, isDark, onToggleTheme, lenisRef }) {
                   <button
                     type="button"
                     onClick={() => {
-                      setMenuOpen(false);
-                      // Let the overflow lock lift before scrolling.
-                      window.setTimeout(() => goToContactForm(lenisRef?.current), 10);
+                      goContact();
                     }}
                     className="w-full rounded-full border border-fg/25 py-3.5 text-[13px] font-light tracking-[0.02em] text-fg transition-colors duration-500 hover:border-fg/60"
                   >

@@ -44,36 +44,24 @@ export function useSmoothScroll(enabled = true) {
 
 /**
  * Scrolls to a section id, using Lenis when available and falling back to
- * the platform's own smooth scrolling otherwise.
+ * the platform's own scrolling otherwise.
+ *
+ * `immediate` jumps instead of gliding. Use it when arriving from another
+ * route: the page has only just rendered, so a 1.3s glide from the very top
+ * is both slow and easy to interrupt.
  */
-export function scrollToSection(id, lenis) {
+export function scrollToSection(id, lenis, { immediate = false } = {}) {
   const target = document.getElementById(id);
   if (!target) return;
 
   const offset = window.innerWidth < 768 ? -80 : -96;
+  const top = target.getBoundingClientRect().top + window.scrollY + offset;
+
+  // Always move the native scroll position too. Lenis can be off (reduced
+  // motion) or not yet running, and without this the click does nothing.
+  window.scrollTo({ top, behavior: immediate ? 'auto' : 'smooth' });
 
   if (lenis) {
-    lenis.scrollTo(target, { offset, duration: 1.35 });
-    return;
+    lenis.scrollTo(target, immediate ? { offset, immediate: true } : { offset, duration: 1.35 });
   }
-
-  const top = target.getBoundingClientRect().top + window.scrollY + offset;
-  window.scrollTo({ top, behavior: 'smooth' });
-}
-
-/**
- * "Get in touch" everywhere on the site means the same thing: take me to
- * the form and put the cursor in it. Opening a mail client instead loses
- * people who read their mail in a browser tab.
- */
-export function goToContactForm(lenis) {
-  scrollToSection('contact', lenis);
-
-  // Focus once the scroll has settled, so the browser does not fight it by
-  // jumping straight to the field.
-  window.setTimeout(() => {
-    const field = document.getElementById('cf-name');
-    if (!field) return;
-    field.focus({ preventScroll: true });
-  }, 900);
 }

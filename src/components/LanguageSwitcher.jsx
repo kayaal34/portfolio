@@ -12,6 +12,8 @@ import { useI18n } from '../i18n';
 export function LanguageSwitcher({ className = '', align = 'right' }) {
   const { language, setLanguage, languages, t } = useI18n();
   const [open, setOpen] = useState(false);
+  // Menu asagi sigmiyorsa yukari acilir; anahtar sol-alt kosede de duruyor.
+  const [dropUp, setDropUp] = useState(false);
   const [focusIndex, setFocusIndex] = useState(() =>
     Math.max(
       0,
@@ -55,6 +57,11 @@ export function LanguageSwitcher({ className = '', align = 'right' }) {
   }, [open, focusIndex]);
 
   const openList = () => {
+    // Kaba bir tahmin degil: satir yuksekligi x dil sayisi + kenar bosluklari.
+    const menuHeight = languages.length * 42 + 16;
+    const rect = triggerRef.current?.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - (rect?.bottom ?? 0);
+    setDropUp(spaceBelow < menuHeight + 16);
     setFocusIndex(
       Math.max(
         0,
@@ -134,14 +141,18 @@ export function LanguageSwitcher({ className = '', align = 'right' }) {
           <motion.ul
             role="listbox"
             aria-label={t.a11y.chooseLanguage}
-            initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -8, scale: 0.94 }}
+            initial={
+              prefersReduced ? { opacity: 0 } : { opacity: 0, y: dropUp ? 8 : -8, scale: 0.94 }
+            }
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.96 }}
+            exit={prefersReduced ? { opacity: 0 } : { opacity: 0, y: dropUp ? 6 : -6, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 420, damping: 32, mass: 0.6 }}
-            style={{ transformOrigin: align === 'right' ? 'top right' : 'top left' }}
-            className={`glass-strong absolute top-[calc(100%+0.6rem)] z-50 w-[11.5rem] overflow-hidden rounded-2xl p-1.5 shadow-float ${
-              align === 'right' ? 'right-0' : 'left-0'
-            }`}
+            style={{
+              transformOrigin: `${dropUp ? 'bottom' : 'top'} ${align === 'right' ? 'right' : 'left'}`,
+            }}
+            className={`glass-strong absolute z-50 w-[11.5rem] overflow-hidden rounded-2xl p-1.5 shadow-float ${
+              dropUp ? 'bottom-[calc(100%+0.6rem)]' : 'top-[calc(100%+0.6rem)]'
+            } ${align === 'right' ? 'right-0' : 'left-0'}`}
           >
             {languages.map((item, index) => {
               const isActive = item.code === language;

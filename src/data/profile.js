@@ -16,24 +16,18 @@ export const profile = {
   telegramHandle: '@kayaal34',
 };
 
-/** Section ids — also the anchor targets and the nav order. */
-export const sectionIds = [
-  'home',
-  'about',
-  'stack',
-  'experience',
-  'clients',
-  'projects',
-  'contact',
-];
+/**
+ * Sections that live on the home page. These are the scroll anchors and
+ * the order they appear in.
+ *
+ * Contact is deliberately not here — it is its own route (see `contactPath`),
+ * because the home page had grown long enough that a form at the bottom was
+ * doing nobody any favours.
+ */
+export const sectionIds = ['home', 'about', 'stack', 'experience', 'clients', 'projects'];
 
-/** Hero counters. Only the caption is translated. */
-export const heroStats = [
-  { key: 'diplomas', value: '2', suffix: 'x' },
-  { key: 'msc', value: '1', suffix: '' },
-  { key: 'projects', value: '7', suffix: '+' },
-  { key: 'languages', value: '3', suffix: '' },
-];
+/** The contact page lives at its own URL. */
+export const contactPath = '/contact';
 
 /** Newest first. `current` renders the in-progress badge. */
 export const educationEntries = [

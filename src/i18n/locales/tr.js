@@ -46,7 +46,7 @@ export default {
 
   hero: {
     available: 'Yeni rollere açığım',
-    tagline: 'Yazılım Mühendisi · Front-end · Yapay Zeka',
+    tagline: 'Yazılım Mühendisi · Yapay Zeka Araştırmacısı',
     ctaPrimary: 'Çalışmalarım',
     ctaSecondary: 'İletişime geç',
     scroll: 'Kaydır',
@@ -55,24 +55,17 @@ export default {
   about: {
     eyebrow: 'Hakkımda',
     titleLead: 'Ben Yahya.',
-    titleRest: 'Yazılım mühendisi, yapay zeka araştırmacısı ve problem çözücü.',
+    titleRest: 'Yazılım mühendisi ve yapay zeka araştırmacısı.',
     intro1:
-      'Karmaşık algoritmalar ile kusursuz kullanıcı deneyimleri arasındaki köprüyü kuruyorum. Gömülü sistemlerin donanımsal sınırlarından, yapay zekanın sınırsız potansiyeline kadar her alanda kod yazmaktan keyif alıyorum.',
+      'Karmaşık algoritmalar ile kusursuz kullanıcı deneyimleri arasındaki köprüyü kuruyorum. Gömülü sistemlerin donanımsal sınırlarından yapay zekânın açık uçlu potansiyeline kadar geniş bir alanda kod yazıyorum.',
     intro2:
-      'Ölçeklenebilir backend mimarileri kurmak veya yapay zeka destekli çözümler tasarlamak… Benim için önemli olan tek şey: amacı olan, gerçek problemleri çözen ve insanlara değer katan dijital ürünler inşa etmek.',
+      'Lisans tezim MyAiTripPlanner oldu: kullanıcının serbest metinle anlattığı gezi niyetini, LangChain üzerinden kurduğum bir dil modeli hattıyla gerçek bir rotaya çeviren FastAPI tabanlı bir platform. Aynı dönemde Studio Otrajenie’nin web sitesini tasarlayıp geliştirdim — ilk taslaktan yayına kadar uçtan uca benim işimdi.',
     intro3:
-      'Bunun yanında müşteriler için web siteleri tasarlayıp geliştiriyorum — ilk taslaktan yayına kadar uçtan uca. React ve modern front-end araçlarıyla; basit kalan, hızlı açılan ve bakımı dert olmayan arayüzler.',
+      'Ekranın dışında ringde ve ağırlık odasındayım; lisanslı taekwondo geçmişim var, şimdi boks çalışıyorum. Buradan masa başına birebir geçen tek bir şey öğrendim: bir problem ilk denemede düşmediğinde tekrar kalkmak. Odak da sabır da orada şekilleniyor.',
     disciplines: ['Backend', 'Yapay Zeka & NLP', 'Mobil', 'Gömülü Sistemler', 'Front-end / React'],
-    stats: {
-      diplomas: 'Lisans diploması',
-      msc: 'Yapay zeka yüksek lisansı',
-      projects: 'Mühendislik projesi',
-      languages: 'Çalışma dili',
-    },
     educationLabel: 'Eğitim',
     languagesLabel: 'Diller',
     howIWorkLabel: 'Mühendislik ilkelerim',
-    interests: 'Lisanslı Taekwondo sporcusu — kod incelemesine de iyi geçen bir disiplin.',
     inProgress: 'Devam ediyor',
     softSkills: [
       'Önce mimari, sonra kod',
@@ -279,9 +272,11 @@ export default {
 
   contact: {
     eyebrow: 'İletişim',
-    title: 'Bana ulaşmak için vakit ayırdığınız için teşekkürler.',
-    accent: 'Size nasıl yardımcı olabilirim?',
+    title: 'Bir projeniz mi var?',
+    accent: 'Konuşalım.',
     lead: 'İstanbul, St. Petersburg ve uzaktan çalışan ekiplerde backend, mobil ve yapay zeka mühendisliği rollerine açığım.',
+    pageLead:
+      'İş fırsatı, freelance bir proje ya da aklınıza takılan bir soru — hepsi yazmanız için yeterli sebep. Formu doldurun, genelde aynı gün dönüş yapıyorum.',
     statement: 'Hangi kanalı tercih ederseniz edin —',
     statementAccent: 'hepsi bana ulaşır.',
     formTitle: 'Mesaj gönderin',

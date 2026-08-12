@@ -13,16 +13,16 @@ import {
   Send,
   TriangleAlert,
 } from 'lucide-react';
-import { profile, socials } from '../../data/profile';
+import { profile, socials } from '../data/profile';
 import {
   WEB3FORMS_ACCESS_KEY,
   WEB3FORMS_ENDPOINT,
   isContactFormConfigured,
-} from '../../config/contactForm';
-import { useT } from '../../i18n';
-import { SectionHeading } from '../SectionHeading';
-import { Reveal } from '../Reveal';
-import { useMotionLevel } from '../../hooks/useMotionLevel';
+} from '../config/contactForm';
+import { useT } from '../i18n';
+import { SectionHeading } from '../components/SectionHeading';
+import { Reveal } from '../components/Reveal';
+import { useMotionLevel } from '../hooks/useMotionLevel';
 
 const ICONS = { Mail, Linkedin, Github, Send };
 
@@ -315,21 +315,31 @@ function ContactForm({ copy }) {
   );
 }
 
-export function Contact() {
+export function ContactPage() {
   const t = useT();
 
   return (
-    <section id="contact" className="relative scroll-mt-28 py-28 sm:py-36 lg:py-44">
+    // A page, not a section: it owns the viewport, so it needs the top
+    // padding the fixed mobile bar would otherwise sit on top of.
+    <section
+      id="contact"
+      className="relative flex min-h-[100svh] flex-col justify-center px-6 pt-32 pb-24 sm:pt-36 lg:px-0 lg:pt-40 lg:pb-32"
+    >
       <div className="shell">
         <SectionHeading
-          index="06"
           eyebrow={t.contact.eyebrow}
           title={t.contact.title}
           accent={t.contact.accent}
           align="center"
         />
 
-        <Reveal delay={0.08} className="mt-16 sm:mt-20">
+        <Reveal delay={0.06} className="mx-auto mt-8 max-w-xl">
+          <p className="text-center text-[15px] font-light leading-[1.75] text-muted sm:text-base">
+            {t.contact.pageLead}
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.1} className="mt-14 sm:mt-16">
           <ContactForm copy={t.contact} />
         </Reveal>
 

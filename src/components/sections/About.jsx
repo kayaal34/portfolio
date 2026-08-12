@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { educationEntries, heroStats, languageLevels } from '../../data/profile';
+import { educationEntries, languageLevels } from '../../data/profile';
 import { useT } from '../../i18n';
 import { Reveal, RevealGroup, RevealItem } from '../Reveal';
 
@@ -95,28 +95,8 @@ export function About() {
           </div>
         </div>
 
-        {/* Numbers */}
-        <RevealGroup
-          className="mt-24 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-line pt-14 sm:grid-cols-4 sm:mt-28"
-          stagger={0.08}
-        >
-          {heroStats.map((stat) => (
-            <RevealItem key={stat.key}>
-              <div className="flex flex-col-reverse">
-                <dt className="mt-2.5 font-mono text-[10px] uppercase leading-relaxed tracking-[0.18em] text-faint">
-                  {t.about.stats[stat.key]}
-                </dt>
-                <dd className="tabular text-[clamp(1.9rem,4vw,2.6rem)] font-light tracking-[-0.04em] text-fg">
-                  {stat.value}
-                  <span className="text-muted">{stat.suffix}</span>
-                </dd>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-
         {/* Education · Languages · Principles */}
-        <div className="mt-28 grid gap-16 border-t border-line pt-16 lg:grid-cols-12 lg:gap-12 sm:mt-32">
+        <div className="mt-24 grid gap-16 border-t border-line pt-16 sm:mt-28 lg:grid-cols-12 lg:gap-12">
           {/* Education */}
           <div className="lg:col-span-6">
             <Reveal>
@@ -205,12 +185,6 @@ export function About() {
                   </li>
                 ))}
               </ul>
-            </Reveal>
-
-            <Reveal delay={0.16}>
-              <p className="mt-10 text-[13px] font-light leading-relaxed text-faint">
-                {t.about.interests}
-              </p>
             </Reveal>
           </div>
         </div>

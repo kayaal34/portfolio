@@ -127,8 +127,8 @@ Bundan sonra `git push` yaptığınız her seferde site kendiliğinden güncelle
 
 ```
 src/
-├── App.jsx                     Sayfa iskeleti — tüm bölümleri sırayla dizer
-├── main.jsx                    React giriş noktası
+├── App.jsx                     Route iskeleti + ortak yerleşim (nav, footer, arka plan)
+├── main.jsx                    React giriş noktası (BrowserRouter burada)
 ├── index.css                   Tasarım sistemi: renk değişkenleri, cam efekti,
 │                               gradient yardımcıları, keyframe'ler, reduced-motion
 ├── data/
@@ -146,6 +146,9 @@ src/
 │   ├── useSmoothScroll.js      Lenis momentum scroll + bölüme kaydırma
 │   ├── useActiveSection.js     Navbar'daki aktif bölüm takibi
 │   └── useMediaQuery.js        Pointer / ekran genişliği sorguları
+├── pages/
+│   ├── Home.jsx                Ana sayfa — tüm bölümler sırayla
+│   └── ContactPage.jsx         /contact rotası: karşılama + form + kanallar
 └── components/
     ├── Preloader.jsx           Açılış sahnesi: isim + Portfolyo, dikey perde
     ├── AuroraBackground.jsx    Statik yumuşak ışık, ince grid, film grain
@@ -165,8 +168,7 @@ src/
         ├── TechStack.jsx       Filtrelenebilir, parlayan teknoloji rozetleri
         ├── Experience.jsx      Çizilen dikey zaman çizelgesi + sertifikalar
         ├── Projects.jsx        7 proje, 3D dönen kartlar, kategori filtresi
-        ├── Clients.jsx         Referans / müşteri yorumu kartı
-        └── Contact.jsx         Ortalanmış çalışan form + sessiz kanal satırı
+        └── Clients.jsx         Referans / müşteri yorumu kartı
 ```
 
 Bir de `src/config/contactForm.js` var — formun hangi servise gittiğini tanımlar.
@@ -259,6 +261,26 @@ sönümlenerek yine canlı kalır.
 Arka plan her koşulda statiktir: sürüklenen ışık lekesi, fare paralaksı veya
 kayan şerit yoktur. Sürekli dönen tek hareket, hero'nun altındaki scroll
 göstergesindeki ince ışık çizgisidir.
+
+---
+
+## Rotalar
+
+Site iki sayfadan oluşur:
+
+| URL        | İçerik                                                        |
+| ---------- | ------------------------------------------------------------- |
+| `/`        | Hero, Hakkımda, Teknolojiler, Deneyim, Referanslar, Projeler   |
+| `/contact` | Karşılama metni + çalışan iletişim formu + kanallar            |
+
+İletişim bilinçli olarak ana sayfadan çıkarıldı: sayfa, formun en altta
+kaybolacağı kadar uzamıştı.
+
+Yönlendirme `react-router-dom` ile istemci tarafında yapılır. Bu yüzden
+sunucunun **her URL için `index.html` döndürmesi** gerekir — aksi hâlde
+`/contact` adresine doğrudan girmek veya sayfayı yenilemek 404 verir.
+Vercel için gereken kural depoda hazır: [`vercel.json`](vercel.json).
+Başka bir sunucu kullanacaksanız aynı "SPA fallback" ayarını orada da yapın.
 
 ---
 

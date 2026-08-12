@@ -46,7 +46,7 @@ export default {
 
   hero: {
     available: 'Open to new roles',
-    tagline: 'Software Engineer · Front-end · AI',
+    tagline: 'Software Engineer · AI Researcher',
     ctaPrimary: 'View work',
     ctaSecondary: 'Get in touch',
     scroll: 'Scroll',
@@ -55,24 +55,17 @@ export default {
   about: {
     eyebrow: 'About',
     titleLead: "I'm Yahya.",
-    titleRest: 'Software engineer, AI researcher and problem solver.',
+    titleRest: 'Software engineer and AI researcher.',
     intro1:
-      'I build the bridge between complex algorithms and effortless user experience. From the hardware limits of embedded systems to the open-ended potential of artificial intelligence, I enjoy writing code across the whole range.',
+      'I build the bridge between complex algorithms and effortless user experience. From the hardware limits of embedded systems to the open-ended potential of artificial intelligence, I write code across the whole range.',
     intro2:
-      'Architecting scalable backends, designing AI-powered solutions — what matters to me is the same either way: building digital products that have a purpose, solve real problems and genuinely add value to the people using them.',
+      'My bachelor thesis became MyAiTripPlanner: a FastAPI platform that turns free-form travel intent into a real, routed itinerary through a language-model pipeline I orchestrated with LangChain. In the same period I designed and built the website for Studio Otrajenie — end to end, from the first sketch to the live site.',
     intro3:
-      'Alongside that I design and build websites for clients — end to end, from the first sketch to the live site. React and modern front-end tooling; interfaces that stay simple, load fast and are never a chore to maintain.',
+      'Away from the screen I am in the ring and under the bar — a licensed taekwondo background, boxing now. It taught me one thing that transfers straight to a desk: when a problem does not go down on the first attempt, you get back up. Focus and patience are built there, not at the keyboard.',
     disciplines: ['Backend', 'AI & NLP', 'Mobile', 'Embedded', 'Front-end / React'],
-    stats: {
-      diplomas: 'Bachelor diplomas',
-      msc: 'MSc in AI',
-      projects: 'Engineering projects',
-      languages: 'Working languages',
-    },
     educationLabel: 'Education',
     languagesLabel: 'Languages',
     howIWorkLabel: 'Engineering principles',
-    interests: 'Licensed Taekwondo athlete — discipline that transfers well to code review.',
     inProgress: 'In progress',
     softSkills: [
       'Architecture before implementation',
@@ -279,9 +272,11 @@ export default {
 
   contact: {
     eyebrow: 'Contact',
-    title: 'Thanks for taking the time to reach out.',
-    accent: 'How can I help you today?',
+    title: 'Got something in mind?',
+    accent: "Let's talk.",
     lead: 'Open to backend, mobile and AI engineering roles across Istanbul, St. Petersburg and remote-first teams.',
+    pageLead:
+      'A role, a freelance project, or just a question — all of them are reason enough to write. Fill in the form and I usually reply the same day.',
     statement: 'Pick whichever channel you like —',
     statementAccent: 'all of them reach me.',
     formTitle: 'Send a message',

@@ -2,7 +2,9 @@ import { useRef } from 'react';
 import { motion, useMotionTemplate, useScroll, useTransform } from 'framer-motion';
 import { useT } from '../../i18n';
 import { useMotionLevel } from '../../hooks/useMotionLevel';
-import { goToContactForm, scrollToSection } from '../../hooks/useSmoothScroll';
+import { Link } from 'react-router-dom';
+import { contactPath } from '../../data/profile';
+import { scrollToSection } from '../../hooks/useSmoothScroll';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -54,13 +56,14 @@ function DissolveChar({ char, index, total, progress }) {
 }
 
 /** Quiet text link with an underline that redraws on hover. */
-function QuietLink({ children, onClick, href }) {
-  const Tag = href ? 'a' : 'button';
+function QuietLink({ children, onClick, href, to }) {
+  const Tag = to ? Link : href ? 'a' : 'button';
   return (
     <Tag
+      to={to}
       href={href}
       onClick={onClick}
-      type={href ? undefined : 'button'}
+      type={to || href ? undefined : 'button'}
       className="group relative inline-block py-3.5 font-mono text-[11px] uppercase tracking-[0.22em] text-fg-soft transition-colors duration-500 hover:text-fg sm:py-2 sm:text-[10.5px]"
     >
       {children}
@@ -166,9 +169,7 @@ export function Hero({ lenisRef, ready }) {
             <QuietLink onClick={() => scrollToSection('projects', lenisRef?.current)}>
               {t.hero.ctaPrimary}
             </QuietLink>
-            <QuietLink onClick={() => goToContactForm(lenisRef?.current)}>
-              {t.hero.ctaSecondary}
-            </QuietLink>
+            <QuietLink to={contactPath}>{t.hero.ctaSecondary}</QuietLink>
           </motion.div>
 
           {/* Location and availability, centred under the links. They used to

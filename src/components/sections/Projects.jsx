@@ -132,7 +132,7 @@ export function Projects() {
     <section id="projects" className="relative scroll-mt-28 py-28 sm:py-36 lg:py-44">
       <div className="shell">
         <SectionHeading
-          index="04"
+          index="05"
           eyebrow={t.projects.eyebrow}
           title={t.projects.title}
           accent={t.projects.accent}
@@ -153,7 +153,7 @@ export function Projects() {
                     type="button"
                     onClick={() => setFilter(category)}
                     aria-pressed={isActive}
-                    className={`relative inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-medium tracking-tight transition-colors duration-400 ${
+                    className={`relative inline-flex items-center gap-2 min-h-11 rounded-full px-4 py-2.5 text-[13px] font-medium tracking-tight transition-colors duration-400 sm:min-h-0 sm:py-2 sm:text-[12.5px] ${
                       isActive ? 'text-bg' : 'border border-line text-muted hover:text-fg'
                     }`}
                   >

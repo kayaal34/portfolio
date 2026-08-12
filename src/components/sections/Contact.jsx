@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowUpRight,
   Check,
@@ -10,7 +10,6 @@ import {
   Mail,
   MailOpen,
   MapPin,
-  Phone,
   Send,
   TriangleAlert,
 } from 'lucide-react';
@@ -22,12 +21,13 @@ import {
 } from '../../config/contactForm';
 import { useT } from '../../i18n';
 import { SectionHeading } from '../SectionHeading';
-import { Reveal, RevealGroup, RevealItem } from '../Reveal';
-import { MagneticButton } from '../MagneticButton';
+import { Reveal } from '../Reveal';
+import { useMotionLevel } from '../../hooks/useMotionLevel';
 
-const ICONS = { Mail, Phone, Linkedin, Github, Send };
+const ICONS = { Mail, Linkedin, Github, Send };
 
-function ContactRow({ item, label }) {
+/** Quiet inline channel link, sitting under the form. */
+function ChannelLink({ item, label }) {
   const Icon = ICONS[item.icon] ?? Mail;
   const external = item.href.startsWith('http');
 
@@ -36,40 +36,30 @@ function ContactRow({ item, label }) {
       href={item.href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noreferrer noopener' : undefined}
-      className="group relative flex items-center gap-5 border-b border-line py-5 transition-colors duration-500 hover:border-accent/40"
+      className="group inline-flex min-h-11 items-center gap-2.5 py-3 transition-colors duration-500 sm:min-h-0 sm:py-2"
+      title={item.value}
     >
-      {/* Sliding wash */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 -inset-x-4 -z-10 origin-left scale-x-0 rounded-xl bg-gradient-to-r from-accent/10 to-transparent transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+      <Icon
+        className="h-4 w-4 shrink-0 text-faint transition-colors duration-500 group-hover:text-fg"
+        strokeWidth={1.5}
       />
-
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line bg-surface transition-colors duration-500 group-hover:border-accent/50">
-        <Icon
-          className="h-[17px] w-[17px] text-fg-soft transition-colors duration-500 group-hover:text-accent"
-          strokeWidth={1.6}
+      <span className="relative font-mono text-[11px] uppercase tracking-[0.2em] text-muted transition-colors duration-500 group-hover:text-fg">
+        {label}
+        <span
+          aria-hidden="true"
+          className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-fg transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:origin-left group-hover:scale-x-100"
         />
       </span>
-
-      <span className="min-w-0 flex-1">
-        <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-faint">
-          {label}
-        </span>
-        <span className="mt-1 block truncate text-[15px] tracking-tight text-fg sm:text-base">
-          {item.value}
-        </span>
-      </span>
-
       <ArrowUpRight
-        className="h-4 w-4 shrink-0 text-faint transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-        strokeWidth={1.7}
+        className="h-3 w-3 shrink-0 text-faint opacity-0 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
+        strokeWidth={1.8}
       />
     </a>
   );
 }
 
 /** Coloured status panel shown under the form after a submit attempt. */
-function StatusNote({ tone, icon: Icon, title, children }) {
+function StatusNote({ tone, icon: Icon, title, children, gentle }) {
   const tones = {
     success: 'border-emerald-400/30 bg-emerald-400/8 text-emerald-400',
     error: 'border-red-400/30 bg-red-400/8 text-red-400',
@@ -78,13 +68,13 @@ function StatusNote({ tone, icon: Icon, title, children }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10, height: 0 }}
-      animate={{ opacity: 1, y: 0, height: 'auto' }}
-      exit={{ opacity: 0, y: -8, height: 0 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      initial={gentle ? { opacity: 0 } : { opacity: 0, y: 10, height: 0 }}
+      animate={gentle ? { opacity: 1 } : { opacity: 1, y: 0, height: 'auto' }}
+      exit={gentle ? { opacity: 0 } : { opacity: 0, y: -8, height: 0 }}
+      transition={{ duration: gentle ? 0.35 : 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="overflow-hidden"
     >
-      <div className={`mt-4 flex gap-3 rounded-2xl border p-4 ${tones[tone]}`}>
+      <div className={`mt-6 flex gap-3 rounded-2xl border p-4 text-left ${tones[tone]}`}>
         <Icon className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2} />
         <div className="min-w-0">
           <p className="text-[13.5px] font-semibold tracking-tight">{title}</p>
@@ -102,10 +92,13 @@ function StatusNote({ tone, icon: Icon, title, children }) {
  * straight to the inbox the key belongs to. Without a key it degrades to
  * composing the same message in the visitor's own mail client, so the form
  * is never a dead end.
+ *
+ * Labels sit above their fields rather than floating inside them — at this
+ * width that reads faster and leaves the inputs completely clean.
  */
 function ContactForm({ copy }) {
   const [status, setStatus] = useState('idle');
-  const prefersReduced = useReducedMotion();
+  const gentle = useMotionLevel() === 'gentle';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -118,8 +111,8 @@ function ContactForm({ copy }) {
 
     const name = String(data.get('name') ?? '').trim();
     const email = String(data.get('email') ?? '').trim();
-    const subject = String(data.get('subject') ?? '').trim() || copy.mailSubject;
     const message = String(data.get('message') ?? '').trim();
+    const subject = copy.mailSubject;
 
     if (!isContactFormConfigured) {
       const body = `${message}\n\n—\n${name}\n${email}`;
@@ -138,7 +131,7 @@ function ContactForm({ copy }) {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `[Portfolio] ${subject}`,
+          subject: `[Portfolio] ${subject} — ${name}`,
           from_name: name,
           replyto: email,
           name,
@@ -162,10 +155,10 @@ function ContactForm({ copy }) {
 
   const submitting = status === 'submitting';
 
-  const fieldClass =
-    'peer w-full rounded-xl border border-line bg-surface px-4 pt-6 pb-2.5 text-[14.5px] text-fg outline-none transition-colors duration-400 placeholder:text-transparent focus:border-accent/60 disabled:opacity-60';
   const labelClass =
-    'pointer-events-none absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.18em] text-faint transition-all duration-300 peer-placeholder-shown:top-[1.15rem] peer-placeholder-shown:text-[12px] peer-placeholder-shown:tracking-normal peer-placeholder-shown:normal-case peer-focus:top-2.5 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-[0.18em] peer-focus:text-accent';
+    'mb-2.5 block font-mono text-[10px] uppercase tracking-[0.22em] text-faint transition-colors duration-300';
+  const fieldClass =
+    'w-full rounded-xl border border-line bg-surface px-4 py-3.5 text-[16px] font-light text-fg outline-none transition-colors duration-400 placeholder:text-faint/60 focus:border-fg/40 disabled:opacity-60 sm:text-[15px]';
 
   const mailLink = (
     <a
@@ -177,155 +170,148 @@ function ContactForm({ copy }) {
   );
 
   return (
-    <div className="glass relative overflow-hidden rounded-3xl p-7 sm:p-9">
-      <span
+    <form onSubmit={handleSubmit} className="mx-auto w-full max-w-2xl text-left">
+      {/* Spam trap — hidden from people, irresistible to bots. */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, var(--glow-b), transparent 70%)' }}
+        className="sr-only"
       />
 
-      <div className="relative flex flex-wrap items-center justify-between gap-3">
-        <h3 className="text-lg font-semibold tracking-[-0.03em] text-fg">{copy.formTitle}</h3>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-faint">
-          {isContactFormConfigured ? (
-            <Inbox className="h-3 w-3" strokeWidth={1.8} />
-          ) : (
-            <MailOpen className="h-3 w-3" strokeWidth={1.8} />
-          )}
-          {isContactFormConfigured ? copy.formBadgeLive : copy.formBadgeMail}
-        </span>
-      </div>
-
-      <form
-        onSubmit={handleSubmit}
-        className="relative mt-7 flex flex-col gap-3.5"
-        noValidate={false}
-      >
-        {/* Spam trap — hidden from people, irresistible to bots. */}
-        <input
-          type="checkbox"
-          name="botcheck"
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
-          className="sr-only"
-        />
-
-        <div className="grid gap-3.5 sm:grid-cols-2">
-          <div className="relative">
-            <input
-              id="cf-name"
-              name="name"
-              type="text"
-              required
-              maxLength={100}
-              disabled={submitting}
-              placeholder={copy.fields.name}
-              className={fieldClass}
-              autoComplete="name"
-            />
-            <label htmlFor="cf-name" className={labelClass}>
-              {copy.fields.name}
-            </label>
-          </div>
-          <div className="relative">
-            <input
-              id="cf-email"
-              name="email"
-              type="email"
-              required
-              maxLength={150}
-              disabled={submitting}
-              placeholder={copy.fields.email}
-              className={fieldClass}
-              autoComplete="email"
-            />
-            <label htmlFor="cf-email" className={labelClass}>
-              {copy.fields.email}
-            </label>
-          </div>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="cf-name" className={labelClass}>
+            {copy.fields.name}
+          </label>
+          <input
+            id="cf-name"
+            name="name"
+            type="text"
+            required
+            maxLength={100}
+            disabled={submitting}
+            autoComplete="name"
+            className={fieldClass}
+          />
         </div>
 
-        <div className="relative">
+        <div>
+          <label htmlFor="cf-email" className={labelClass}>
+            {copy.fields.email}
+          </label>
           <input
-            id="cf-subject"
-            name="subject"
-            type="text"
+            id="cf-email"
+            name="email"
+            type="email"
+            required
             maxLength={150}
             disabled={submitting}
-            placeholder={copy.fields.subject}
+            autoComplete="email"
             className={fieldClass}
-            autoComplete="off"
           />
-          <label htmlFor="cf-subject" className={labelClass}>
-            {copy.fields.subject}
-          </label>
         </div>
+      </div>
 
-        <div className="relative">
-          <textarea
-            id="cf-message"
-            name="message"
-            rows={5}
-            required
-            maxLength={4000}
-            disabled={submitting}
-            placeholder={copy.fields.message}
-            className={`${fieldClass} resize-none`}
-          />
-          <label htmlFor="cf-message" className={labelClass}>
-            {copy.fields.message}
-          </label>
-        </div>
-
-        <MagneticButton
-          type="submit"
-          strength={0.2}
+      <div className="mt-6">
+        <label htmlFor="cf-message" className={labelClass}>
+          {copy.fields.message}
+        </label>
+        <textarea
+          id="cf-message"
+          name="message"
+          rows={7}
+          required
+          maxLength={4000}
           disabled={submitting}
-          className="group relative mt-2 inline-flex items-center justify-center gap-2 self-start overflow-hidden rounded-full bg-fg px-6 py-3.5 text-sm font-medium tracking-tight text-bg disabled:cursor-not-allowed disabled:opacity-70"
+          className={`${fieldClass} resize-y min-h-40`}
+        />
+      </div>
+
+      {/* Delivery mode, stated plainly rather than hidden in a badge. */}
+      <p className="mt-5 flex items-center justify-center gap-2 font-mono text-[9.5px] uppercase tracking-[0.18em] text-faint">
+        {isContactFormConfigured ? (
+          <Inbox className="h-3 w-3" strokeWidth={1.8} />
+        ) : (
+          <MailOpen className="h-3 w-3" strokeWidth={1.8} />
+        )}
+        {isContactFormConfigured ? copy.formBadgeLive : copy.formBadgeMail}
+      </p>
+
+      <div className="mt-8 flex justify-center">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="group relative inline-flex min-h-12 items-center justify-center gap-2.5 overflow-hidden rounded-full border border-fg/25 px-9 py-3.5 text-[14px] font-light tracking-[0.02em] text-fg transition-colors duration-500 hover:border-fg/60 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-accent via-accent-2 to-accent-3 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0" />
-          <span className="relative">{submitting ? copy.submitting : copy.submit}</span>
+          {/* Fill sweeps in from the left on hover. */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-0 -translate-x-full bg-fg transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0"
+          />
+          <span className="relative transition-colors duration-500 group-hover:text-bg">
+            {submitting ? copy.submitting : copy.submit}
+          </span>
           {submitting ? (
             <LoaderCircle
-              className={`relative h-4 w-4 ${prefersReduced ? '' : 'animate-spin'}`}
-              strokeWidth={1.8}
+              className={`relative h-4 w-4 ${gentle ? '' : 'animate-spin'}`}
+              strokeWidth={1.6}
             />
           ) : (
             <Send
-              className="relative h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5"
-              strokeWidth={1.8}
+              className="relative h-4 w-4 transition-all duration-500 group-hover:translate-x-0.5 group-hover:text-bg"
+              strokeWidth={1.6}
             />
           )}
-        </MagneticButton>
+        </button>
+      </div>
 
-        <div aria-live="polite">
-          <AnimatePresence mode="wait">
-            {status === 'success' && (
-              <StatusNote key="success" tone="success" icon={Check} title={copy.successTitle}>
-                {copy.successBody}
-              </StatusNote>
-            )}
+      <div aria-live="polite">
+        <AnimatePresence mode="wait">
+          {status === 'success' && (
+            <StatusNote
+              key="success"
+              tone="success"
+              icon={Check}
+              title={copy.successTitle}
+              gentle={gentle}
+            >
+              {copy.successBody}
+            </StatusNote>
+          )}
 
-            {status === 'error' && (
-              <StatusNote key="error" tone="error" icon={TriangleAlert} title={copy.errorTitle}>
-                {copy.errorBefore}
-                {mailLink}
-                {copy.errorAfter}
-              </StatusNote>
-            )}
+          {status === 'error' && (
+            <StatusNote
+              key="error"
+              tone="error"
+              icon={TriangleAlert}
+              title={copy.errorTitle}
+              gentle={gentle}
+            >
+              {copy.errorBefore}
+              {mailLink}
+              {copy.errorAfter}
+            </StatusNote>
+          )}
 
-            {status === 'fallback' && (
-              <StatusNote key="fallback" tone="info" icon={MailOpen} title={copy.fallbackTitle}>
-                {copy.fallbackBefore}
-                {mailLink}
-                {copy.fallbackAfter}
-              </StatusNote>
-            )}
-          </AnimatePresence>
-        </div>
-      </form>
-    </div>
+          {status === 'fallback' && (
+            <StatusNote
+              key="fallback"
+              tone="info"
+              icon={MailOpen}
+              title={copy.fallbackTitle}
+              gentle={gentle}
+            >
+              {copy.fallbackBefore}
+              {mailLink}
+              {copy.fallbackAfter}
+            </StatusNote>
+          )}
+        </AnimatePresence>
+      </div>
+    </form>
   );
 }
 
@@ -340,40 +326,29 @@ export function Contact() {
           eyebrow={t.contact.eyebrow}
           title={t.contact.title}
           accent={t.contact.accent}
-          lead={t.contact.lead}
+          align="center"
         />
 
-        <div className="mt-16 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-14">
-          {/* Channels */}
-          <div className="lg:col-span-6">
-            <Reveal>
-              <p className="text-[clamp(1.6rem,3.6vw,2.6rem)] font-medium leading-[1.2] tracking-[-0.035em] text-fg">
-                {t.contact.statement}{' '}
-                <span className="text-gradient-accent">{t.contact.statementAccent}</span>
-              </p>
-            </Reveal>
+        <Reveal delay={0.08} className="mt-16 sm:mt-20">
+          <ContactForm copy={t.contact} />
+        </Reveal>
 
-            <RevealGroup className="mt-10" stagger={0.07}>
-              {socials.map((item) => (
-                <RevealItem key={item.id}>
-                  <ContactRow item={item} label={t.contact.channels[item.id]} />
-                </RevealItem>
-              ))}
-            </RevealGroup>
+        {/* Channels — quiet, secondary to the form. */}
+        <Reveal delay={0.14} className="mx-auto mt-20 max-w-2xl">
+          <div className="h-px w-full bg-line" />
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-9 gap-y-2">
+            {socials.map((item) => (
+              <li key={item.id}>
+                <ChannelLink item={item} label={t.contact.channels[item.id]} />
+              </li>
+            ))}
+          </ul>
 
-            <Reveal delay={0.1} className="mt-8">
-              <p className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-faint">
-                <MapPin className="h-3.5 w-3.5" strokeWidth={1.7} />
-                {t.location}
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Form */}
-          <Reveal direction="left" delay={0.08} className="lg:col-span-6">
-            <ContactForm copy={t.contact} />
-          </Reveal>
-        </div>
+          <p className="mt-8 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-faint">
+            <MapPin className="h-3.5 w-3.5" strokeWidth={1.6} />
+            {t.location}
+          </p>
+        </Reveal>
       </div>
     </section>
   );

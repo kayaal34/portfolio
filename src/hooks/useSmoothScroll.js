@@ -60,3 +60,20 @@ export function scrollToSection(id, lenis) {
   const top = target.getBoundingClientRect().top + window.scrollY + offset;
   window.scrollTo({ top, behavior: 'smooth' });
 }
+
+/**
+ * "Get in touch" everywhere on the site means the same thing: take me to
+ * the form and put the cursor in it. Opening a mail client instead loses
+ * people who read their mail in a browser tab.
+ */
+export function goToContactForm(lenis) {
+  scrollToSection('contact', lenis);
+
+  // Focus once the scroll has settled, so the browser does not fight it by
+  // jumping straight to the field.
+  window.setTimeout(() => {
+    const field = document.getElementById('cf-name');
+    if (!field) return;
+    field.focus({ preventScroll: true });
+  }, 900);
+}

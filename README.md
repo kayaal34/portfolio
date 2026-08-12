@@ -147,11 +147,11 @@ src/
 │   ├── useActiveSection.js     Navbar'daki aktif bölüm takibi
 │   └── useMediaQuery.js        Pointer / ekran genişliği sorguları
 └── components/
-    ├── Preloader.jsx           Açılış perdesi + sayaç
-    ├── AuroraBackground.jsx    Sabit aurora ışıklar, grid, film grain
+    ├── Preloader.jsx           Açılış sahnesi: isim + Portfolyo, dikey perde
+    ├── AuroraBackground.jsx    Statik yumuşak ışık, ince grid, film grain
     ├── CustomCursor.jsx        Nokta + gecikmeli halka imleç (yalnız masaüstü)
     ├── ScrollProgress.jsx      Üstteki okuma ilerleme çubuğu
-    ├── Navbar.jsx              Cam efektli yüzen menü + mobil sheet
+    ├── Navbar.jsx              Sağ kenar dikey ray + mobil üst bar/sheet
     ├── LanguageSwitcher.jsx    TR/EN/RU açılır menüsü (klavye destekli)
     ├── ThemeToggle.jsx         Gündüz/gece anahtarı
     ├── Reveal.jsx              Scroll-reveal sarmalayıcıları
@@ -161,13 +161,13 @@ src/
     ├── SectionHeading.jsx      Ortak bölüm başlığı
     ├── Footer.jsx              Dev wordmark + sosyal ikonlar
     └── sections/
-        ├── Hero.jsx            İsim animasyonu, istatistikler, engineer.py kartı
-        ├── About.jsx           Scroll ile aydınlanan özet, eğitim, diller
+        ├── Hero.jsx            Siyah sahne, serif isim, scroll ile dağılan harfler
+        ├── About.jsx           Serif manşet, iki paragraf, sayılar, eğitim, diller
         ├── TechStack.jsx       Filtrelenebilir, parlayan teknoloji rozetleri
         ├── Experience.jsx      Çizilen dikey zaman çizelgesi + sertifikalar
         ├── Projects.jsx        7 proje, 3D dönen kartlar, kategori filtresi
         ├── Clients.jsx         Referans / müşteri yorumu kartı
-        └── Contact.jsx         İletişim kanalları + çalışan iletişim formu
+        └── Contact.jsx         Ortalanmış çalışan form + sessiz kanal satırı
 ```
 
 Bir de `src/config/contactForm.js` var — formun hangi servise gittiğini tanımlar.
@@ -217,6 +217,67 @@ Renkler [`src/index.css`](src/index.css) dosyasının en üstündeki `:root` (li
 bloklarında tanımlıdır. Örneğin vurgu rengini değiştirmek için `--c-accent`,
 `--c-accent-2`, `--c-accent-3` değerlerini güncellemeniz yeterlidir; gradientler,
 parlamalar ve rozetler otomatik olarak yeni renge uyar.
+
+## Tipografi ve avatar
+
+Site iki yazı tipi ailesi üzerine kurulu:
+
+- **Playfair Display (serif)** — yalnızca bölüm manşetlerinde. Gövde metninde
+  asla kullanılmaz. Tailwind'de `font-serif`, CSS değişkeni `--font-serif`.
+- **Inter (sans-serif)** — gövde metni, arayüz, hero'daki isim (ince, 300 ağırlık).
+- **JetBrains Mono** — küçük etiketler, tarihler, sayısal meta bilgiler.
+
+Manşet kalıbı her bölümde aynı: mono göz kırpma satırı → serif düz cümle →
+devam eden kısım italik ve soluk. Değiştirmek isterseniz tek yer:
+[`src/components/SectionHeading.jsx`](src/components/SectionHeading.jsx).
+
+**Avatar:** Hero'daki yuvarlak portre `/public/avatar.png` dosyasını arar.
+Dosyayı bu isimle `public/` klasörüne bırakmanız yeterli, kodda değişiklik
+gerekmez. Dosya yokken veya yüklenemezse yerine sessizce monogram (YK / КЯ)
+görünür — hiçbir zaman kırık resim çıkmaz. Kare ve en az 256×256 px bir görsel
+kullanın; `object-cover` ile kırpılır.
+
+---
+
+## Hareket politikası
+
+Hareketin **iki seviyesi** var, açık/kapalı değil —
+[`src/hooks/useMotionLevel.js`](src/hooks/useMotionLevel.js):
+
+- **`full`** — tüm koreografi: yer değiştirme, bulanıklık, kademeli giriş,
+  scroll'a bağlı dağılma.
+- **`gentle`** — yalnızca opaklık. Hiçbir şey hareket etmez, bulanıklaşmaz.
+
+İşletim sistemi "hareketi azalt" dediğinde `gentle` devreye girer. Bu ayar
+*hareketi* durdurmayı ister; sayfayı çıplak bırakmayı değil. Bu yüzden site
+sönümlenerek yine canlı kalır.
+
+> **Efektleri hiç göremiyorsanız** büyük ihtimalle Windows'ta animasyonlar
+> kapalıdır. Kontrol: **Ayarlar → Erişilebilirlik → Görsel efektler →
+> Animasyon efektleri**. Açtığınızda `full` seviye devreye girer ve giriş
+> perdesi, harf dağılması, scroll efektleri görünür hâle gelir.
+
+Arka plan her koşulda statiktir: sürüklenen ışık lekesi, fare paralaksı veya
+kayan şerit yoktur. Sürekli dönen tek hareket, hero'nun altındaki scroll
+göstergesindeki ince ışık çizgisidir.
+
+---
+
+## Navigasyon düzeni
+
+1024px üstünde **üst menü yoktur**. Yerine:
+
+- **Sol üst:** monogram (tıklayınca başa döner)
+- **Sağ kenar, dikey ortada:** bölüm rayı — etiketin yanındaki çizgi hover'da
+  uzar, aktif bölümde uzun kalır. Sonunda "İletişime geç" butonu.
+- **Sol alt:** dil değiştirici + tema anahtarı
+
+Sağdaki ray için `.shell` yardımcı sınıfı 1024px üstünde sağdan
+`clamp(8rem, 11vw, 11rem)` boşluk bırakır — içerik hiçbir zaman rayın altına
+girmez. 1024px altında ray gizlenir, kompakt bir üst bar ve tam ekran menü
+devreye girer.
+
+---
 
 ## Notlar
 

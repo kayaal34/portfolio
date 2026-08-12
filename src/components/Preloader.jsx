@@ -1,149 +1,164 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useT } from '../i18n';
+import { useMotionLevel } from '../hooks/useMotionLevel';
+
+const EASE = [0.16, 1, 0.3, 1];
+/* Slow start, hard finish — the curtain should feel weighted. */
+const CURTAIN_EASE = [0.76, 0, 0.24, 1];
+
+const SLATS = 6;
+
+/* Timing, in one place. Bump these to slow the whole sequence down. */
+const IN_DELAY = 0.12; // s — before the first letter arrives
+const IN_STAGGER = 0.018; // s — between letters coming in
+const IN_DURATION = 0.55; // s
+const OUT_STAGGER = 0.024; // s — between letters leaving
+const OUT_DURATION = 0.42; // s
+const HOLD_MS = 1350; // ms from mount until letters start leaving
+const LIFT_AFTER_OUT_MS = 620; // ms — curtain starts while the last letters go
 
 /**
- * Opening curtain: a counter races to 100 while the name types itself in,
- * then the panel splits and lifts away to reveal the hero.
+ * Opening sequence.
+ *
+ *   1. "Yahya Kayaal  Portfolio" arrives letter by letter, on black.
+ *   2. The letters leave in the same order — a sweep, not a block fade.
+ *   3. Six vertical slats lift away in sequence, revealing the page.
+ *
+ * With reduced motion the same three beats play, but nothing travels or
+ * blurs: letters fade, and the curtain fades instead of sliding.
+ *
+ * `onDone` fires as the curtain starts to go, so the hero's own entrance
+ * runs underneath it rather than after it — the two overlap by design.
  */
 export function Preloader({ onDone }) {
   const t = useT();
-  const prefersReduced = useReducedMotion();
-  const [count, setCount] = useState(0);
-  const [open, setOpen] = useState(true);
+  const level = useMotionLevel();
+  const gentle = level === 'gentle';
 
-  const letters = useMemo(() => Array.from(t.name.full), [t]);
+  const [open, setOpen] = useState(true);
+  const [phase, setPhase] = useState('in'); // 'in' → 'out'
+
+  // One flat list so the sweep runs continuously across both words.
+  const glyphs = useMemo(() => {
+    const name = Array.from(t.name.full).map((char) => ({ char, tone: 'name' }));
+    const word = Array.from(t.intro.word).map((char) => ({ char, tone: 'word' }));
+    return [...name, { char: ' ', tone: 'gap' }, ...word];
+  }, [t]);
 
   useEffect(() => {
-    if (prefersReduced) {
-      setOpen(false);
-      onDone?.();
-      return undefined;
-    }
-
-    let raf = 0;
-    let settle = 0;
+    let outTimer = 0;
+    let liftTimer = 0;
     let done = false;
-    const start = performance.now();
-    const total = 1750;
 
-    const finish = () => {
+    const lift = () => {
       if (done) return;
       done = true;
-      setCount(100);
       setOpen(false);
       onDone?.();
     };
 
-    const tick = (now) => {
-      const t = Math.min(1, (now - start) / total);
-      // Ease-out so the last digits slow down and feel deliberate.
-      const eased = 1 - Math.pow(1 - t, 3);
-      setCount(Math.round(eased * 100));
-      if (t < 1) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        settle = window.setTimeout(finish, 320);
-      }
-    };
+    // Reduced motion gets a shorter hold — the point is made faster.
+    const hold = gentle ? 950 : HOLD_MS;
+    const tail = gentle ? 420 : glyphs.length * OUT_STAGGER * 1000 + LIFT_AFTER_OUT_MS;
 
-    raf = requestAnimationFrame(tick);
-    // Safety net: rAF is paused in background tabs, so a timer guarantees
-    // the curtain always lifts even if the page loads unfocused.
-    const guard = window.setTimeout(finish, total + 1400);
+    outTimer = window.setTimeout(() => {
+      setPhase('out');
+      liftTimer = window.setTimeout(lift, tail);
+    }, hold);
+
+    // Absolute safety net: timers still run in background tabs where the
+    // animation frames do not, so the curtain can never stay shut.
+    const guard = window.setTimeout(lift, hold + 4000);
+
     document.body.style.overflow = 'hidden';
 
     return () => {
-      cancelAnimationFrame(raf);
-      window.clearTimeout(settle);
+      window.clearTimeout(outTimer);
+      window.clearTimeout(liftTimer);
       window.clearTimeout(guard);
       document.body.style.overflow = '';
     };
-  }, [prefersReduced, onDone]);
+  }, [gentle, onDone, glyphs.length]);
 
   useEffect(() => {
     if (!open) document.body.style.overflow = '';
   }, [open]);
 
-  if (prefersReduced) return null;
+  const glyphIn = (i) =>
+    gentle
+      ? { opacity: 1, transition: { duration: 0.5, delay: 0.1 + i * 0.008, ease: 'easeOut' } }
+      : {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          transition: { duration: IN_DURATION, delay: IN_DELAY + i * IN_STAGGER, ease: EASE },
+        };
+
+  const glyphOut = (i) =>
+    gentle
+      ? { opacity: 0, transition: { duration: 0.35, delay: i * 0.008, ease: 'easeOut' } }
+      : {
+          opacity: 0,
+          y: -14,
+          filter: 'blur(7px)',
+          transition: { duration: OUT_DURATION, delay: i * OUT_STAGGER, ease: EASE },
+        };
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          key="preloader"
-          className="fixed inset-0 z-[200] flex items-end justify-center overflow-hidden bg-bg"
-          exit={{ opacity: 1 }}
+          key="intro"
+          className="fixed inset-0 z-[200] overflow-hidden"
+          /* Held at full opacity; the slats do the leaving, not a fade. */
+          exit={gentle ? { opacity: 0, transition: { duration: 0.5 } } : { opacity: 1 }}
         >
-          {/* Split curtains */}
-          <motion.div
-            className="absolute inset-x-0 top-0 h-1/2 bg-bg"
-            exit={{ y: '-100%' }}
-            transition={{ duration: 1.05, ease: [0.85, 0, 0.15, 1] }}
-          />
-          <motion.div
-            className="absolute inset-x-0 bottom-0 h-1/2 bg-bg"
-            exit={{ y: '100%' }}
-            transition={{ duration: 1.05, ease: [0.85, 0, 0.15, 1] }}
-          />
+          {/* The curtain */}
+          <div aria-hidden="true" className="absolute inset-0 flex">
+            {Array.from({ length: SLATS }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="h-full flex-1 bg-bg dark:bg-black"
+                exit={gentle ? undefined : { y: '-102%' }}
+                transition={{ duration: 0.95, delay: i * 0.06, ease: CURTAIN_EASE }}
+              />
+            ))}
+          </div>
 
-          {/* Ambient glow behind the loader */}
-          <div
-            aria-hidden="true"
-            className="absolute left-1/2 top-1/2 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
-            style={{ background: 'radial-gradient(circle, var(--glow-a), transparent 65%)' }}
-          />
-
+          {/* The title card */}
           <motion.div
-            className="relative z-10 flex w-full flex-col items-center gap-10 pb-[12vh]"
-            exit={{ opacity: 0, y: -30, filter: 'blur(12px)' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-none absolute inset-0 flex items-center justify-center px-6"
+            exit={{ opacity: 0, transition: { duration: 0.3, ease: 'easeOut' } }}
           >
-            <div className="overflow-hidden">
-              <motion.h1
-                className="flex text-[clamp(2rem,8vw,5.5rem)] font-semibold tracking-[-0.05em]"
-                initial="hidden"
-                animate="show"
-                variants={{ show: { transition: { staggerChildren: 0.045, delayChildren: 0.15 } } }}
-              >
-                {letters.map((char, i) => (
+            <p
+              className="flex flex-wrap items-baseline justify-center text-center text-[clamp(1.15rem,3.1vw,1.9rem)] font-extralight leading-tight tracking-[-0.01em]"
+              aria-label={`${t.name.full} ${t.intro.word}`}
+            >
+              {glyphs.map((g, i) => {
+                if (g.tone === 'gap') {
+                  return <span key="gap" aria-hidden="true" className="inline-block w-[0.7em]" />;
+                }
+                if (g.char === ' ') {
+                  return (
+                    <span key={`sp-${i}`} aria-hidden="true" className="inline-block w-[0.28em]" />
+                  );
+                }
+                return (
                   <motion.span
-                    key={`${char}-${i}`}
-                    variants={{
-                      hidden: { y: '110%', opacity: 0 },
-                      show: {
-                        y: '0%',
-                        opacity: 1,
-                        transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-                      },
-                    }}
-                    className={char === ' ' ? 'w-[0.28em]' : ''}
+                    key={`${g.char}-${i}`}
+                    aria-hidden="true"
+                    className={`inline-block ${
+                      g.tone === 'word' ? 'text-gradient-accent' : 'text-fg'
+                    }`}
+                    initial={gentle ? { opacity: 0 } : { opacity: 0, y: 12, filter: 'blur(6px)' }}
+                    animate={phase === 'in' ? glyphIn(i) : glyphOut(i)}
                   >
-                    {char === ' ' ? ' ' : char}
+                    {g.char}
                   </motion.span>
-                ))}
-              </motion.h1>
-            </div>
-
-            <div className="flex w-full max-w-md flex-col gap-3 px-6">
-              <div className="flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.3em] text-muted">
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                >
-                  {t.role}
-                </motion.span>
-                <span className="tabular text-fg">{String(count).padStart(3, '0')}</span>
-              </div>
-
-              <div className="h-px w-full overflow-hidden bg-line">
-                <motion.div
-                  className="h-full origin-left bg-gradient-to-r from-accent via-accent-2 to-accent-3"
-                  style={{ scaleX: count / 100 }}
-                />
-              </div>
-            </div>
+                );
+              })}
+            </p>
           </motion.div>
         </motion.div>
       )}

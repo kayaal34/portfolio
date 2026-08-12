@@ -88,31 +88,6 @@ const TechBadge = forwardRef(function TechBadge({ item, index, detail, groupLabe
   );
 });
 
-/** Infinite ribbon of technology names under the grid. */
-function TechMarquee() {
-  const names = useMemo(() => techStack.map((item) => item.name), []);
-  const loop = [...names, ...names];
-
-  return (
-    <div
-      aria-hidden="true"
-      className="mask-fade-x relative mt-16 overflow-hidden border-y border-line py-5"
-    >
-      <div className="animate-marquee flex w-max items-center gap-10 will-change-transform">
-        {loop.map((name, i) => (
-          <span
-            key={`${name}-${i}`}
-            className="flex shrink-0 items-center gap-10 font-mono text-[11px] uppercase tracking-[0.28em] text-faint"
-          >
-            {name}
-            <span className="h-1 w-1 rounded-full bg-accent/50" />
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function TechStack() {
   const t = useT();
   const [filter, setFilter] = useState('all');
@@ -144,7 +119,7 @@ export function TechStack() {
                     type="button"
                     onClick={() => setFilter(group)}
                     aria-pressed={isActive}
-                    className={`relative rounded-full px-4 py-2 text-[12.5px] font-medium tracking-tight transition-colors duration-400 ${
+                    className={`relative min-h-11 rounded-full px-4 py-2.5 text-[13px] font-medium tracking-tight transition-colors duration-400 sm:min-h-0 sm:py-2 sm:text-[12.5px] ${
                       isActive ? 'text-bg' : 'border border-line text-muted hover:text-fg'
                     }`}
                   >
@@ -180,8 +155,6 @@ export function TechStack() {
             ))}
           </AnimatePresence>
         </motion.ul>
-
-        <TechMarquee />
       </div>
     </section>
   );

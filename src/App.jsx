@@ -64,8 +64,8 @@ function Site() {
           <About />
           <TechStack />
           <Experience />
-          <Projects />
           <Clients />
+          <Projects />
           <Contact />
         </main>
 

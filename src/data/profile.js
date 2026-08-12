@@ -8,8 +8,6 @@
 
 export const profile = {
   email: 'Yahyaeren34@yandex.ru',
-  phone: '+7 (912) 643-87-57',
-  phoneHref: '+79126438757',
   github: 'https://github.com/kayaal34',
   githubHandle: 'github.com/kayaal34',
   linkedin: 'https://www.linkedin.com/in/yahya-kayaal',
@@ -24,8 +22,8 @@ export const sectionIds = [
   'about',
   'stack',
   'experience',
-  'projects',
   'clients',
+  'projects',
   'contact',
 ];
 
@@ -173,7 +171,6 @@ export const clients = [
 
 export const socials = [
   { id: 'email', icon: 'Mail', href: `mailto:${profile.email}`, value: profile.email },
-  { id: 'phone', icon: 'Phone', href: `tel:${profile.phoneHref}`, value: profile.phone },
   { id: 'linkedin', icon: 'Linkedin', href: profile.linkedin, value: profile.linkedinHandle },
   { id: 'github', icon: 'Github', href: profile.github, value: profile.githubHandle },
   { id: 'telegram', icon: 'Send', href: profile.telegram, value: profile.telegramHandle },

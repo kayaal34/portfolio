@@ -70,7 +70,7 @@ export function Footer({ lenisRef }) {
           <button
             type="button"
             onClick={() => scrollToSection('home', lenisRef?.current)}
-            className="group inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.22em] text-faint transition-colors duration-400 hover:text-fg"
+            className="group inline-flex items-center gap-2 py-2 font-mono text-[10.5px] uppercase tracking-[0.22em] text-faint transition-colors duration-400 hover:text-fg"
           >
             {t.footer.backToTop}
             <span className="grid h-8 w-8 place-items-center rounded-full border border-line transition-colors duration-500 group-hover:border-accent/50">

@@ -16,6 +16,7 @@ export default {
   },
 
   name: { lineOne: 'Yahya', lineTwo: 'Kayaal', full: 'Yahya Kayaal', monogram: 'YK' },
+  intro: { word: 'Portfolyo' },
   role: 'Yazılım Mühendisi',
   location: 'İstanbul / St. Petersburg',
 
@@ -44,31 +45,30 @@ export default {
   },
 
   hero: {
-    available: 'Backend, mobil ve yapay zeka mühendisliği rollerine açığım',
-    rotating: ['Backend', 'Mobil', 'Yapay Zeka', 'Gömülü'],
-    leadBefore:
-      'FastAPI servislerinden PostgreSQL şemalarına, Flutter istemcilerinden gömülü Linux kartlarına — ',
-    leadAfter: ' sistemleri baştan sona kuran bir Yazılım Mühendisi.',
-    ctaPrimary: 'Çalışmalarımı keşfet',
-    ctaSecondary: 'Bana ulaş',
+    available: 'Yeni rollere açığım',
+    tagline: 'Yazılım Mühendisi · Front-end · Yapay Zeka',
+    ctaPrimary: 'Çalışmalarım',
+    ctaSecondary: 'İletişime geç',
     scroll: 'Kaydır',
-    codeComment: '# önce yayına al, sonra hızlandır',
-    stats: {
-      diplomas: 'Lisans diploması',
-      msc: 'Yapay zeka yüksek lisansı · devam ediyor',
-      projects: 'Mühendislik projesi',
-      languages: 'Çalışma dili',
-    },
   },
 
   about: {
     eyebrow: 'Hakkımda',
-    title: 'Gömülü kartlardan',
-    accent: 'uygulamalı yapay zekâya.',
-    summary:
-      'Ural Federal Üniversitesi’nde Yazılım Mühendisliği ve Gömülü Sistemler alanlarında çift diploma tamamlayan, hâlen ITMO Üniversitesi’nde Yapay Zeka yüksek lisansı yapan bir yazılım mühendisiyim. Python (FastAPI) ile ölçeklenebilir backend servisleri tasarlıyor, altlarındaki ilişkisel sistemleri (PostgreSQL, MySQL) modelliyor ve Flutter & Dart ile çapraz platform istemciler geliştiriyorum.',
-    summaryTail:
-      'Çalışmalarım uygulamalı yapay zekânın üretim mühendisliğiyle kesiştiği yerde duruyor: güvenilir yanıt vermek zorunda olan dil modeli hatları, tutarlı kalmak zorunda olan veri katmanları ve aylarca kendi başına çalışması gereken gömülü sistemler. VK ve Yandex ekosistemlerindeki saha pratiği teslimata bakışımı biçimlendirdi — açıkça tanımlı arayüzler, gözlemlenebilir davranış ve devir toplantısına gerek kalmadan bir sonraki mühendisin sahiplenebileceği kod. Türkçe, Rusça ve İngilizce arasında rahatça geçiş yaparak uluslararası ekiplerle ve onların ürün geliştirdiği alan uzmanlarıyla aynı dilde konuşuyorum.',
+    titleLead: 'Ben Yahya.',
+    titleRest: 'Yazılım mühendisi, yapay zeka araştırmacısı ve problem çözücü.',
+    intro1:
+      'Karmaşık algoritmalar ile kusursuz kullanıcı deneyimleri arasındaki köprüyü kuruyorum. Gömülü sistemlerin donanımsal sınırlarından, yapay zekanın sınırsız potansiyeline kadar her alanda kod yazmaktan keyif alıyorum.',
+    intro2:
+      'Ölçeklenebilir backend mimarileri kurmak veya yapay zeka destekli çözümler tasarlamak… Benim için önemli olan tek şey: amacı olan, gerçek problemleri çözen ve insanlara değer katan dijital ürünler inşa etmek.',
+    intro3:
+      'Bunun yanında müşteriler için web siteleri tasarlayıp geliştiriyorum — ilk taslaktan yayına kadar uçtan uca. React ve modern front-end araçlarıyla; basit kalan, hızlı açılan ve bakımı dert olmayan arayüzler.',
+    disciplines: ['Backend', 'Yapay Zeka & NLP', 'Mobil', 'Gömülü Sistemler', 'Front-end / React'],
+    stats: {
+      diplomas: 'Lisans diploması',
+      msc: 'Yapay zeka yüksek lisansı',
+      projects: 'Mühendislik projesi',
+      languages: 'Çalışma dili',
+    },
     educationLabel: 'Eğitim',
     languagesLabel: 'Diller',
     howIWorkLabel: 'Mühendislik ilkelerim',
@@ -210,8 +210,8 @@ export default {
 
   projects: {
     eyebrow: 'Projeler',
-    title: 'Tasarladığım, kurduğum',
-    accent: 've yayına aldığım sistemler.',
+    title: 'Tasarladığım ve',
+    accent: 'kurduğum sistemler.',
     lead: 'Dil modeli ve NLP hatlarından servis backend’lerine, çapraz platform mobil istemcilerden gömülü donanıma uzanan yedi sistem.',
     note: 'Kaynak kodlar, mimari notlar ve diğer mühendislik çalışmaları GitHub profilimde.',
     categories: {
@@ -272,15 +272,15 @@ export default {
       otrajenie: {
         descriptor: 'Otoportre fotoğraf stüdyosu',
         quote:
-          'Dijital altyapımızı kurarken Yahya’nın teknik vizyonu ve hızlı problem çözme yeteneği sayesinde süreçlerimiz inanılmaz hızlandı. Modern bir stüdyo için modern bir yazılımcıyla çalışmayı seçtik ve sonuçtan çok memnunuz.',
+          'Basit ve şık bir arayüz arıyorduk, Yahya tam olarak onu verdi. Hızlı teslim, sorunsuz çalışan bir panel, komplike hiçbir şey yok. Tek kelimeyle muazzam.',
       },
     },
   },
 
   contact: {
     eyebrow: 'İletişim',
-    title: 'Bir sonrakini',
-    accent: 'birlikte inşa edelim.',
+    title: 'Bana ulaşmak için vakit ayırdığınız için teşekkürler.',
+    accent: 'Size nasıl yardımcı olabilirim?',
     lead: 'İstanbul, St. Petersburg ve uzaktan çalışan ekiplerde backend, mobil ve yapay zeka mühendisliği rollerine açığım.',
     statement: 'Hangi kanalı tercih ederseniz edin —',
     statementAccent: 'hepsi bana ulaşır.',
@@ -306,7 +306,6 @@ export default {
     mailSubject: 'Portfolyo sitenizden yeni mesaj',
     channels: {
       email: 'E-posta',
-      phone: 'Telefon',
       linkedin: 'LinkedIn',
       github: 'GitHub',
       telegram: 'Telegram',

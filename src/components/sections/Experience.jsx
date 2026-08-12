@@ -33,9 +33,8 @@ function TimelineEntry({ entry, copy, index }) {
         transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="absolute left-0 top-2 grid h-8 w-8 place-items-center sm:left-4"
       >
-        <span className="absolute inset-0 rounded-full bg-accent/25 animate-pulse-ring" />
         <span className="relative grid h-8 w-8 place-items-center rounded-full border border-line bg-elev">
-          <span className="h-2 w-2 rounded-full bg-gradient-to-br from-accent to-accent-2" />
+          <span className="h-1.5 w-1.5 rounded-full bg-fg-soft" />
         </span>
       </motion.span>
 

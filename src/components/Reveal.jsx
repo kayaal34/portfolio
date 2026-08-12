@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionLevel } from '../hooks/useMotionLevel';
 
 const OFFSETS = {
   up: { y: 44, x: 0 },
@@ -9,8 +10,11 @@ const OFFSETS = {
 };
 
 /**
- * Scroll-reveal wrapper. Nothing on this site arrives flat — every block
- * eases in from an offset with a slight scale and blur settle.
+ * Scroll-reveal wrapper.
+ *
+ * At 'full' the block eases in from an offset with a slight scale and blur
+ * settle. At 'gentle' it simply fades — no travel, no blur — so the page
+ * still comes alive for visitors who have OS animations turned off.
  */
 export function Reveal({
   children,
@@ -25,14 +29,21 @@ export function Reveal({
   className = '',
   ...rest
 }) {
-  const prefersReduced = useReducedMotion();
+  const level = useMotionLevel();
   const MotionTag = motion[Tag] ?? motion.div;
 
-  if (prefersReduced) {
+  if (level === 'gentle') {
     return (
-      <Tag className={className} {...rest}>
+      <MotionTag
+        className={className}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once, amount }}
+        transition={{ duration: 0.6, delay: delay * 0.5, ease: 'easeOut' }}
+        {...rest}
+      >
         {children}
-      </Tag>
+      </MotionTag>
     );
   }
 
@@ -54,11 +65,7 @@ export function Reveal({
       }}
       whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: 'blur(0px)' }}
       viewport={{ once, amount }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
       {...rest}
     >
       {children}
@@ -66,9 +73,7 @@ export function Reveal({
   );
 }
 
-/**
- * Staggering parent. Pair with <RevealItem /> children.
- */
+/** Staggering parent. Pair with <RevealItem /> children. */
 export function RevealGroup({
   children,
   className = '',
@@ -78,11 +83,8 @@ export function RevealGroup({
   once = true,
   ...rest
 }) {
-  const prefersReduced = useReducedMotion();
-
-  if (prefersReduced) {
-    return <div className={className}>{children}</div>;
-  }
+  const level = useMotionLevel();
+  const step = level === 'gentle' ? stagger * 0.5 : stagger;
 
   return (
     <motion.div
@@ -92,7 +94,7 @@ export function RevealGroup({
       viewport={{ once, amount }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: stagger, delayChildren: delay } },
+        show: { transition: { staggerChildren: step, delayChildren: delay } },
       }}
       {...rest}
     >
@@ -112,20 +114,21 @@ export const revealItemVariants = {
   },
 };
 
+const gentleItemVariants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.55, ease: 'easeOut' } },
+};
+
 export function RevealItem({ children, className = '', as: Tag = 'div', ...rest }) {
-  const prefersReduced = useReducedMotion();
+  const level = useMotionLevel();
   const MotionTag = motion[Tag] ?? motion.div;
 
-  if (prefersReduced) {
-    return (
-      <Tag className={className} {...rest}>
-        {children}
-      </Tag>
-    );
-  }
-
   return (
-    <MotionTag className={className} variants={revealItemVariants} {...rest}>
+    <MotionTag
+      className={className}
+      variants={level === 'gentle' ? gentleItemVariants : revealItemVariants}
+      {...rest}
+    >
       {children}
     </MotionTag>
   );

@@ -16,6 +16,7 @@ export default {
   },
 
   name: { lineOne: 'Yahya', lineTwo: 'Kayaal', full: 'Yahya Kayaal', monogram: 'YK' },
+  intro: { word: 'Portfolio' },
   role: 'Software Engineer',
   location: 'Istanbul / St. Petersburg',
 
@@ -44,31 +45,30 @@ export default {
   },
 
   hero: {
-    available: 'Open to backend, mobile & AI engineering roles',
-    rotating: ['Backend', 'Mobile', 'AI / NLP', 'Embedded'],
-    leadBefore: 'Software Engineer building ',
-    leadAfter:
-      ' systems — from FastAPI services and PostgreSQL schemas to Flutter clients and embedded Linux boards.',
-    ctaPrimary: 'Explore the work',
-    ctaSecondary: 'Start a conversation',
+    available: 'Open to new roles',
+    tagline: 'Software Engineer · Front-end · AI',
+    ctaPrimary: 'View work',
+    ctaSecondary: 'Get in touch',
     scroll: 'Scroll',
-    codeComment: '# ship it, then make it faster',
-    stats: {
-      diplomas: 'Bachelor diplomas',
-      msc: 'MSc in AI · in progress',
-      projects: 'Engineering projects',
-      languages: 'Working languages',
-    },
   },
 
   about: {
     eyebrow: 'About',
-    title: 'From embedded boards to',
-    accent: 'applied intelligence.',
-    summary:
-      'Software engineer with dual diplomas in Software Engineering and Embedded Systems from Ural Federal University, now reading for an MSc in Artificial Intelligence at ITMO. I architect scalable backend services in Python (FastAPI), model the relational systems underneath them (PostgreSQL, MySQL), and ship cross-platform clients with Flutter & Dart.',
-    summaryTail:
-      'My work sits where applied AI meets production engineering: language-model pipelines that have to answer reliably, data layers that have to stay consistent, and embedded systems that have to run unattended for months. Industry practice inside VK and Yandex shaped how I approach delivery — explicit interfaces, observable behaviour, and code the next engineer can take ownership of without a handover meeting. Working across Turkish, Russian and English, I move easily between international teams and the domain experts they build for.',
+    titleLead: "I'm Yahya.",
+    titleRest: 'Software engineer, AI researcher and problem solver.',
+    intro1:
+      'I build the bridge between complex algorithms and effortless user experience. From the hardware limits of embedded systems to the open-ended potential of artificial intelligence, I enjoy writing code across the whole range.',
+    intro2:
+      'Architecting scalable backends, designing AI-powered solutions — what matters to me is the same either way: building digital products that have a purpose, solve real problems and genuinely add value to the people using them.',
+    intro3:
+      'Alongside that I design and build websites for clients — end to end, from the first sketch to the live site. React and modern front-end tooling; interfaces that stay simple, load fast and are never a chore to maintain.',
+    disciplines: ['Backend', 'AI & NLP', 'Mobile', 'Embedded', 'Front-end / React'],
+    stats: {
+      diplomas: 'Bachelor diplomas',
+      msc: 'MSc in AI',
+      projects: 'Engineering projects',
+      languages: 'Working languages',
+    },
     educationLabel: 'Education',
     languagesLabel: 'Languages',
     howIWorkLabel: 'Engineering principles',
@@ -210,8 +210,8 @@ export default {
 
   projects: {
     eyebrow: 'Projects',
-    title: 'Systems I designed,',
-    accent: 'built and shipped.',
+    title: 'Systems I designed',
+    accent: 'and built.',
     lead: 'Seven systems across LLM and NLP pipelines, service backends, cross-platform mobile clients and embedded hardware.',
     note: 'Source code, architectural notes and further engineering work live in my GitHub repository.',
     categories: {
@@ -246,7 +246,7 @@ export default {
       commercePlatform: {
         role: 'Backend Engineer',
         description:
-          'Server-side architecture for two production domains: online retail and workout tracking. I modelled the relational schema, drew the service boundaries and implemented the core business logic in Python, keeping domain rules out of the transport layer so the same logic serves web and mobile clients.',
+          'Server-side architecture for two real-world domains: online retail and workout tracking. I modelled the relational schema, drew the service boundaries and implemented the core business logic in Python, keeping domain rules out of the transport layer so the same logic serves web and mobile clients.',
       },
       subscriptions: {
         role: 'Mobile Engineer',
@@ -272,15 +272,15 @@ export default {
       otrajenie: {
         descriptor: 'Self-portrait photography studio',
         quote:
-          "Yahya's technical vision and the speed at which he solves problems made our processes dramatically faster while we were building our digital infrastructure. We wanted a modern developer for a modern studio — and we are delighted with the result.",
+          'We were after a simple, elegant interface and Yahya delivered exactly that. Fast turnaround, an admin panel that just works, nothing overcomplicated. In a word: superb.',
       },
     },
   },
 
   contact: {
     eyebrow: 'Contact',
-    title: "Let's build the next",
-    accent: 'thing together.',
+    title: 'Thanks for taking the time to reach out.',
+    accent: 'How can I help you today?',
     lead: 'Open to backend, mobile and AI engineering roles across Istanbul, St. Petersburg and remote-first teams.',
     statement: 'Pick whichever channel you like —',
     statementAccent: 'all of them reach me.',
@@ -306,7 +306,6 @@ export default {
     mailSubject: 'New message from your portfolio',
     channels: {
       email: 'Email',
-      phone: 'Phone',
       linkedin: 'LinkedIn',
       github: 'GitHub',
       telegram: 'Telegram',

@@ -112,7 +112,7 @@ export function Clients() {
     <section id="clients" className="relative scroll-mt-28 py-28 sm:py-36 lg:py-44">
       <div className="shell">
         <SectionHeading
-          index="05"
+          index="04"
           eyebrow={t.clients.eyebrow}
           title={t.clients.title}
           accent={t.clients.accent}

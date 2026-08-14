@@ -10,9 +10,9 @@ export default {
   htmlLang: 'tr',
 
   meta: {
-    title: 'Yahya Kayaal — Yazılım Mühendisi',
+    title: 'Yahya Kayaal — Yazılım Mühendisi & Yapay Zeka Geliştiricisi',
     description:
-      'Yahya Kayaal — Yazılım Mühendisi. Ural Federal Üniversitesi Yazılım Mühendisliği ve Gömülü Sistemler çift diploması, ITMO Üniversitesi Yapay Zeka yüksek lisansı. Python (FastAPI) ile ölçeklenebilir backend, Flutter & Dart ile çapraz platform istemciler, yapay zeka/NLP hatları ve gömülü Linux sistemleri.',
+      'Yahya Kayaal portfolyosu (kayaal.is-a.dev) — backend yazılım mühendisi ve yapay zeka geliştiricisi. Python ve FastAPI ile ölçeklenebilir servisler, yapay zeka/NLP hatları, Flutter ile mobil uygulamalar ve gömülü Linux sistemleri. ITMO Üniversitesi Yapay Zeka yüksek lisansı.',
   },
 
   name: { lineOne: 'Yahya', lineTwo: 'Kayaal', full: 'Yahya Kayaal', monogram: 'YK' },
@@ -45,7 +45,6 @@ export default {
   },
 
   hero: {
-    available: 'Yeni rollere açığım',
     tagline: 'Yazılım Mühendisi · Yapay Zeka Araştırmacısı',
     ctaPrimary: 'Çalışmalarım',
     ctaSecondary: 'İletişime geç',
@@ -57,11 +56,11 @@ export default {
     titleLead: 'Ben Yahya.',
     titleRest: 'Yazılım mühendisi ve yapay zeka araştırmacısı.',
     intro1:
-      'Karmaşık algoritmalar ile kusursuz kullanıcı deneyimleri arasındaki köprüyü kuruyorum. Gömülü sistemlerin donanımsal sınırlarından yapay zekânın açık uçlu potansiyeline kadar geniş bir alanda kod yazıyorum.',
+      "Rusya'ya Rossotrudniçestvo bursuyla geldim; Ural Federal Üniversitesi'nde Yazılım Mühendisliği okudum. Ardından ITMO Üniversitesi'nden Yapay Zeka üzerine yüksek lisans teklifi aldım — şu an oradayım.",
     intro2:
-      'Lisans tezim MyAiTripPlanner oldu: kullanıcının serbest metinle anlattığı gezi niyetini, LangChain üzerinden kurduğum bir dil modeli hattıyla gerçek bir rotaya çeviren FastAPI tabanlı bir platform. Aynı dönemde Studio Otrajenie’nin web sitesini tasarlayıp geliştirdim — ilk taslaktan yayına kadar uçtan uca benim işimdi.',
+      'Karmaşık algoritmalar ile kusursuz kullanıcı deneyimi arasındaki köprüyü kuruyorum; gömülü sistemlerin donanımsal sınırlarından yapay zekânın açık uçlu potansiyeline kadar. Lisans tezim MyAiTripPlanner oldu: LangChain ile kurduğum bir dil modeli hattı üzerinden serbest metinle anlatılan gezi niyetini gerçek bir rotaya çeviren FastAPI tabanlı bir platform. Aynı dönemde Studio Otrajenie’nin web sitesini tasarlayıp geliştirdim — ilk taslaktan yayına kadar uçtan uca.',
     intro3:
-      'Ekranın dışında ringde ve ağırlık odasındayım; lisanslı taekwondo geçmişim var, şimdi boks çalışıyorum. Buradan masa başına birebir geçen tek bir şey öğrendim: bir problem ilk denemede düşmediğinde tekrar kalkmak. Odak da sabır da orada şekilleniyor.',
+      'Ekranın dışında sporla içli dışlıyım; düzenli antrenmanın bıraktığı sabır ve odak masa başında da işe yarıyor. Diğer sabitim gezmek: yeni şehirler görmek, tanımadığım yerlerde yaşamak. Benim için tatilden çok, nasıl düşündüğümü değiştiren bir şey.',
     disciplines: ['Backend', 'Yapay Zeka & NLP', 'Mobil', 'Gömülü Sistemler', 'Front-end / React'],
     educationLabel: 'Eğitim',
     languagesLabel: 'Diller',
@@ -149,7 +148,6 @@ export default {
     title: 'Disiplinin',
     accent: 'şekillendiği yer.',
     lead: 'VK ekosisteminde saha pratiği ve öncesinde iki yıl süren, üç dilli ve yüksek baskılı operasyon deneyimi.',
-    next: 'Sıradaki bölüm — yeni rollere açığım',
     certificationsLabel: 'Sertifikalar',
     entries: {
       vk: {

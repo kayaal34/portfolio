@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Award, Briefcase } from 'lucide-react';
+import { ArrowUpRight, Award } from 'lucide-react';
 import { experienceEntries, certifications } from '../../data/profile';
 import { useT } from '../../i18n';
 import { SectionHeading } from '../SectionHeading';
@@ -114,7 +114,9 @@ function Certifications({ label, copy }) {
       <Reveal>
         <div className="mb-8 flex items-center gap-3">
           <Award className="h-4 w-4 text-accent" strokeWidth={1.7} />
-          <h3 className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">{label}</h3>
+          <h3 className="font-mono text-[11.5px] font-medium uppercase tracking-[0.16em] text-fg-soft">
+            {label}
+          </h3>
           <span className="hairline flex-1" />
         </div>
       </Reveal>
@@ -190,21 +192,6 @@ export function Experience() {
               />
             ))}
           </ul>
-
-          {/* Rail terminus */}
-          <div className="relative mt-6 pl-12 sm:pl-20">
-            <span
-              aria-hidden="true"
-              className="absolute left-0 top-1 grid h-8 w-8 place-items-center sm:left-4"
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-dashed border-line bg-elev">
-                <Briefcase className="h-3.5 w-3.5 text-faint" strokeWidth={1.6} />
-              </span>
-            </span>
-            <p className="pt-1.5 font-mono text-[11px] uppercase tracking-[0.24em] text-faint">
-              {t.experience.next}
-            </p>
-          </div>
         </div>
 
         <Certifications

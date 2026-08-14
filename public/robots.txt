@@ -1,0 +1,7 @@
+# Everything is public and crawlable. No Disallow rules on purpose —
+# a stray "Disallow: /" here is the most common reason a new site never
+# shows up in search.
+User-agent: *
+Allow: /
+
+Sitemap: https://kayaal.is-a.dev/sitemap.xml

@@ -11,12 +11,12 @@ const SLATS = 6;
 
 /* Timing, in one place. Bump these to slow the whole sequence down. */
 const IN_DELAY = 0.12; // s — before the first letter arrives
-const IN_STAGGER = 0.018; // s — between letters coming in
-const IN_DURATION = 0.55; // s
-const OUT_STAGGER = 0.024; // s — between letters leaving
+const IN_STAGGER = 0.015; // s — between letters coming in
+const IN_DURATION = 0.5; // s
+const OUT_STAGGER = 0.018; // s — between letters leaving
 const OUT_DURATION = 0.42; // s
-const HOLD_MS = 1350; // ms from mount until letters start leaving
-const LIFT_AFTER_OUT_MS = 620; // ms — curtain starts while the last letters go
+const HOLD_MS = 800; // ms from mount until letters start leaving
+const LIFT_AFTER_OUT_MS = 140; // ms — curtain starts while the last letters go
 
 /**
  * Opening sequence.
@@ -121,7 +121,7 @@ export function Preloader({ onDone }) {
                 key={i}
                 className="h-full flex-1 bg-bg dark:bg-black"
                 exit={gentle ? undefined : { y: '-102%' }}
-                transition={{ duration: 0.95, delay: i * 0.06, ease: CURTAIN_EASE }}
+                transition={{ duration: 0.8, delay: i * 0.045, ease: CURTAIN_EASE }}
               />
             ))}
           </div>

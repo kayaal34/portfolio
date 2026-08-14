@@ -42,7 +42,7 @@ export function SectionHeading({
     >
       <motion.p
         variants={item}
-        className="font-mono text-[10px] uppercase tracking-[0.3em] text-faint"
+        className="font-mono text-[11.5px] font-medium uppercase tracking-[0.18em] text-muted"
       >
         {index ? `${index} — ` : ''}
         {eyebrow}

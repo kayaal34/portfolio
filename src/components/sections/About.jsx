@@ -6,7 +6,9 @@ import { Reveal, RevealGroup, RevealItem } from '../Reveal';
 /** Small mono label used above every block in this section. */
 function Label({ children }) {
   return (
-    <h3 className="font-mono text-[10px] uppercase tracking-[0.26em] text-faint">{children}</h3>
+    <h3 className="font-mono text-[11.5px] font-medium uppercase tracking-[0.16em] text-fg-soft">
+      {children}
+    </h3>
   );
 }
 
@@ -44,7 +46,7 @@ export function About() {
       <div className="shell">
         {/* Eyebrow */}
         <Reveal>
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-faint">
+          <p className="font-mono text-[11.5px] font-medium uppercase tracking-[0.18em] text-muted">
             01 — {t.about.eyebrow}
           </p>
         </Reveal>

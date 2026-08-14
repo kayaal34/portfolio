@@ -131,7 +131,7 @@ export function Hero({ lenisRef, ready }) {
           className="font-serif text-[clamp(2.75rem,11vw,8.5rem)] font-normal leading-[1] tracking-[-0.03em] text-fg"
           initial="hidden"
           animate={play ? 'show' : 'hidden'}
-          variants={{ show: { transition: { staggerChildren: 0.045, delayChildren: 0.1 } } }}
+          variants={{ show: { transition: { staggerChildren: 0.035, delayChildren: 0.05 } } }}
         >
           {/* Uninterrupted text for assistive tech, search engines and copy/paste. */}
           <span className="sr-only">{t.name.full}</span>
@@ -157,15 +157,15 @@ export function Hero({ lenisRef, ready }) {
           className="flex flex-col items-center"
         >
           <motion.p
-            {...fade(0.75)}
+            {...fade(0.3)}
             className="mt-8 font-mono text-[clamp(0.6rem,1.6vw,0.78rem)] uppercase tracking-[0.42em] text-muted sm:mt-10"
           >
             {t.hero.tagline}
           </motion.p>
 
-          <motion.div {...fade(0.9)} className="mt-12 h-px w-14 bg-line-strong" />
+          <motion.div {...fade(0.45)} className="mt-12 h-px w-14 bg-line-strong" />
 
-          <motion.div {...fade(1.02)} className="mt-10 flex items-center gap-8 sm:mt-12 sm:gap-10">
+          <motion.div {...fade(0.55)} className="mt-10 flex items-center gap-8 sm:mt-12 sm:gap-10">
             <QuietLink onClick={() => scrollToSection('projects', lenisRef?.current)}>
               {t.hero.ctaPrimary}
             </QuietLink>
@@ -176,21 +176,17 @@ export function Hero({ lenisRef, ready }) {
               sit in the bottom corners; the side rail and the theme/language
               controls own those corners now. */}
           <motion.p
-            {...fade(1.15)}
+            {...fade(0.68)}
             className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[9.5px] uppercase tracking-[0.28em] text-faint"
           >
             <span>{t.location}</span>
-            <span aria-hidden="true" className="text-line-strong">
-              /
-            </span>
-            <span>{t.hero.available}</span>
           </motion.p>
         </motion.div>
       </div>
 
       {/* Scroll cue */}
       <motion.button
-        {...fade(1.35)}
+        {...fade(0.82)}
         type="button"
         onClick={() => scrollToSection('about', lenisRef?.current)}
         aria-label={t.a11y.scrollToAbout}

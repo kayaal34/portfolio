@@ -10,9 +10,9 @@ export default {
   htmlLang: 'en',
 
   meta: {
-    title: 'Yahya Kayaal — Software Engineer',
+    title: 'Yahya Kayaal — Software Engineer & AI Developer',
     description:
-      'Yahya Kayaal — Software Engineer. Dual diplomas in Software Engineering and Embedded Systems from Ural Federal University, MSc in Artificial Intelligence at ITMO. Scalable backends with Python (FastAPI), cross-platform apps with Flutter & Dart, AI/NLP pipelines and embedded Linux systems.',
+      'Portfolio of Yahya Kayaal (kayaal.is-a.dev) — backend software engineer and AI developer. Scalable services with Python and FastAPI, AI/NLP pipelines, cross-platform apps with Flutter, and embedded Linux systems. MSc in Artificial Intelligence at ITMO.',
   },
 
   name: { lineOne: 'Yahya', lineTwo: 'Kayaal', full: 'Yahya Kayaal', monogram: 'YK' },
@@ -45,7 +45,6 @@ export default {
   },
 
   hero: {
-    available: 'Open to new roles',
     tagline: 'Software Engineer · AI Researcher',
     ctaPrimary: 'View work',
     ctaSecondary: 'Get in touch',
@@ -57,11 +56,11 @@ export default {
     titleLead: "I'm Yahya.",
     titleRest: 'Software engineer and AI researcher.',
     intro1:
-      'I build the bridge between complex algorithms and effortless user experience. From the hardware limits of embedded systems to the open-ended potential of artificial intelligence, I write code across the whole range.',
+      'I came to Russia on a Rossotrudnichestvo scholarship and read Software Engineering at Ural Federal University. ITMO followed with an offer for a master’s in Artificial Intelligence — that is where I am now.',
     intro2:
-      'My bachelor thesis became MyAiTripPlanner: a FastAPI platform that turns free-form travel intent into a real, routed itinerary through a language-model pipeline I orchestrated with LangChain. In the same period I designed and built the website for Studio Otrajenie — end to end, from the first sketch to the live site.',
+      'I build the bridge between complex algorithms and effortless user experience, from the hardware limits of embedded systems to the open-ended potential of artificial intelligence. My bachelor thesis became MyAiTripPlanner: a FastAPI platform that turns free-form travel intent into a real, routed itinerary through a language-model pipeline I orchestrated with LangChain. In the same period I designed and built the website for Studio Otrajenie — end to end, from the first sketch to the live site.',
     intro3:
-      'Away from the screen I am in the ring and under the bar — a licensed taekwondo background, boxing now. It taught me one thing that transfers straight to a desk: when a problem does not go down on the first attempt, you get back up. Focus and patience are built there, not at the keyboard.',
+      'Away from the screen I train seriously; the patience and focus that builds are the same ones that get me through a problem which will not go down on the first attempt. The other constant is travel — new cities, living somewhere unfamiliar. Less a holiday than a way of changing how I think.',
     disciplines: ['Backend', 'AI & NLP', 'Mobile', 'Embedded', 'Front-end / React'],
     educationLabel: 'Education',
     languagesLabel: 'Languages',
@@ -149,7 +148,6 @@ export default {
     title: 'Where the discipline',
     accent: 'was forged.',
     lead: "Industry practice inside VK's ecosystem, and two years of high-pressure, trilingual operations work before it.",
-    next: 'Next chapter — open to new roles',
     certificationsLabel: 'Certifications',
     entries: {
       vk: {

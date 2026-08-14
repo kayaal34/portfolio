@@ -15,12 +15,15 @@ import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { ContactPage } from './pages/ContactPage';
 
+const SITE_URL = 'https://kayaal.is-a.dev';
+
 /**
- * Every route change starts at the top. Lenis keeps its own scroll
- * position, so it has to be told as well — otherwise you land halfway
- * down the new page.
+ * Per-route housekeeping: start at the top, and keep the canonical URL
+ * pointing at the page you are actually on. Without the second part every
+ * route would claim to be the home page, and search engines would drop
+ * /contact as a duplicate.
  */
-function ScrollToTop({ lenisRef }) {
+function RouteEffects({ lenisRef }) {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -30,6 +33,20 @@ function ScrollToTop({ lenisRef }) {
     window.scrollTo(0, 0);
     lenisRef?.current?.scrollTo(0, { immediate: true });
   }, [pathname, lenisRef]);
+
+  useEffect(() => {
+    const href = `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = href;
+
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', href);
+  }, [pathname]);
 
   return null;
 }
@@ -65,7 +82,7 @@ function Site() {
 
       <AuroraBackground />
       <ScrollProgress />
-      <ScrollToTop lenisRef={lenisRef} />
+      <RouteEffects lenisRef={lenisRef} />
 
       {/*
         Language changes cross-fade the whole document instead of remounting

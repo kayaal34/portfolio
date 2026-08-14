@@ -177,16 +177,11 @@ export function About() {
               <Label>{t.about.howIWorkLabel}</Label>
             </Reveal>
             <Reveal delay={0.08}>
-              <ul className="mt-8 divide-y divide-line border-t border-line">
-                {t.about.softSkills.map((skill) => (
-                  <li
-                    key={skill}
-                    className="py-4 text-[13.5px] font-light leading-relaxed tracking-tight text-muted"
-                  >
-                    {skill}
-                  </li>
-                ))}
-              </ul>
+              <blockquote className="mt-8 border-t border-line pt-8">
+                <p className="font-serif text-[clamp(1.1rem,1.9vw,1.35rem)] font-normal leading-[1.5] tracking-[-0.015em] text-fg-soft italic">
+                  {t.about.philosophy}
+                </p>
+              </blockquote>
             </Reveal>
           </div>
         </div>

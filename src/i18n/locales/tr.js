@@ -64,16 +64,9 @@ export default {
     disciplines: ['Backend', 'Yapay Zeka & NLP', 'Mobil', 'Gömülü Sistemler', 'Front-end / React'],
     educationLabel: 'Eğitim',
     languagesLabel: 'Diller',
-    howIWorkLabel: 'Mühendislik ilkelerim',
+    howIWorkLabel: 'Hayat felsefem',
     inProgress: 'Devam ediyor',
-    softSkills: [
-      'Önce mimari, sonra kod',
-      'Arayüz bir sözleşmedir',
-      'Zekice değil, okunur olsun',
-      'Optimize etmeden önce ölç',
-      'Hataya dayanıklı tasarla',
-      'Sadece stack’i değil, alanı öğren',
-    ],
+    philosophy: 'Zorlandığım yerde öğreniyorum. Kolay olan hiçbir şey bana bir şey öğretmedi.',
     education: {
       itmoMsc: {
         degree: 'Yüksek Lisans: Yapay Zeka',
@@ -117,29 +110,15 @@ export default {
   stack: {
     eyebrow: 'Teknolojiler',
     title: 'Her gün elimin uzandığı',
-    accent: 'araçlar.',
-    lead: 'Backend mimarisi, mobil istemciler, veri katmanları ve çıplak donanım üzerinde Linux — bir istek işleyicisinden mikrodenetleyici pinine kadar uzanan yolun tamamı.',
-    groups: {
-      all: 'Tümü',
-      backend: 'Backend',
-      mobile: 'Mobil',
-      embedded: 'Gömülü',
-      cloud: 'Bulut',
-      web: 'Web',
-      core: 'Temel',
-    },
+    accent: 'altı araç.',
+    lead: 'Mobil uygulamadan ölçeklenebilir backend’e, API tasarımından hareketli web arayüzlerine kadar işimi bunlarla yapıyorum.',
     details: {
-      python: 'FastAPI · Yapay zeka/NLP · Veri kazıma',
-      flutter: 'Çapraz platform mobil arayüz',
-      embedded: 'Linux programlama',
-      databases: 'İlişkisel veri mimarisi',
-      algorithms: 'Karmaşıklık analizi',
-      dotnet: 'Sunucu tarafı servisler',
-      yandexCloud: 'Serverless · DevOps otomasyonu',
-      web: 'Web temelleri',
-      kotlin: 'Android SDK',
-      git: 'Proje yönetimi',
-      linux: 'İşletim sistemi temelleri',
+      python: 'FastAPI, SQLAlchemy, REST API',
+      react: 'Vite ve Tailwind ile arayüz',
+      flutter: 'Android için mobil uygulama',
+      databases: 'Şema tasarımı ve sorgular',
+      ai: 'Dil modelleri ve CNN eğitimi',
+      embedded: 'Mikrodenetleyici programlama',
     },
   },
 
@@ -201,80 +180,63 @@ export default {
 
   projects: {
     eyebrow: 'Projeler',
-    title: 'Tasarladığım ve',
-    accent: 'kurduğum sistemler.',
-    lead: 'Dil modeli ve NLP hatlarından servis backend’lerine, çapraz platform mobil istemcilerden gömülü donanıma uzanan yedi sistem.',
-    note: 'Kaynak kodlar, mimari notlar ve diğer mühendislik çalışmaları GitHub profilimde.',
-    categories: {
-      all: 'Tümü',
-      ai: 'Yapay Zeka / NLP',
-      backend: 'Backend',
-      mobile: 'Mobil',
-      iot: 'Gömülü / IoT',
-    },
+    title: 'Yazdığım ve',
+    accent: 'yayına aldığım işler.',
+    lead: 'Beşi de GitHub’da açık kaynak; ikisi yayında.',
+    note: 'Kaynak kodların tamamı ve diğer çalışmalarım GitHub profilimde.',
+    repoLabel: 'Kaynak kod',
     entries: {
-      aiTravel: {
-        role: 'Full-Stack Mühendis',
+      aiTripPlanner: {
+        role: 'Full-Stack Geliştirici',
         description:
-          'Serbest metinle ifade edilen seyahat niyetini rotalanmış bir gezi planına çeviren bir FastAPI servisi. Backend’i sıfırdan kurdum, dil modelini LangChain üzerinden orkestre ettim; ardından üretilen her rotayı Google Maps API ile gerçek coğrafyaya bağladım — böylece çıktı kulağa mantıklı gelen değil, gerçekten gidilebilir bir rota oluyor.',
+          'Lisans bitirme projem. Kullanıcının seçtiği şehir, ilgi alanları, bütçe ve ulaşım tercihine göre gezi rotası üreten full-stack bir uygulama yazdım. Backend’i FastAPI, PostgreSQL ve async SQLAlchemy ile kurdum, kimlik doğrulamayı JWT ile çözdüm; rotaları OpenAI dil modeliyle üretip Google Maps Directions API ile gerçek yollara oturttum. Arayüzü React, TypeScript ve Tailwind ile yazdım.',
+        highlight: 'Bitirme projesi',
       },
-      libraryAi: {
-        role: 'Yapay Zeka Mühendisi',
+      subscriptionHunter: {
+        role: 'Mobil Geliştirici',
         description:
-          'Üniversitenin sanayi ortağı için geliştirdiğim, okurun gerçekten bitireceği kitabı öne çıkarmayı hedefleyen sinir ağı tabanlı öneri motoru. Bir not defteri denemesi olarak değil, çalışan bir sistem olarak teslim edildi ve ortak tarafından yüksek puanla değerlendirildi.',
-        highlight: 'Sanayi ortağına teslim edildi',
+          'Android için çevrimdışı çalışan bir abonelik takipçisi geliştirdim. Ödediğiniz servisleri ekliyor, aylık ve yıllık maliyeti gösteriyor, her yenilemeden önce hatırlatıyor. Flutter ve Dart ile yazdım; Material 3 arayüz, tam açık/koyu tema desteği ve marka renkleriyle hazır gelen 35 servis var — tek dokunuşla ekleniyor.',
       },
-      sentiment: {
-        role: 'NLP Mühendisi',
+      emotionDetection: {
+        role: 'Yapay Zeka Geliştirici',
         description:
-          'Python’da uçtan uca bir doğal dil işleme hattı: metin normalizasyonu, öznitelik çıkarımı ve makine öğrenmesiyle duygu sınıflandırması. Ayrık ve test edilebilir aşamalar hâlinde kurgulandı; böylece modeller, etrafındaki hattı yeniden yazmadan değiştirilebiliyor.',
+          'Ham görüntü verisinden duygu sınıflandırması yapan bir derin öğrenme hattı kurdum. Python ve TensorFlow ile evrişimli sinir ağı (CNN) eğittim; hat, ham piksel verisini otomatik olarak sınıflara ayırıp eğitime hazır hâle getiriyor. Veri hazırlıktan model eğitimine kadar her adım tekrarlanabilir.',
       },
-      financeBot: {
-        role: 'Backend Mühendisi',
+      marketBot: {
+        role: 'Backend Geliştirici',
         description:
-          'Kendi başına 7/24 çalışan bir servis: döviz kurlarını, altın fiyatlarını ve fon değerlerini PostgreSQL’e yazıyor, zamanlanmış özetleri Telegram Bot API üzerinden yayınlıyor. Savunmacı tasarlandı — kaynak sayfalar habersiz değişir, bu yüzden ayrıştırma hataları servisi düşürmek yerine kontrollü biçimde geriliyor.',
+          'Kendi başına çalışan bir Telegram botu yazdım. Döviz kurlarını, altın fiyatlarını ve fon değerlerini düzenli olarak toplayıp isteyen kullanıcıya anlık gönderiyor. Python ile yazdım; kaynak sayfalar habersiz değiştiği için ayrıştırmayı savunmacı kurdum — bir kaynak bozulduğunda bot düşmüyor, o kaydı atlıyor.',
       },
-      commercePlatform: {
-        role: 'Backend Mühendisi',
+      stairLights: {
+        role: 'Gömülü Sistem Geliştirici',
         description:
-          'İki gerçek iş alanı için sunucu tarafı mimarisi: çevrim içi perakende ve antrenman takibi. İlişkisel şemayı modelledim, servis sınırlarını çizdim ve temel iş mantığını Python ile yazdım; alan kurallarını taşıma katmanının dışında tutarak aynı mantığın hem web hem mobil istemcilere hizmet etmesini sağladım.',
-      },
-      subscriptions: {
-        role: 'Mobil Mühendis',
-        description:
-          'Düzenli abonelikleri tek ve dürüst bir görünümde toplayan çapraz platform Flutter istemcisi — yenilenme tarihleri, dönem başı maliyet ve toplamlar. Faturalama döngüsü hesaplarını üstlenen bir .NET Core servisiyle destekleniyor; böylece iki platform da aynı rakamı okuyor.',
-      },
-      smartHome: {
-        role: 'Gömülü Sistem Mühendisi',
-        description:
-          'Gömülü Linux çalışan mikrodenetleyiciler üzerinde, ofis aydınlatmasını otomatikleştiren IoT mimarisi ve yazılımı. Ağ çöktüğünde de çalışmaya devam edecek şekilde tasarlandı — kontrol mantığı bulutta değil, cihazın kendisinde.',
+          'Akıllı ev sistemlerine entegre olabilen bir merdiven aydınlatma sistemi tasarladım ve programladım. Hareket algılandığında basamakları sırayla yakan kontrol mantığını C++ ile mikrodenetleyici üzerine yazdım; mantık cihazın kendisinde durduğu için sistem ağa bağlı olmadan da çalışıyor.',
       },
     },
   },
 
   clients: {
     eyebrow: 'Referanslar',
-    title: 'Onlar için kurdum,',
-    accent: 'geri dönüp anlattılar.',
-    lead: 'Üniversite dışında teslim edilen ticari mühendislik işleri — çalışan bir stüdyonun üzerinde durduğu dijital altyapı.',
-    visit: 'Web sitesini ziyaret et',
+    title: 'Teslim ettiğim iş,',
+    accent: 'müşterimin ağzından.',
+    lead: 'Ticari olarak geliştirdiğim ve hâlen kullanılan bir iş.',
+    visit: 'Siteyi ziyaret et',
     badge: 'Müşteri',
     entries: {
       otrajenie: {
         descriptor: 'Otoportre fotoğraf stüdyosu',
         quote:
-          'Basit ve şık bir arayüz arıyorduk, Yahya tam olarak onu verdi. Hızlı teslim, sorunsuz çalışan bir panel, komplike hiçbir şey yok. Tek kelimeyle muazzam.',
+          'Stüdyomuzun tanıtım ve rezervasyon sitesini Yahya geliştirdi. Talebimiz sade ve hızlı bir arayüzdü; teslim edilen sonuç bunu karşıladı. Yönetim paneli günlük işleyişimizde sorunsuz çalışıyor ve teslim, konuşulan takvimin içinde kaldı.',
       },
     },
   },
 
   contact: {
     eyebrow: 'İletişim',
-    title: 'Bir projeniz mi var?',
-    accent: 'Konuşalım.',
+    title: 'Bir fikir, bir proje',
+    accent: 'ya da sadece merhaba.',
     lead: 'İstanbul, St. Petersburg ve uzaktan çalışan ekiplerde backend, mobil ve yapay zeka mühendisliği rollerine açığım.',
-    pageLead:
-      'İş fırsatı, freelance bir proje ya da aklınıza takılan bir soru — hepsi yazmanız için yeterli sebep. Formu doldurun, genelde aynı gün dönüş yapıyorum.',
+    pageLead: 'Hangisi olursa olsun yazın — en kısa zamanda dönüş yapacağım.',
     statement: 'Hangi kanalı tercih ederseniz edin —',
     statementAccent: 'hepsi bana ulaşır.',
     formTitle: 'Mesaj gönderin',

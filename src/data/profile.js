@@ -50,91 +50,74 @@ export const experienceEntries = [
 ];
 
 /**
+ * The six I actually reach for. An eleven-item grid with a filter bar read
+ * as a list of everything ever installed rather than a claim of skill;
+ * fewer, stronger entries say more.
+ *
  * Technology names are proper nouns and stay untranslated; only the
  * one-line `detail` under each is localised.
  */
 export const techStack = [
-  { key: 'python', name: 'Python', icon: 'CodeXml', group: 'backend' },
-  { key: 'flutter', name: 'Flutter & Dart', icon: 'Smartphone', group: 'mobile' },
-  { key: 'embedded', name: 'Embedded Systems', icon: 'Cpu', group: 'embedded' },
-  { key: 'databases', name: 'PostgreSQL & MySQL', icon: 'Database', group: 'backend' },
-  { key: 'algorithms', name: 'Algorithms & OOP', icon: 'Binary', group: 'core' },
-  { key: 'dotnet', name: '.NET Core & C#', icon: 'Layers', group: 'backend' },
-  { key: 'yandexCloud', name: 'Yandex Cloud', icon: 'Cloud', group: 'cloud' },
-  { key: 'web', name: 'HTML5, CSS3 & ReactJS', icon: 'Atom', group: 'web' },
-  { key: 'kotlin', name: 'Kotlin & Java', icon: 'Coffee', group: 'mobile' },
-  { key: 'git', name: 'Git & GitHub', icon: 'GitBranch', group: 'core' },
-  { key: 'linux', name: 'Linux Microprocessors', icon: 'Terminal', group: 'embedded' },
+  { key: 'python', name: 'Python', icon: 'CodeXml' },
+  { key: 'react', name: 'React & TypeScript', icon: 'Atom' },
+  { key: 'flutter', name: 'Flutter & Dart', icon: 'Smartphone' },
+  { key: 'databases', name: 'PostgreSQL', icon: 'Database' },
+  { key: 'ai', name: 'OpenAI & TensorFlow', icon: 'BrainCircuit' },
+  { key: 'embedded', name: 'Embedded C++', icon: 'Cpu' },
 ];
 
-export const techGroups = ['all', 'backend', 'mobile', 'embedded', 'cloud', 'web', 'core'];
-
 /**
- * Project names stay in English in every locale — that is how they appear
- * in both the English and the Russian CV. Roles and descriptions are
- * localised; tags are technology names.
+ * Project names are product names and stay untranslated. Roles and
+ * descriptions are localised; tags are technology names.
+ *
+ * `link`: set when the project is publicly reachable — it renders a small
+ * chip on the card. Leave it out and the card simply has no link.
  */
 export const projects = [
   {
-    id: 'aiTravel',
+    id: 'aiTripPlanner',
     index: '01',
-    name: 'AI Travel Itinerary Planner',
+    name: 'AI Trip Planner',
     icon: 'Compass',
-    category: 'ai',
-    tags: ['Python', 'FastAPI', 'LangChain', 'Google Maps API'],
-  },
-  {
-    id: 'libraryAi',
-    index: '02',
-    name: 'AI Personal Library Assistant',
-    icon: 'BrainCircuit',
-    category: 'ai',
-    tags: ['Python', 'Neural Networks', 'Recommender Systems'],
+    tags: ['FastAPI', 'PostgreSQL', 'OpenAI', 'React', 'TypeScript'],
+    repo: 'https://github.com/kayaal34/MyAiTripPlanner',
     hasHighlight: true,
   },
   {
-    id: 'sentiment',
-    index: '03',
-    name: 'AI Sentiment Analysis Pipeline',
-    icon: 'MessageSquareText',
-    category: 'ai',
-    tags: ['Python', 'NLP', 'Machine Learning', 'Text Classification'],
-  },
-  {
-    id: 'financeBot',
-    index: '04',
-    name: 'Financial Market Tracking Service',
-    icon: 'ChartLine',
-    category: 'backend',
-    tags: ['Python', 'PostgreSQL', 'Web Scraping', 'Telegram Bot API'],
-  },
-  {
-    id: 'commercePlatform',
-    index: '05',
-    name: 'E-Commerce & Fitness Platform Backend',
-    icon: 'Server',
-    category: 'backend',
-    tags: ['Python', 'REST API', 'Domain Modelling', 'PostgreSQL'],
-  },
-  {
-    id: 'subscriptions',
-    index: '06',
-    name: 'Subscription Management App',
+    id: 'subscriptionHunter',
+    index: '02',
+    name: 'Subscription Hunter',
     icon: 'CreditCard',
-    category: 'mobile',
-    tags: ['Flutter', 'Dart', '.NET Core', 'C#'],
+    tags: ['Flutter', 'Dart', 'Material 3', 'Offline-first'],
+    repo: 'https://github.com/kayaal34/subscriptionHunter',
+    // Google Play adresini buraya yapistirin; kart otomatik olarak gosterir.
+    store: null,
   },
   {
-    id: 'smartHome',
-    index: '07',
-    name: 'Smart Building Lighting Controller',
+    id: 'emotionDetection',
+    index: '03',
+    name: 'Emotion Detection',
+    icon: 'BrainCircuit',
+    tags: ['Python', 'TensorFlow', 'CNN', 'Computer Vision'],
+    repo: 'https://github.com/kayaal34/emotion-detection',
+  },
+  {
+    id: 'marketBot',
+    index: '04',
+    name: 'Borsa Takip Botu',
+    icon: 'ChartLine',
+    tags: ['Python', 'Telegram Bot API', 'Web Scraping'],
+    repo: 'https://github.com/kayaal34/borsayk-tg-bot',
+  },
+  {
+    id: 'stairLights',
+    index: '05',
+    name: 'Smart Stair Lighting',
     icon: 'Lightbulb',
-    category: 'iot',
-    tags: ['Embedded Linux', 'IoT', 'Microcontrollers', 'Automation'],
+    tags: ['C++', 'Mikrodenetleyici', 'IoT'],
+    repo: 'https://github.com/kayaal34/smartstairlights-rtf',
   },
 ];
-
-export const projectCategories = ['all', 'ai', 'backend', 'mobile', 'iot'];
 
 /** The Embedded Systems diploma lives under Education, not here — it is a
  *  qualification in its own right and listing it twice reads as padding. */

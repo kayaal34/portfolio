@@ -76,6 +76,7 @@ export function Reveal({
 /** Staggering parent. Pair with <RevealItem /> children. */
 export function RevealGroup({
   children,
+  as: Tag = 'div',
   className = '',
   stagger = 0.08,
   delay = 0,
@@ -85,9 +86,10 @@ export function RevealGroup({
 }) {
   const level = useMotionLevel();
   const step = level === 'gentle' ? stagger * 0.5 : stagger;
+  const MotionTag = motion[Tag] ?? motion.div;
 
   return (
-    <motion.div
+    <MotionTag
       className={className}
       initial="hidden"
       whileInView="show"
@@ -99,7 +101,7 @@ export function RevealGroup({
       {...rest}
     >
       {children}
-    </motion.div>
+    </MotionTag>
   );
 }
 

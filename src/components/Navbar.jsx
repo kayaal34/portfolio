@@ -51,10 +51,10 @@ function RailItem({ label, active, onClick, delay, gentle }) {
 /**
  * Navigation.
  *
- * Above 1024px there is no top bar at all: a monogram sits in the top-left
- * corner, the section rail runs down the right edge, and the language and
- * theme controls live in the bottom-left. Below that it collapses to a
- * compact top bar and a full-screen sheet, where a rail would not fit.
+ * Above 1024px there is no top bar at all: the section rail runs down the
+ * right edge and the language and theme controls sit in the bottom-left.
+ * Below that it collapses to a compact top bar and a full-screen sheet,
+ * where a rail would not fit.
  */
 export function Navbar({ active, isDark, onToggleTheme, lenisRef }) {
   const t = useT();
@@ -110,25 +110,6 @@ export function Navbar({ active, isDark, onToggleTheme, lenisRef }) {
   return (
     <>
       {/* ---------------- Desktop: corners + right rail ---------------- */}
-
-      {/* Monogram, top-left */}
-      <motion.button
-        {...fadeIn(0.15)}
-        type="button"
-        onClick={() => go('home')}
-        aria-label={t.a11y.backToTop}
-        className="group fixed left-7 top-7 z-[80] hidden items-center gap-3 lg:flex"
-      >
-        <span className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full border border-line bg-surface backdrop-blur-md">
-          <span className="absolute inset-0 bg-fg opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-          <span className="relative font-mono text-[11px] font-medium tracking-tight text-fg transition-colors duration-500 group-hover:text-bg">
-            {t.name.monogram}
-          </span>
-        </span>
-        <span className="hidden text-[13px] font-light tracking-tight text-muted transition-colors duration-500 group-hover:text-fg xl:block">
-          {t.name.full}
-        </span>
-      </motion.button>
 
       {/* Section rail, right edge */}
       <nav

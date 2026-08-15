@@ -90,8 +90,7 @@ export const projects = [
     icon: 'CreditCard',
     tags: ['Flutter', 'Dart', 'Material 3', 'Offline-first'],
     repo: 'https://github.com/kayaal34/subscriptionHunter',
-    // Google Play adresini buraya yapistirin; kart otomatik olarak gosterir.
-    store: null,
+    store: 'https://play.google.com/store/apps/details?id=com.subscriptionhunter.app',
   },
   {
     id: 'emotionDetection',

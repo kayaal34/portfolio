@@ -90,7 +90,10 @@ export const projects = [
     icon: 'CreditCard',
     tags: ['Flutter', 'Dart', 'Material 3', 'Offline-first'],
     repo: 'https://github.com/kayaal34/subscriptionHunter',
-    store: 'https://play.google.com/store/apps/details?id=com.subscriptionhunter.app',
+    // Kapali testte oldugu surece magaza sayfasi herkese acik degil (404).
+    // Uretime gectiginde asagidaki satiri acin, rozet kendiliginden gelir.
+    // store: 'https://play.google.com/store/apps/details?id=com.subscriptionhunter.app',
+    store: null,
   },
   {
     id: 'emotionDetection',

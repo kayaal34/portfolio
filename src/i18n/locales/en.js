@@ -182,7 +182,7 @@ export default {
     eyebrow: 'Projects',
     title: 'What I wrote',
     accent: 'and shipped.',
-    lead: 'All five are open source on GitHub; two are published.',
+    lead: 'All five are open source on GitHub — the source is one click from every card.',
     note: 'Full source and the rest of my work live on my GitHub profile.',
     repoLabel: 'Source',
     entries: {
@@ -195,7 +195,7 @@ export default {
       subscriptionHunter: {
         role: 'Mobile Developer',
         description:
-          'I built an offline-first subscription tracker for Android. You add what you pay for, see the cost per month and per year, and get reminded before each renewal. Written in Flutter and Dart, with a Material 3 interface, full light and dark support, and 35 services bundled in with their brand colours — one tap to add.',
+          'I built an offline-first subscription tracker for Android. You add what you pay for, see the cost per month and per year, and get reminded before each renewal. Written in Flutter and Dart, with a Material 3 interface, full light and dark support, and 35 services bundled in with their brand colours — one tap to add. Currently in closed testing on Google Play.',
       },
       emotionDetection: {
         role: 'AI Developer',

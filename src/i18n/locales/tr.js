@@ -182,7 +182,7 @@ export default {
     eyebrow: 'Projeler',
     title: 'Yazdığım ve',
     accent: 'yayına aldığım işler.',
-    lead: 'Beşi de GitHub’da açık kaynak; ikisi yayında.',
+    lead: 'Beşi de GitHub’da açık kaynak — kaynak koda her karttan ulaşabilirsiniz.',
     note: 'Kaynak kodların tamamı ve diğer çalışmalarım GitHub profilimde.',
     repoLabel: 'Kaynak kod',
     entries: {
@@ -195,7 +195,7 @@ export default {
       subscriptionHunter: {
         role: 'Mobil Geliştirici',
         description:
-          'Android için çevrimdışı çalışan bir abonelik takipçisi geliştirdim. Ödediğiniz servisleri ekliyor, aylık ve yıllık maliyeti gösteriyor, her yenilemeden önce hatırlatıyor. Flutter ve Dart ile yazdım; Material 3 arayüz, tam açık/koyu tema desteği ve marka renkleriyle hazır gelen 35 servis var — tek dokunuşla ekleniyor.',
+          'Android için çevrimdışı çalışan bir abonelik takipçisi geliştirdim. Ödediğiniz servisleri ekliyor, aylık ve yıllık maliyeti gösteriyor, her yenilemeden önce hatırlatıyor. Flutter ve Dart ile yazdım; Material 3 arayüz, tam açık/koyu tema desteği ve marka renkleriyle hazır gelen 35 servis var — tek dokunuşla ekleniyor. Şu an Google Play’de kapalı testte.',
       },
       emotionDetection: {
         role: 'Yapay Zeka Geliştirici',

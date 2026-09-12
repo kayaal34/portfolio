@@ -1,275 +1,221 @@
 /**
- * English copy.
- *
- * Facts (dates, institutions, technologies, responsibilities) come from the
- * CV. The prose around them is written for a senior engineering audience —
- * architecture and outcomes rather than adjectives.
+ * English copy. Facts and wording follow the CV (Kayaal_Yahya_Resume_EN);
+ * nothing here is invented, and the two intro paragraphs are the only prose
+ * written for the page rather than lifted from the document.
  */
 export default {
   code: 'en',
   htmlLang: 'en',
 
   meta: {
-    title: 'Yahya Kayaal — Software Engineer & AI Developer',
+    title: 'Yahya Kayaal — Python Backend / LLM Applications',
     description:
-      'Portfolio of Yahya Kayaal (kayaal.is-a.dev) — backend software engineer and AI developer. Scalable services with Python and FastAPI, AI/NLP pipelines, cross-platform apps with Flutter, and embedded Linux systems. MSc in Artificial Intelligence at ITMO.',
+      'Yahya Kayaal — Python backend developer working on LLM applications. FastAPI services, PostgreSQL, Flutter apps, OpenAI API and LangChain integrations. MSc in Artificial Intelligence at ITMO University, St. Petersburg.',
   },
 
-  name: { lineOne: 'Yahya', lineTwo: 'Kayaal', full: 'Yahya Kayaal', monogram: 'YK' },
-  intro: { word: 'Portfolio' },
-  role: 'Software Engineer',
-  location: 'Istanbul / St. Petersburg',
+  name: { full: 'Yahya Kayaal', first: 'Yahya', last: 'Kayaal', monogram: 'YK' },
+  role: 'Python Backend / LLM Applications',
+  location: 'St. Petersburg / Istanbul',
+  present: 'Present',
 
   nav: {
-    home: 'Home',
-    about: 'About',
-    stack: 'Stack',
     experience: 'Experience',
-    projects: 'Projects',
-    clients: 'Clients',
+    projects: 'Work',
+    education: 'Education',
+    skills: 'Skills',
     contact: 'Contact',
-    cta: 'Get in touch',
   },
 
   a11y: {
     skip: 'Skip to content',
-    primaryNav: 'Primary',
-    backToTop: 'Back to top',
-    openMenu: 'Open menu',
-    closeMenu: 'Close menu',
-    toLightMode: 'Switch to light mode',
-    toDarkMode: 'Switch to dark mode',
     language: 'Language',
     chooseLanguage: 'Choose a language',
-    scrollToAbout: 'Scroll to the About section',
+    toLightMode: 'Switch to light mode',
+    toDarkMode: 'Switch to dark mode',
+    backToTop: 'Back to top',
+    openMenu: 'Menu',
+    closeMenu: 'Close',
   },
 
   hero: {
-    tagline: 'Software Engineer · AI Researcher',
-    ctaPrimary: 'View work',
-    ctaSecondary: 'Get in touch',
-    scroll: 'Scroll',
+    lede: [
+      'I build backends in Python and the part of a product that talks to a model: FastAPI services, the data underneath them, and LLM integrations whose cost per request stays predictable.',
+      'Currently reading for an MSc in Artificial Intelligence at ITMO University in St. Petersburg. Before that, Software Engineering at Ural Federal University — five years studying in Russian on a Russian Government scholarship — an internship at VK, and freelance work: booking and portfolio sites with admin panels their owners run themselves.',
+    ],
+    resume: 'Curriculum vitae (PDF)',
+    email: 'Write to me',
   },
 
-  about: {
-    eyebrow: 'About',
-    titleLead: "I'm Yahya.",
-    titleRest: 'Software engineer and AI researcher.',
-    intro1:
-      'I came to Russia on a Rossotrudnichestvo scholarship and read Software Engineering at Ural Federal University. ITMO followed with an offer for a master’s in Artificial Intelligence — that is where I am now.',
-    intro2:
-      'I build the bridge between complex algorithms and effortless user experience, from the hardware limits of embedded systems to the open-ended potential of artificial intelligence. My bachelor thesis became MyAiTripPlanner: a FastAPI platform that turns free-form travel intent into a real, routed itinerary through a language-model pipeline I orchestrated with LangChain. In the same period I designed and built the website for Studio Otrajenie — end to end, from the first sketch to the live site.',
-    intro3:
-      'Away from the screen I train seriously; the patience and focus that builds are the same ones that get me through a problem which will not go down on the first attempt. The other constant is travel — new cities, living somewhere unfamiliar. Less a holiday than a way of changing how I think.',
-    disciplines: ['Backend', 'AI & NLP', 'Mobile', 'Embedded', 'Front-end / React'],
-    educationLabel: 'Education',
-    languagesLabel: 'Languages',
-    howIWorkLabel: 'What I go by',
-    inProgress: 'In progress',
-    philosophy: 'I learn where it gets hard. Nothing easy has ever taught me anything.',
-    education: {
-      itmoMsc: {
-        degree: 'Master of Science: Artificial Intelligence',
-        school: 'ITMO University',
-        place: 'St. Petersburg, Russia',
-        notes: [
-          'Graduate specialisation in machine learning, deep learning and applied AI systems.',
-          'Taking the NLP and recommendation work from my engineering practice to research depth.',
-        ],
-      },
-      bscSoftwareEngineering: {
-        degree: 'Bachelor of Science: Software Engineering',
-        school: 'Ural Federal University',
-        place: 'Yekaterinburg, Russia',
-        notes: [
-          'Russian Government Scholarship for International Students, awarded 2022 via Rossotrudnichestvo.',
-        ],
-      },
-      embeddedSystems: {
-        degree: 'Professional Diploma: Embedded Systems Programming',
-        school: 'Ural Federal University',
-        place: 'Yekaterinburg, Russia',
-        notes: [
-          'Second qualification alongside the software engineering degree — Linux on microprocessor systems.',
-        ],
-      },
-      preparatoryFaculty: {
-        degree: 'Preparatory Faculty: Russian as a Foreign Language',
-        school: 'Ural Federal University',
-        place: 'Yekaterinburg, Russia',
-        notes: [],
-      },
-    },
-    languages: {
-      turkish: { name: 'Turkish', level: 'Native' },
-      russian: { name: 'Russian', level: 'Professional' },
-      english: { name: 'English', level: 'Professional' },
-    },
-  },
-
-  stack: {
-    eyebrow: 'Tech Stack',
-    title: 'The six tools I reach for',
-    accent: 'every day.',
-    lead: 'From mobile apps to scalable backends, from API design to interfaces that move — this is what I build with.',
-    details: {
-      python: 'FastAPI, SQLAlchemy, REST APIs',
-      react: 'Interfaces with Vite and Tailwind',
-      flutter: 'Mobile apps for Android',
-      databases: 'Schema design and queries',
-      ai: 'Language models and CNN training',
-      embedded: 'Microcontroller programming',
-    },
+  sections: {
+    experience: 'Experience',
+    projects: 'Selected work',
+    education: 'Education',
+    skills: 'Skills',
+    contact: 'Contact',
   },
 
   experience: {
-    eyebrow: 'Experience',
-    title: 'Where the discipline',
-    accent: 'was forged.',
-    lead: "Industry practice inside VK's ecosystem, and two years of high-pressure, trilingual operations work before it.",
-    certificationsLabel: 'Certifications',
-    entries: {
-      vk: {
-        role: 'VK Education Practice 2025',
-        meta: 'VK Russian Company · Yekaterinburg (Remote)',
-        kind: 'Internship',
-        tags: ['Python', 'REST API', 'VK Mini Apps', 'VK Bridge'],
-        bullets: [
-          'Built and deployed a VK Mini App on modern web foundations, integrated end to end with the VKontakte platform.',
-          'Designed the backend architecture and RESTful APIs in Python, with authentication handled through VK ID and VK Bridge.',
-          'Cut perceived load time by moving the client to asynchronous data fetching and a responsive state-management model.',
-        ],
-      },
-      sky: {
-        role: 'International Student Consultant',
-        meta: 'Sky Education · Yekaterinburg, Russia',
-        kind: 'Full-time',
-        tags: ['Crisis management', 'Stakeholder comms', 'Trilingual', 'Process design'],
-        bullets: [
-          'Owned end-to-end relocation, academic advisory and administrative onboarding for Turkish students moving to Russia.',
-          'Resolved complex logistical, legal and bureaucratic escalations under time pressure, often with no precedent to follow.',
-          'Acted as the communication bridge between university administrations, local authorities and international students.',
-          'Used professional fluency in Turkish, Russian and English to remove language barriers from organisational workflows.',
-          'Redesigned orientation and record-keeping so several client cases could run in parallel without dropping details.',
-        ],
-      },
+    freelance: {
+      role: 'Web Developer',
+      org: 'Freelance',
+      bullets: [
+        'Developed and shipped a booking site with an admin panel for the Otrazhenie photo studio on Supabase, replacing manual scheduling with online client registration.',
+        'Delivered a portfolio site with an admin panel for an Ozon marketplace store manager, letting the client manage content without developer involvement.',
+      ],
     },
-    certifications: {
-      projectBasedLearning: {
-        name: 'Project-Based Learning Certificates (AI & VR)',
-        issuer: 'Ural Federal University',
-      },
-      cloudServicesEngineer: {
-        name: 'Cloud Services Engineer',
-        issuer: 'Yandex Practicum',
-      },
-      vkInternship: {
-        name: 'VK Education Practice Internship',
-        issuer: 'VK',
-      },
-      webFundamentals: {
-        name: 'Web Technologies Fundamentals',
-        issuer: 'HTML Academy',
-      },
-      itIntroduction: {
-        name: 'Introduction to Information Technologies',
-        issuer: 'Academy of BTK',
-      },
+    vk: {
+      role: 'Software Engineering Intern',
+      org: 'VK Education Practice, VK · Remote',
+      bullets: [
+        'Developed a VK Mini App during the internship, covering the client interface and the server side.',
+        'Implemented authentication via VK ID and VK Bridge, and persistence of user data through VK Storage.',
+        'Refactored state management and added asynchronous data fetching to keep the interface responsive.',
+      ],
+    },
+    sky: {
+      role: 'Student Consultant',
+      org: 'Sky Education',
+      bullets: [
+        'Supported Turkish students relocating to Russia across documents, admissions and university communication in Turkish and Russian.',
+      ],
     },
   },
 
   projects: {
-    eyebrow: 'Projects',
-    title: 'What I wrote',
-    accent: 'and shipped.',
-    lead: 'All five are open source on GitHub — the source is one click from every card.',
-    note: 'Full source and the rest of my work live on my GitHub profile.',
-    repoLabel: 'Source',
-    entries: {
-      aiTripPlanner: {
-        role: 'Full-Stack Developer',
-        description:
-          'My final-year project. I built a full-stack application that generates a travel route from the city, interests, budget and transport preferences a user picks. The backend is FastAPI with PostgreSQL and async SQLAlchemy, authentication handled with JWT; routes are generated by an OpenAI language model and grounded in real roads through the Google Maps Directions API. I wrote the interface in React, TypeScript and Tailwind.',
-        highlight: 'Final-year project',
-      },
-      subscriptionHunter: {
-        role: 'Mobile Developer',
-        description:
-          'I built an offline-first subscription tracker for Android. You add what you pay for, see the cost per month and per year, and get reminded before each renewal. Written in Flutter and Dart, with a Material 3 interface, full light and dark support, and 35 services bundled in with their brand colours — one tap to add. Currently in closed testing on Google Play.',
-      },
-      emotionDetection: {
-        role: 'AI Developer',
-        description:
-          'I built a deep-learning pipeline that classifies emotion from raw image data. Using Python and TensorFlow I trained a convolutional neural network; the pipeline sorts raw pixel data into categories and prepares it for training on its own. Every step from data preparation to model training is reproducible.',
-      },
-      marketBot: {
-        role: 'Backend Developer',
-        description:
-          'I wrote a Telegram bot that runs unattended. It collects exchange rates, gold prices and fund quotes on a schedule and delivers them on request. Written in Python; upstream pages change without warning, so I built the parsing defensively — one broken source skips a record rather than taking the bot down.',
-      },
-      stairLights: {
-        role: 'Embedded Systems Developer',
-        description:
-          'I designed and programmed a stair lighting system that integrates into smart-home setups. The control logic — lighting the steps in sequence once motion is detected — runs in C++ on a microcontroller. Because the logic lives on the device, the system works with no network at all.',
-      },
+    repo: 'Repository',
+    inProgress: 'in progress',
+    flipru: {
+      summary: 'Turkish and Russian vocabulary app',
+      bullets: [
+        'Developed a dictionary of 8,000+ words across five CEFR levels (A1–C1) with stress marks, transcription and usage examples, for Turkish speakers learning Russian and Russian speakers learning Turkish.',
+        'Added a practice section with quizzes and exercises, plus a companion dictionary editor that flags duplicates, missing stress marks and empty fields; currently in closed testing on Google Play.',
+      ],
+    },
+    subscriptionHunter: {
+      summary: 'Subscription tracker, shipped to Google Play',
+      bullets: [
+        'Charge dates, total spend and renewal reminders per tracked subscription.',
+      ],
+    },
+    aiTripPlanner: {
+      summary: 'Graduation project, Ural Federal University',
+      bullets: [
+        'Owned the backend and LLM integration in a two-person team: a FastAPI service generating travel itineraries through the OpenAI API, orchestrated with LangChain.',
+        'Implemented route rendering via the Google Maps Directions API, returning a visual itinerary per request.',
+      ],
+    },
+    tzReviewer: {
+      summary: 'AI Product Hack, MTS case',
+      bullets: [
+        'Developed a specification-review tool in a team of two: parses a technical spec into sections and returns findings at three severity levels (blocker / major / minor).',
+        'Cut LLM dependency by moving deterministic checks into rule-based logic, reducing token cost per review.',
+      ],
+    },
+    emotionDetection: {
+      summary: 'Facial emotion recognition',
+      bullets: [
+        'Trained a model recognising emotional expressions from images: data preparation and labelling, training loop and evaluation of classification quality.',
+        'Implemented the full pipeline from raw images to prediction, comparing results across training runs to select the final model.',
+      ],
+    },
+    degerix: {
+      summary: 'Land valuation for Turkey',
+      bullets: [
+        'Building a FastAPI service that locates a land parcel on the map through the Turkish cadastre (TKGM) API and estimates its value for three sale scenarios — urgent, market, patient seller — with a range and a confidence level.',
+        'Integrated the cadastre, OpenStreetMap Nominatim and Central Bank (EVDS) housing statistics behind the backend: response normalisation, caching, rate-limit compliance, API keys kept off the client; the pytest suite runs in GitHub Actions.',
+      ],
+    },
+    projectBasedLearning: {
+      summary: 'Ural Federal University, client: UrFU',
+      bullets: [
+        'Developed a neural-network book recommendation assistant for a personal library system.',
+        'Built a VR simulation of historic Yekaterinburg buildings in a project team.',
+      ],
+    },
+    other: {
+      name: 'Other projects',
+      summary: null,
+      bullets: [
+        'Shipped a Telegram market bot on Python and PostgreSQL sending morning and evening summaries of daily risers and fallers, replacing manual rate checks; a book-sharing app in .NET MAUI; a document-to-PDF converter; and a microcontroller stair-lighting system.',
+      ],
     },
   },
 
-  clients: {
-    eyebrow: 'Clients',
-    title: 'The work I delivered,',
-    accent: 'in my client’s words.',
-    lead: 'Commercial work I built that is still in use.',
-    visit: 'Visit the site',
-    badge: 'Client',
-    entries: {
-      otrajenie: {
-        descriptor: 'Self-portrait photography studio',
-        quote:
-          'Yahya built the showcase and booking site for our studio. We asked for something simple and fast, and that is what was delivered. The admin panel runs without friction in our daily operations, and the work came in within the agreed timeline.',
-      },
+  education: {
+    itmo: {
+      degree: 'MSc, Artificial Intelligence',
+      org: 'ITMO University',
+      city: 'St. Petersburg',
+      notes: [
+        'Two-year programme, state-funded place under the Russian Government Scholarship (Rossotrudnichestvo).',
+      ],
     },
+    urfu: {
+      degree: 'BSc, Software Engineering (09.03.04)',
+      org: 'Ural Federal University',
+      city: 'Yekaterinburg',
+      notes: [
+        'GPA 3.87 / 5.00. Coursework: algorithms and data structures, databases, operating systems, OOP.',
+        'Completed a 288-hour professional retraining programme in Embedded Systems Programming (2025).',
+        'State-funded place under the Russian Government Scholarship (Rossotrudnichestvo). Studied five years in Russian, including the preparatory faculty (2021–2022).',
+      ],
+    },
+  },
+
+  skills: {
+    languages: 'Languages',
+    backend: 'Backend',
+    data: 'Data',
+    infra: 'Infra / DevOps',
+    mobile: 'Mobile',
+    frontend: 'Frontend',
+    ai: 'AI',
+    familiar: 'Familiar with',
+  },
+
+  extras: {
+    certificationsLabel: 'Certifications',
+    languagesLabel: 'Languages',
+    interestsLabel: 'Interests',
+    certs: {
+      yandex: { name: 'Cloud Services Engineer', org: 'Yandex Practicum · 43 h' },
+      vk: { name: 'VK Education Practice', org: 'VK' },
+      htmlAcademy: { name: 'Web Technologies Fundamentals', org: 'HTML Academy' },
+    },
+    spoken: {
+      turkish: { name: 'Turkish', level: 'Native' },
+      russian: { name: 'Russian', level: 'C1' },
+      english: { name: 'English', level: 'B2' },
+    },
+    interests: 'Licensed taekwondo athlete, medals at city-level competitions.',
   },
 
   contact: {
-    eyebrow: 'Contact',
-    title: 'An idea, a project',
-    accent: 'or just hello.',
-    lead: 'Open to backend, mobile and AI engineering roles across Istanbul, St. Petersburg and remote-first teams.',
-    pageLead: 'Whichever it is, write — I will get back to you as soon as I can.',
-    statement: 'Pick whichever channel you like —',
-    statementAccent: 'all of them reach me.',
-    formTitle: 'Send a message',
-    formBadgeLive: 'Straight to my inbox',
-    formBadgeMail: 'Opens your mail app',
-    fields: {
+    lede: 'Open to backend and LLM work, in Russia or remote. The quickest way to reach me is email or Telegram; the form below arrives in the same inbox.',
+    labels: {
+      email: 'Email',
+      telegram: 'Telegram',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
+    },
+    form: {
       name: 'Name',
       email: 'Email',
-      subject: 'Subject',
       message: 'Message',
-    },
-    submit: 'Send message',
-    submitting: 'Sending…',
-    successTitle: 'Message sent',
-    successBody: 'Thank you — it landed in my inbox and I usually reply the same day.',
-    errorTitle: "Couldn't send",
-    errorBefore: 'Something went wrong on the way. Please write to ',
-    errorAfter: ' directly and it will reach me.',
-    fallbackTitle: 'Your mail app is opening',
-    fallbackBefore: 'Your message has been composed for you. If nothing opened, write to ',
-    fallbackAfter: ' instead.',
-    mailSubject: 'New message from your portfolio',
-    channels: {
-      email: 'Email',
-      linkedin: 'LinkedIn',
-      github: 'GitHub',
-      telegram: 'Telegram',
+      namePlaceholder: 'Your name',
+      emailPlaceholder: 'you@company.com',
+      messagePlaceholder: 'What are you working on?',
+      send: 'Send',
+      sending: 'Sending…',
+      sent: 'Thank you — the message has arrived. I answer within a day or two.',
+      error: 'The message could not be sent. Email me at {email} instead.',
+      required: 'Please fill in every field.',
+      invalidEmail: 'Please check the email address.',
+      fallbackNote: 'This opens your mail client.',
     },
   },
 
   footer: {
-    rights: 'All rights reserved.',
-    builtWith: 'Built with React · Tailwind CSS · Framer Motion',
-    backToTop: 'Back to top',
+    updated: 'Updated September 2026',
   },
 };

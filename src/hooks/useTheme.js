@@ -3,15 +3,16 @@ import { useCallback, useEffect, useState } from 'react';
 const STORAGE_KEY = 'yk-theme';
 
 function readInitialTheme() {
-  if (typeof window === 'undefined') return 'dark';
+  if (typeof window === 'undefined') return 'light';
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === 'light' || stored === 'dark') return stored;
   } catch {
     /* localStorage can be blocked — fall through to the default. */
   }
-  // Dark is the intended default, regardless of the OS preference.
-  return 'dark';
+  // Light is the intended default: this is a resume, and paper is the
+  // reference. The OS preference is deliberately not consulted.
+  return 'light';
 }
 
 /**

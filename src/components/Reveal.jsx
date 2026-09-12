@@ -1,137 +1,57 @@
-import { motion } from 'framer-motion';
-import { useMotionLevel } from '../hooks/useMotionLevel';
-
-const OFFSETS = {
-  up: { y: 44, x: 0 },
-  down: { y: -44, x: 0 },
-  left: { x: 52, y: 0 },
-  right: { x: -52, y: 0 },
-  none: { x: 0, y: 0 },
-};
+import { useEffect, useRef, useState } from 'react';
 
 /**
- * Scroll-reveal wrapper.
+ * Fades its child in once, when it first reaches the viewport.
  *
- * At 'full' the block eases in from an offset with a slight scale and blur
- * settle. At 'gentle' it simply fades — no travel, no blur — so the page
- * still comes alive for visitors who have OS animations turned off.
+ * Deliberately the only motion on the site: 8px and 700ms, never repeated.
+ * If IntersectionObserver is missing, or the visitor asked for reduced
+ * motion, the content is simply visible from the start.
  */
-export function Reveal({
-  children,
-  as: Tag = 'div',
-  direction = 'up',
-  delay = 0,
-  duration = 0.9,
-  distance,
-  blur = true,
-  once = true,
-  amount = 0.25,
-  className = '',
-  ...rest
-}) {
-  const level = useMotionLevel();
-  const MotionTag = motion[Tag] ?? motion.div;
+export function Reveal({ as: Tag = 'div', delay = 0, className = '', children, ...rest }) {
+  const ref = useRef(null);
+  const [shown, setShown] = useState(false);
 
-  if (level === 'gentle') {
-    return (
-      <MotionTag
-        className={className}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once, amount }}
-        transition={{ duration: 0.6, delay: delay * 0.5, ease: 'easeOut' }}
-        {...rest}
-      >
-        {children}
-      </MotionTag>
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setShown(true);
+      return undefined;
+    }
+
+    // Anything already on screen at mount is shown straight away: waiting for
+    // an observer callback there would only make the first paint look empty.
+    if (node.getBoundingClientRect().top < window.innerHeight) {
+      setShown(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          setShown(true);
+          observer.unobserve(entry.target);
+        });
+      },
+      // Starts as the element reaches the bottom edge, so fast scrolling never
+      // outruns the fade and lands on blank space.
+      { rootMargin: '0px 0px 5% 0px', threshold: 0 }
     );
-  }
 
-  const base = OFFSETS[direction] ?? OFFSETS.up;
-  const offset = {
-    x: distance != null && base.x !== 0 ? Math.sign(base.x) * distance : base.x,
-    y: distance != null && base.y !== 0 ? Math.sign(base.y) * distance : base.y,
-  };
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <MotionTag
-      className={className}
-      initial={{
-        opacity: 0,
-        x: offset.x,
-        y: offset.y,
-        scale: 0.985,
-        filter: blur ? 'blur(10px)' : 'blur(0px)',
-      }}
-      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once, amount }}
-      transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
+    <Tag
+      ref={ref}
+      className={`reveal ${shown ? 'reveal-in' : ''} ${className}`}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
       {...rest}
     >
       {children}
-    </MotionTag>
-  );
-}
-
-/** Staggering parent. Pair with <RevealItem /> children. */
-export function RevealGroup({
-  children,
-  as: Tag = 'div',
-  className = '',
-  stagger = 0.08,
-  delay = 0,
-  amount = 0.2,
-  once = true,
-  ...rest
-}) {
-  const level = useMotionLevel();
-  const step = level === 'gentle' ? stagger * 0.5 : stagger;
-  const MotionTag = motion[Tag] ?? motion.div;
-
-  return (
-    <MotionTag
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once, amount }}
-      variants={{
-        hidden: {},
-        show: { transition: { staggerChildren: step, delayChildren: delay } },
-      }}
-      {...rest}
-    >
-      {children}
-    </MotionTag>
-  );
-}
-
-export const revealItemVariants = {
-  hidden: { opacity: 0, y: 34, scale: 0.97, filter: 'blur(8px)' },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: 'blur(0px)',
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const gentleItemVariants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.55, ease: 'easeOut' } },
-};
-
-export function RevealItem({ children, className = '', as: Tag = 'div', ...rest }) {
-  const level = useMotionLevel();
-  const MotionTag = motion[Tag] ?? motion.div;
-
-  return (
-    <MotionTag
-      className={className}
-      variants={level === 'gentle' ? gentleItemVariants : revealItemVariants}
-      {...rest}
-    >
-      {children}
-    </MotionTag>
+    </Tag>
   );
 }

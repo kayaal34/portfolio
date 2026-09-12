@@ -1,9 +1,9 @@
 /**
- * Language-independent data.
+ * Language-independent data: links, dates, technology names, structural keys.
+ * Every line of prose lives in `src/i18n/locales/*.js` and is looked up by
+ * the keys below, so a fact is only ever written down once.
  *
- * Everything here is identical in every locale — links, handles, dates,
- * icon names, technology names, structural keys. All prose lives in
- * `src/i18n/locales/*.js` and is looked up by the keys defined here.
+ * Source of truth for all of it: the CV (EN / RU), September 2026.
  */
 
 export const profile = {
@@ -14,143 +14,156 @@ export const profile = {
   linkedinHandle: 'linkedin.com/in/yahya-kayaal',
   telegram: 'https://t.me/kayaal34',
   telegramHandle: '@kayaal34',
+  site: 'kayaal.is-a.dev',
 };
 
+/** The CV itself, per language — same documents that this page is built from. */
+export const resumeFiles = {
+  en: '/Kayaal_Yahya_Resume_EN.pdf',
+  ru: '/Kayaal_Yahya_Resume_RU.pdf',
+  tr: '/Kayaal_Yahya_Resume_EN.pdf',
+};
+
+/** Scroll anchors, in the order they appear. */
+export const sectionIds = ['experience', 'projects', 'education', 'skills', 'contact'];
+
 /**
- * Sections that live on the home page. These are the scroll anchors and
- * the order they appear in.
- *
- * Contact is deliberately not here — it is its own route (see `contactPath`),
- * because the home page had grown long enough that a form at the bottom was
- * doing nobody any favours.
+ * Newest first. `current` appends the localised "present" word to the period
+ * instead of a second date. `secondary` is the non-engineering row — it is
+ * true experience but it is not the work being applied for, so it sits last
+ * and quieter, exactly as it does on the CV.
  */
-export const sectionIds = ['home', 'about', 'stack', 'experience', 'clients', 'projects'];
-
-/** The contact page lives at its own URL. */
-export const contactPath = '/contact';
-
-/** Newest first. `current` renders the in-progress badge. */
-export const educationEntries = [
-  { key: 'itmoMsc', period: '2026 —', current: true },
-  { key: 'bscSoftwareEngineering', period: '2026-06' },
-  { key: 'embeddedSystems', period: '2025-05' },
-  { key: 'preparatoryFaculty', period: '2022-01' },
-];
-
-/** Proficiency bar widths are decorative; the level wording is translated. */
-export const languageLevels = [
-  { key: 'turkish', value: 100 },
-  { key: 'russian', value: 92 },
-  { key: 'english', value: 88 },
-];
-
-export const experienceEntries = [
-  { id: 'vk', period: '2025-06 — 2026-01', company: 'VK' },
-  { id: 'sky', period: '2024-09 — 2025-09', company: 'Sky Education' },
-];
-
-/**
- * The six I actually reach for. An eleven-item grid with a filter bar read
- * as a list of everything ever installed rather than a claim of skill;
- * fewer, stronger entries say more.
- *
- * Technology names are proper nouns and stay untranslated; only the
- * one-line `detail` under each is localised.
- */
-export const techStack = [
-  { key: 'python', name: 'Python', icon: 'CodeXml' },
-  { key: 'react', name: 'React & TypeScript', icon: 'Atom' },
-  { key: 'flutter', name: 'Flutter & Dart', icon: 'Smartphone' },
-  { key: 'databases', name: 'PostgreSQL', icon: 'Database' },
-  { key: 'ai', name: 'OpenAI & TensorFlow', icon: 'BrainCircuit' },
-  { key: 'embedded', name: 'Embedded C++', icon: 'Cpu' },
+export const experience = [
+  {
+    id: 'freelance',
+    period: '07.2026 —',
+    current: true,
+    stack: ['React', 'TypeScript', 'Supabase'],
+    bullets: 2,
+    /** The studio site is live, so the bullet that mentions it links out. */
+    link: 'https://otrazhenie-kam.ru/',
+  },
+  {
+    id: 'vk',
+    period: '06.2025 — 01.2026',
+    stack: ['Python', 'REST API', 'VK Bridge'],
+    bullets: 3,
+  },
+  {
+    id: 'sky',
+    period: '09.2024 — 09.2025',
+    stack: [],
+    bullets: 1,
+    secondary: true,
+  },
 ];
 
 /**
- * Project names are product names and stay untranslated. Roles and
- * descriptions are localised; tags are technology names.
+ * CV order, which is deliberate: the two shipped apps first, then the
+ * graduation project, then the rest. Names are product names and stay
+ * untranslated; everything under them is localised.
  *
- * `link`: set when the project is publicly reachable — it renders a small
- * chip on the card. Leave it out and the card simply has no link.
+ * `repo` renders a link. Subscription Hunter's store listing is not linked
+ * on purpose — the package page is not public while the app sits in review,
+ * and a 404 costs more than the extra link buys.
  */
 export const projects = [
   {
-    id: 'aiTripPlanner',
-    index: '01',
-    name: 'AI Trip Planner',
-    icon: 'Compass',
-    tags: ['FastAPI', 'PostgreSQL', 'OpenAI', 'React', 'TypeScript'],
-    repo: 'https://github.com/kayaal34/MyAiTripPlanner',
-    hasHighlight: true,
+    id: 'flipru',
+    name: 'FlipRU',
+    stack: ['Flutter', 'Dart'],
+    repo: 'https://github.com/kayaal34/FlipRU',
+    bullets: 2,
   },
   {
     id: 'subscriptionHunter',
-    index: '02',
     name: 'Subscription Hunter',
-    icon: 'CreditCard',
-    tags: ['Flutter', 'Dart', 'Material 3', 'Offline-first'],
+    stack: ['Flutter', 'Dart'],
     repo: 'https://github.com/kayaal34/subscriptionHunter',
-    // Kapali testte oldugu surece magaza sayfasi herkese acik degil (404).
-    // Uretime gectiginde asagidaki satiri acin, rozet kendiliginden gelir.
-    // store: 'https://play.google.com/store/apps/details?id=com.subscriptionhunter.app',
-    store: null,
+    bullets: 1,
+  },
+  {
+    id: 'aiTripPlanner',
+    name: 'AI Trip Planner',
+    stack: ['Python', 'FastAPI', 'LangChain'],
+    repo: 'https://github.com/kayaal34/AI-Tripper-backend',
+    bullets: 2,
+  },
+  {
+    id: 'tzReviewer',
+    name: 'TZ Reviewer',
+    stack: ['Python'],
+    repo: 'https://github.com/kayaal34/aitalenthub-hackathon',
+    bullets: 2,
   },
   {
     id: 'emotionDetection',
-    index: '03',
     name: 'Emotion Detection',
-    icon: 'BrainCircuit',
-    tags: ['Python', 'TensorFlow', 'CNN', 'Computer Vision'],
+    stack: ['Python', 'TensorFlow'],
     repo: 'https://github.com/kayaal34/emotion-detection',
+    bullets: 2,
   },
   {
-    id: 'marketBot',
-    index: '04',
-    name: 'Borsa Takip Botu',
-    icon: 'ChartLine',
-    tags: ['Python', 'Telegram Bot API', 'Web Scraping'],
-    repo: 'https://github.com/kayaal34/borsayk-tg-bot',
+    id: 'degerix',
+    name: 'Değerix',
+    stack: ['Python', 'FastAPI', 'Leaflet'],
+    repo: 'https://github.com/kayaal34/degerix',
+    bullets: 2,
+    inProgress: true,
   },
   {
-    id: 'stairLights',
-    index: '05',
-    name: 'Smart Stair Lighting',
-    icon: 'Lightbulb',
-    tags: ['C++', 'Mikrodenetleyici', 'IoT'],
-    repo: 'https://github.com/kayaal34/smartstairlights-rtf',
+    id: 'projectBasedLearning',
+    name: 'Project-Based Learning',
+    period: '01.2025 — 12.2025',
+    stack: [],
+    bullets: 2,
+  },
+  {
+    id: 'other',
+    name: null, // heading comes from the locale — this row has no product name
+    stack: ['Python', 'PostgreSQL', 'C#', 'C++'],
+    bullets: 1,
   },
 ];
 
-/** The Embedded Systems diploma lives under Education, not here — it is a
- *  qualification in its own right and listing it twice reads as padding. */
+export const education = [
+  { id: 'itmo', period: '09.2026 —', current: true, notes: 1 },
+  { id: 'urfu', period: '09.2021 — 06.2026', notes: 3 },
+];
+
+/** Skill group order. Labels are localised; the values are proper nouns. */
+export const skillGroups = [
+  { id: 'languages', items: ['Python', 'Dart', 'JavaScript', 'TypeScript', 'SQL'] },
+  {
+    id: 'backend',
+    items: ['FastAPI', 'Pydantic', 'Alembic', 'REST API', '.NET / C#'],
+  },
+  { id: 'data', items: ['PostgreSQL', 'Supabase', 'Redis'] },
+  {
+    id: 'infra',
+    items: ['Git', 'GitHub Actions', 'pytest', 'Linux', 'Yandex Cloud'],
+  },
+  { id: 'mobile', items: ['Flutter', 'Dart'] },
+  { id: 'frontend', items: ['React', 'HTML5', 'CSS3'] },
+  {
+    id: 'ai',
+    items: ['OpenAI API', 'LangChain', 'TensorFlow', 'Prompt engineering', 'Computer vision'],
+  },
+  { id: 'familiar', items: ['Docker', 'Nginx', 'Kotlin', 'C++', 'Embedded'] },
+];
+
 export const certifications = [
-  { key: 'projectBasedLearning', date: '2025-12' },
-  { key: 'cloudServicesEngineer', date: '2025-11' },
-  { key: 'vkInternship', date: '2025-08' },
-  { key: 'webFundamentals', date: '2024-03' },
-  { key: 'itIntroduction', date: '2022-10' },
+  { id: 'yandex', date: '11.2025' },
+  { id: 'vk', date: '2025' },
+  { id: 'htmlAcademy', date: '2024' },
 ];
 
-/**
- * Commercial clients.
- *
- * `url`: replace '#' with the real address — the button activates itself.
- * `logo`: drop a file in /public and point at it (e.g. '/otrajenie-logo.svg');
- *         while it is null the icon tile below is shown instead.
- */
-export const clients = [
-  {
-    id: 'otrajenie',
-    name: 'Studio Otrajenie',
-    icon: 'Aperture',
-    url: 'https://otrazhenie-kam.ru/',
-    logo: '/otrazhenie-logo.svg',
-  },
-];
+/** Order on the CV: native first. The level itself is written out. */
+export const spokenLanguages = [{ id: 'turkish' }, { id: 'russian' }, { id: 'english' }];
 
 export const socials = [
-  { id: 'email', icon: 'Mail', href: `mailto:${profile.email}`, value: profile.email },
-  { id: 'linkedin', icon: 'Linkedin', href: profile.linkedin, value: profile.linkedinHandle },
-  { id: 'github', icon: 'Github', href: profile.github, value: profile.githubHandle },
-  { id: 'telegram', icon: 'Send', href: profile.telegram, value: profile.telegramHandle },
+  { id: 'email', href: `mailto:${profile.email}`, value: profile.email },
+  { id: 'telegram', href: profile.telegram, value: profile.telegramHandle },
+  { id: 'github', href: profile.github, value: profile.githubHandle },
+  { id: 'linkedin', href: profile.linkedin, value: profile.linkedinHandle },
 ];

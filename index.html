@@ -1,47 +1,44 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>Yahya Kayaal — Software Engineer &amp; AI Developer</title>
+    <title>Yahya Kayaal — Python Backend / LLM Applications</title>
     <meta
       name="description"
-      content="Portfolio of Yahya Kayaal (kayaal.is-a.dev) — backend software engineer and AI developer. Scalable services with Python and FastAPI, AI/NLP pipelines, cross-platform apps with Flutter, and embedded Linux systems. MSc in Artificial Intelligence at ITMO."
+      content="Yahya Kayaal — Python backend developer working on LLM applications. FastAPI services, PostgreSQL, Flutter apps, OpenAI API and LangChain integrations. MSc in Artificial Intelligence at ITMO University, St. Petersburg."
     />
     <meta name="author" content="Yahya Kayaal" />
 
-    <!-- Crawling, stated explicitly: this page is meant to be indexed and
-         followed. Leaving it implicit is how sites quietly stay invisible. -->
+    <!-- Stated explicitly: this page is meant to be indexed and followed. -->
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://kayaal.is-a.dev/" />
 
-    <meta name="theme-color" content="#060608" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#FAFAFC" media="(prefers-color-scheme: light)" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#f2f3f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121414" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kayaal.is-a.dev/" />
     <meta property="og:site_name" content="Yahya Kayaal" />
-    <meta property="og:title" content="Yahya Kayaal — Software Engineer &amp; AI Developer" />
+    <meta property="og:title" content="Yahya Kayaal — Python Backend / LLM Applications" />
     <meta
       property="og:description"
-      content="Backend engineering with Python and FastAPI, AI/NLP pipelines, Flutter apps and embedded Linux systems. Trained at VK and Yandex; MSc in AI at ITMO."
+      content="FastAPI services, LLM integrations, Flutter apps. MSc in Artificial Intelligence at ITMO; Software Engineering at Ural Federal University; internship at VK."
     />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="en" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Yahya Kayaal — Software Engineer &amp; AI Developer" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Yahya Kayaal — Python Backend / LLM Applications" />
     <meta
       name="twitter:description"
-      content="Backend engineering with Python and FastAPI, AI/NLP pipelines, Flutter apps and embedded Linux systems."
+      content="FastAPI services, LLM integrations, Flutter apps. MSc in Artificial Intelligence at ITMO University."
     />
 
-    <!-- Structured data: tells Google this is a person, and which one. It is
-         what powers a knowledge panel for a branded search like the name. -->
+    <!-- Structured data: tells Google this is a person, and which one. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -49,9 +46,11 @@
         "name": "Yahya Kayaal",
         "alternateName": "Кайаал Яхья",
         "url": "https://kayaal.is-a.dev/",
-        "jobTitle": "Software Engineer",
-        "description": "Backend software engineer and AI developer. Python, FastAPI, AI/NLP, Flutter and embedded Linux.",
+        "jobTitle": "Python Backend Developer",
+        "description": "Python backend developer working on LLM applications: FastAPI services, PostgreSQL, OpenAI API and LangChain integrations, Flutter apps.",
+        "email": "mailto:Yahyaeren34@yandex.ru",
         "knowsLanguage": ["tr", "ru", "en"],
+        "knowsAbout": ["Python", "FastAPI", "PostgreSQL", "Large language models", "Flutter"],
         "alumniOf": [
           { "@type": "CollegeOrUniversity", "name": "Ural Federal University" },
           { "@type": "CollegeOrUniversity", "name": "ITMO University" }
@@ -64,26 +63,27 @@
       }
     </script>
 
-    <!-- Fonts -->
+    <!-- Type: Literata for the name, IBM Plex Sans for text, JetBrains Mono
+         for the small capitals. All three carry Latin, Latin Extended and
+         Cyrillic, which the three languages of this page need. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..600&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Theme bootstrap: runs before first paint so there is no flash of the wrong theme.
-         Default is dark, per design intent. -->
+    <!-- Theme bootstrap: runs before first paint so there is no flash of the
+         wrong theme. Light is the default. -->
     <script>
       (function () {
         try {
           var stored = window.localStorage.getItem('yk-theme');
-          var theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
-          var root = document.documentElement;
-          root.classList.toggle('dark', theme === 'dark');
-          root.style.colorScheme = theme;
+          var theme = stored === 'dark' ? 'dark' : 'light';
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+          document.documentElement.style.colorScheme = theme;
         } catch (e) {
-          document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = 'light';
         }
       })();
     </script>
@@ -91,9 +91,13 @@
   <body>
     <div id="root"></div>
     <noscript>
-      <div style="padding: 48px; font-family: system-ui, sans-serif">
-        <h1>Yahya Kayaal — Software Engineer</h1>
-        <p>This portfolio needs JavaScript enabled. Reach me at Yahyaeren34@yandex.ru.</p>
+      <div style="padding: 48px; font-family: Georgia, serif">
+        <h1>Yahya Kayaal — Python Backend / LLM Applications</h1>
+        <p>
+          This page needs JavaScript. Reach me at
+          <a href="mailto:Yahyaeren34@yandex.ru">Yahyaeren34@yandex.ru</a> or
+          <a href="https://t.me/kayaal34">@kayaal34</a>.
+        </p>
       </div>
     </noscript>
     <script type="module" src="/src/main.jsx"></script>

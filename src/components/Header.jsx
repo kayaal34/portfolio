@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
-import { contactPath, sectionIds } from '../data/profile';
+import { contactPath } from '../data/profile';
 import { LANGUAGES, useI18n } from '../i18n';
-import { useActiveSection } from '../hooks/useActiveSection';
 
 /**
- * A single quiet line at the top: name, sections, contact, language, theme.
- * The hairline under it appears only once the page has been scrolled, so the
- * header is invisible against the opening and defined against the text.
+ * A single quiet line at the top: name on the left; contact, language and
+ * theme on the right. The chapter navigation lives on the right edge of the
+ * page instead (see Rail.jsx), so this bar carries only what every page needs.
+ *
+ * The hairline under it appears once the page has been scrolled, and fills in
+ * left to right as you read.
  */
 export function Header({ isDark, onToggleTheme }) {
   const { t, language, setLanguage } = useI18n();
   const { pathname } = useLocation();
-  const isHome = pathname === '/';
-  const activeSection = useActiveSection(sectionIds);
+  const onContact = pathname === contactPath;
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -24,8 +25,6 @@ export function Header({ isDark, onToggleTheme }) {
       const scrollable = doc.scrollHeight - doc.clientHeight;
 
       setScrolled(doc.scrollTop > 24);
-      // How far through the page you are, drawn along the header's own
-      // hairline — a reading indicator rather than a bar bolted on top.
       setProgress(scrollable > 40 ? Math.min(doc.scrollTop / scrollable, 1) : 0);
     };
 
@@ -49,44 +48,25 @@ export function Header({ isDark, onToggleTheme }) {
         className="pointer-events-none absolute inset-x-0 -bottom-px h-px origin-left bg-accent/55"
         style={{ transform: `scaleX(${progress})` }}
       />
+
       <div className="shell flex h-14 items-center justify-between gap-4">
         <Link to="/" className="label !tracking-[0.16em] text-ink transition-colors hover:text-accent">
           {t.name.full}
         </Link>
 
-        <nav aria-label={t.a11y.primaryNav} className="hidden items-center gap-6 md:flex">
-          {sectionIds.map((id) => {
-            const active = isHome && activeSection === id;
-            const className = `text-[0.8125rem] transition-colors hover:text-ink ${
-              active ? 'text-ink' : 'text-muted'
-            }`;
-
-            // On the home page these are plain anchors, so the browser keeps
-            // its own smooth scrolling; from the contact page they have to go
-            // through the router first.
-            return isHome ? (
-              <a key={id} href={`#${id}`} aria-current={active ? 'true' : undefined} className={className}>
-                {t.nav[id]}
-              </a>
-            ) : (
-              <Link key={id} to={`/#${id}`} className={className}>
-                {t.nav[id]}
-              </Link>
-            );
-          })}
-
+        <div className="flex items-center gap-5">
           <Link
             to={contactPath}
-            aria-current={!isHome ? 'page' : undefined}
+            aria-current={onContact ? 'page' : undefined}
             className={`text-[0.8125rem] transition-colors hover:text-ink ${
-              isHome ? 'text-muted' : 'text-ink'
+              onContact ? 'text-ink' : 'text-muted'
             }`}
           >
             {t.nav.contact}
           </Link>
-        </nav>
 
-        <div className="flex items-center gap-3">
+          <span aria-hidden="true" className="h-3.5 w-px bg-line-soft" />
+
           <div
             role="group"
             aria-label={t.a11y.chooseLanguage}

@@ -8,21 +8,17 @@ export default {
   htmlLang: 'en',
 
   meta: {
-    title: 'Yahya Kayaal — Freelance Developer',
+    title: 'Yahya Kayaal — Full Stack Developer & LLM Engineer',
     description:
-      'Yahya Kayaal — freelance developer. Websites, mobile apps and the backends behind them: React, Flutter, Python and FastAPI. Based in St. Petersburg, working remotely. MSc in Artificial Intelligence at ITMO University.',
+      'Yahya Kayaal — freelance full stack developer and LLM engineer. Websites, mobile apps and LLM systems: React, Flutter, Python, FastAPI, OpenAI API and LangChain. MSc in Artificial Intelligence at ITMO University, St. Petersburg.',
   },
 
   name: { full: 'Yahya Kayaal', first: 'Yahya', last: 'Kayaal', monogram: 'YK' },
-  role: 'Freelance developer',
+  roles: ['Full Stack Developer', 'LLM Engineer'],
   location: 'St. Petersburg / Istanbul',
   present: 'Present',
 
   nav: {
-    experience: 'Experience',
-    projects: 'Work',
-    education: 'Education',
-    skills: 'Skills',
     contact: 'Contact',
   },
 
@@ -80,6 +76,7 @@ export default {
 
   projects: {
     repo: 'Repository',
+    count: '{n} projects',
     inProgress: 'in progress',
     flipru: {
       summary: 'Turkish and Russian vocabulary app',

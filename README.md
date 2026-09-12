@@ -55,31 +55,39 @@ src/
 │   │                       <title> / meta senkronizasyonu
 │   └── locales/            en.js · tr.js · ru.js
 ├── hooks/
-│   ├── useTheme.js         Açık/koyu tema + localStorage
-│   └── useActiveSection.js Header'daki aktif bölüm takibi
+│   └── useTheme.js         Açık/koyu tema + localStorage
 ├── components/
 │   ├── Intro.jsx           Açılış: kayaal.is-a.dev yerine oturur, bekler,
 │   │                       katman sayfanın üstünde erir (tamamı CSS)
-│   ├── Header.jsx          Üst satır: isim, bölüm linkleri, iletişim, dil, tema
-│   ├── Section.jsx         Sayfanın tek yerleşimi: sol etiket + sağ içerik,
-│   │                       ve tek bir CV satırını basan <Entry>
+│   ├── Header.jsx          Üst satır: isim; sağda iletişim, dil, tema
+│   ├── Rail.jsx            Sağ kenardaki bölüm navigasyonu (≥1440px)
+│   ├── Chapter.jsx         Açılır bölüm: basınca başlık büyür, ekran açılır
+│   ├── Entry.jsx           Tek bir CV satırı (deneyim, proje, eğitim)
 │   ├── Reveal.jsx          Görünüme girince bir kez soluk geçiş
 │   └── Footer.jsx
 ├── pages/
-│   ├── Home.jsx            Ana sayfa: tüm bölümler sırayla
+│   ├── Home.jsx            Ana sayfa: hero + dört bölüm; hangisinin açık
+│   │                       olduğu ve kaydırma burada
 │   └── ContactPage.jsx     /contact: kanallar + çalışan form
-└── sections/               Hero · Experience · Projects · Education ·
-                            Skills · Extras (sertifika/dil/ilgi)
+└── sections/               Bölümlerin içeriği: Hero · Experience · Projects ·
+                            Education · Skills (sertifika/dil/ilgi dahil)
 ```
 
 ---
 
 ## Tasarım kararları
 
-- **Tek yerleşim.** Her bölüm `Section` üzerinden basılır: solda mono küçük
-  etiket, sağda içerik. Sayfadaki hizalama bundan gelir; bölüme özel yerleşim yok.
-  Geniş ekranda etiket kendi bölümü kayarken sabit durur (`position: sticky`) —
-  sayfa tek uzun kolon değil, bölüm bölüm okunuyor.
+- **Bölümler, uzun bir kolon değil.** Ana sayfa bir içindekiler gibi: Deneyim,
+  Projeler, Eğitim, Yetkinlikler. Aynı anda tek bölüm açık (varsayılan Deneyim).
+  Başlığa ya da sağ kenardaki navigasyona basınca başlık büyür (32→52px), içerik
+  açılır ve sayfa bölümü üst çubuğun hemen altına getirir. Açık bölüm en az bir
+  ekran boyudur — "bir ekran açılıyor" hissi bundan.
+  Bir bölüm diğerinin yerini alırken eskisi animasyonsuz kapanır; aksi hâlde
+  kaydırma hâlâ hareket eden bir sayfada yanlış yere iner
+  ([`Home.jsx`](src/pages/Home.jsx), [`Chapter.jsx`](src/components/Chapter.jsx)).
+- **Sağ kenar navigasyonu** 1440px ve üstünde görünür; en uzun etiket (Rusça
+  "Избранные проекты") o genişlikte içerikle çakışmıyor. Daha dar ekranda
+  bölüm başlıklarının kendisi navigasyon.
 - **Okuma göstergesi.** Üst çubuğun kendi saç teli çizgisi, sayfada ne kadar
   ilerlediğinize göre soldan sağa doluyor ([`Header.jsx`](src/components/Header.jsx)).
   Ayrı bir ilerleme çubuğu eklenmedi; zaten orada olan çizgi kullanıldı.

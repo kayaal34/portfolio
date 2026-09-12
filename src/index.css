@@ -195,6 +195,33 @@
     color: var(--c-bg);
   }
 
+  /* The primary link on the page: text, an arrow, and a rule that darkens
+     under it. Deliberately not a box — nothing else on the page is one. */
+  .cta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--c-line);
+    font-size: 1rem;
+    color: var(--c-ink);
+    transition: border-color 0.3s ease;
+  }
+  .cta:hover {
+    border-color: var(--c-ink);
+  }
+  .cta-arrow {
+    display: inline-block;
+    color: var(--c-muted);
+    transition:
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.3s ease;
+  }
+  .cta:hover .cta-arrow {
+    transform: translateX(4px);
+    color: var(--c-ink);
+  }
+
   .field {
     width: 100%;
     background: transparent;

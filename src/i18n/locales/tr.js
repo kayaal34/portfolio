@@ -7,21 +7,17 @@ export default {
   htmlLang: 'tr',
 
   meta: {
-    title: 'Yahya Kayaal — Serbest Yazılım Geliştirici',
+    title: 'Yahya Kayaal — Full Stack Geliştirici ve LLM Mühendisi',
     description:
-      'Yahya Kayaal — serbest yazılım geliştirici. Web siteleri, mobil uygulamalar ve arkalarındaki backend: React, Flutter, Python ve FastAPI. St. Petersburg merkezli, uzaktan çalışıyor. ITMO Üniversitesi’nde Yapay Zekâ yüksek lisansı.',
+      'Yahya Kayaal — serbest çalışan full stack geliştirici ve LLM mühendisi. Web siteleri, mobil uygulamalar ve LLM sistemleri: React, Flutter, Python, FastAPI, OpenAI API ve LangChain. ITMO Üniversitesi’nde Yapay Zekâ yüksek lisansı, St. Petersburg.',
   },
 
   name: { full: 'Yahya Kayaal', first: 'Yahya', last: 'Kayaal', monogram: 'YK' },
-  role: 'Serbest yazılım geliştirici',
+  roles: ['Full Stack Geliştirici', 'LLM Mühendisi'],
   location: 'St. Petersburg / İstanbul',
   present: 'devam ediyor',
 
   nav: {
-    experience: 'Deneyim',
-    projects: 'Projeler',
-    education: 'Eğitim',
-    skills: 'Yetkinlikler',
     contact: 'İletişim',
   },
 
@@ -79,6 +75,7 @@ export default {
 
   projects: {
     repo: 'Depo',
+    count: '{n} proje',
     inProgress: 'geliştiriliyor',
     flipru: {
       summary: 'Türkçe ve Rusça kelime uygulaması',

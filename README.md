@@ -58,8 +58,8 @@ src/
 │   ├── useTheme.js         Açık/koyu tema + localStorage
 │   └── useActiveSection.js Header'daki aktif bölüm takibi
 ├── components/
-│   ├── Intro.jsx           Açılış: kayaal.is-a.dev harf harf gelir, gider,
-│   │                       altı panel perdeyi kaldırır (tamamı CSS)
+│   ├── Intro.jsx           Açılış: kayaal.is-a.dev yerine oturur, bekler,
+│   │                       katman sayfanın üstünde erir (tamamı CSS)
 │   ├── Header.jsx          Üst satır: isim, bölüm linkleri, iletişim, dil, tema
 │   ├── Section.jsx         Sayfanın tek yerleşimi: sol etiket + sağ içerik,
 │   │                       ve tek bir CV satırını basan <Entry>
@@ -78,14 +78,19 @@ src/
 
 - **Tek yerleşim.** Her bölüm `Section` üzerinden basılır: solda mono küçük
   etiket, sağda içerik. Sayfadaki hizalama bundan gelir; bölüme özel yerleşim yok.
+  Geniş ekranda etiket kendi bölümü kayarken sabit durur (`position: sticky`) —
+  sayfa tek uzun kolon değil, bölüm bölüm okunuyor.
+- **Okuma göstergesi.** Üst çubuğun kendi saç teli çizgisi, sayfada ne kadar
+  ilerlediğinize göre soldan sağa doluyor ([`Header.jsx`](src/components/Header.jsx)).
+  Ayrı bir ilerleme çubuğu eklenmedi; zaten orada olan çizgi kullanıldı.
 - **Palet.** Renkler [`src/index.css`](src/index.css) başındaki `:root` (açık) ve
   `.dark` bloklarında. Nötrler hafif yeşil-mavi eğilimli soğuk gri; tek vurgu rengi
   `--c-accent` (koyu petrol) yalnızca bağlantı, odak halkası ve form hatasında kullanılır.
 - **Tipografi.** Literata (yalnızca isim) · IBM Plex Sans (gövde) · JetBrains Mono
   (etiketler, tarihler). Üçünün de Kiril desteği var — Rusça sürüm bunu gerektiriyor.
-- **Hareket.** İki yerde: açılış perdesi ve içerik göründüğünde bir kez 8px +
-  soluk geçiş. Ekranda zaten görünen içerik ilk boyamada tam görünür.
-  "Hareketi azalt" ayarı açıkken açılış aynı üç vuruşu yalnızca opaklıkla
+- **Hareket.** İki yerde: açılış (adres yerine oturur, katman erir — ~1,9 s) ve
+  içerik göründüğünde bir kez 8px + soluk geçiş. Ekranda zaten görünen içerik ilk
+  boyamada tam görünür. "Hareketi azalt" ayarı açıkken açılış yalnızca solarak
   oynar, geri kalan hareket kapanır.
 - **Varsayılan tema açık.** Seçim `localStorage`'da `yk-theme` anahtarında saklanır ve
   `index.html` içindeki küçük script ile ilk boyamadan önce uygulanır.

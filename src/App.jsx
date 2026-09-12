@@ -1,16 +1,56 @@
+import { useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+
+import { contactPath } from './data/profile';
 import { I18nProvider, useI18n } from './i18n';
 import { useTheme } from './hooks/useTheme';
 
+import { Intro } from './components/Intro';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
-import { Hero } from './sections/Hero';
-import { Experience } from './sections/Experience';
-import { Projects } from './sections/Projects';
-import { Education } from './sections/Education';
-import { Skills } from './sections/Skills';
-import { Extras } from './sections/Extras';
-import { Contact } from './sections/Contact';
+import { Home } from './pages/Home';
+import { ContactPage } from './pages/ContactPage';
+
+const SITE_URL = 'https://kayaal.is-a.dev';
+
+/**
+ * Per-route housekeeping: land where the visitor asked to land, and keep the
+ * canonical URL pointing at the page actually being shown — without the
+ * second part every route claims to be the home page and search engines
+ * drop /contact as a duplicate.
+ */
+function RouteEffects() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      // Arriving from another page with /#projects: scroll to that section.
+      const target = document.getElementById(hash.slice(1));
+      if (target) {
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+
+  useEffect(() => {
+    const href = `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = href;
+
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', href);
+  }, [pathname]);
+
+  return null;
+}
 
 function Site() {
   const { t, fading } = useI18n();
@@ -20,10 +60,15 @@ function Site() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-bg"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-bg"
       >
         {t.a11y.skip}
       </a>
+
+      {/* Above the routes, so it plays once per visit rather than on every
+          navigation. */}
+      <Intro />
+      <RouteEffects />
 
       {/*
         Changing language cross-fades the document rather than remounting it:
@@ -39,13 +84,12 @@ function Site() {
         <Header isDark={isDark} onToggleTheme={toggleTheme} />
 
         <main id="main">
-          <Hero />
-          <Experience />
-          <Projects />
-          <Education />
-          <Skills />
-          <Extras />
-          <Contact />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path={contactPath} element={<ContactPage />} />
+            {/* Unknown URL: home, rather than a dead end. */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </main>
 
         <Footer />

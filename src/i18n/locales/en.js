@@ -8,13 +8,13 @@ export default {
   htmlLang: 'en',
 
   meta: {
-    title: 'Yahya Kayaal — Python Backend / LLM Applications',
+    title: 'Yahya Kayaal — Freelance Developer',
     description:
-      'Yahya Kayaal — Python backend developer working on LLM applications. FastAPI services, PostgreSQL, Flutter apps, OpenAI API and LangChain integrations. MSc in Artificial Intelligence at ITMO University, St. Petersburg.',
+      'Yahya Kayaal — freelance developer. Websites, mobile apps and the backends behind them: React, Flutter, Python and FastAPI. Based in St. Petersburg, working remotely. MSc in Artificial Intelligence at ITMO University.',
   },
 
   name: { full: 'Yahya Kayaal', first: 'Yahya', last: 'Kayaal', monogram: 'YK' },
-  role: 'Python Backend / LLM Applications',
+  role: 'Freelance developer',
   location: 'St. Petersburg / Istanbul',
   present: 'Present',
 
@@ -28,6 +28,7 @@ export default {
 
   a11y: {
     skip: 'Skip to content',
+    primaryNav: 'Primary',
     language: 'Language',
     chooseLanguage: 'Choose a language',
     toLightMode: 'Switch to light mode',
@@ -38,12 +39,8 @@ export default {
   },
 
   hero: {
-    lede: [
-      'I build backends in Python and the part of a product that talks to a model: FastAPI services, the data underneath them, and LLM integrations whose cost per request stays predictable.',
-      'Currently reading for an MSc in Artificial Intelligence at ITMO University in St. Petersburg. Before that, Software Engineering at Ural Federal University — five years studying in Russian on a Russian Government scholarship — an internship at VK, and freelance work: booking and portfolio sites with admin panels their owners run themselves.',
-    ],
-    resume: 'Curriculum vitae (PDF)',
-    email: 'Write to me',
+    lede: 'Websites, mobile apps and the backends behind them — built end to end.',
+    cta: 'Get in touch',
   },
 
   sections: {
@@ -191,7 +188,8 @@ export default {
   },
 
   contact: {
-    lede: 'Open to backend and LLM work, in Russia or remote. The quickest way to reach me is email or Telegram; the form below arrives in the same inbox.',
+    title: 'Get in touch',
+    lede: 'Tell me what you need built — a site, an app, or a piece of one — and I will come back with a scope and a price. Email or Telegram is quickest; the form below reaches the same inbox.',
     labels: {
       email: 'Email',
       telegram: 'Telegram',

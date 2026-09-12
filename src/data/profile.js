@@ -17,15 +17,15 @@ export const profile = {
   site: 'kayaal.is-a.dev',
 };
 
-/** The CV itself, per language — same documents that this page is built from. */
-export const resumeFiles = {
-  en: '/Kayaal_Yahya_Resume_EN.pdf',
-  ru: '/Kayaal_Yahya_Resume_RU.pdf',
-  tr: '/Kayaal_Yahya_Resume_EN.pdf',
-};
+/**
+ * Scroll anchors on the home page, in the order they appear. Contact is not
+ * among them — it is its own page, because the people who fill in a form
+ * arrive looking for it rather than scrolling into it.
+ */
+export const sectionIds = ['experience', 'projects', 'education', 'skills'];
 
-/** Scroll anchors, in the order they appear. */
-export const sectionIds = ['experience', 'projects', 'education', 'skills', 'contact'];
+/** The contact page lives at its own URL. */
+export const contactPath = '/contact';
 
 /**
  * Newest first. `current` appends the localised "present" word to the period

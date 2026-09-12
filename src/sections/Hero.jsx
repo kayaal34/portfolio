@@ -1,13 +1,14 @@
-import { profile, resumeFiles, socials } from '../data/profile';
+import { Link } from 'react-router-dom';
+import { contactPath, socials } from '../data/profile';
 import { useI18n } from '../i18n';
 import { Reveal } from '../components/Reveal';
 
 /**
- * The opening: who, what, where — then two paragraphs and the ways to
- * reach me. No slogan, no animated headline; the name is the headline.
+ * The opening: who, where, one sentence about the work, and the ways to
+ * reach me. No slogan and no animated headline — the name is the headline.
  */
 export function Hero() {
-  const { t, language } = useI18n();
+  const { t } = useI18n();
 
   return (
     <section id="top" className="shell pt-24 pb-14 md:pt-32 md:pb-20">
@@ -25,24 +26,17 @@ export function Hero() {
         {t.name.full}
       </Reveal>
 
-      <div className="measure mt-8 space-y-4 text-[0.9375rem] leading-relaxed text-ink-soft">
-        {t.hero.lede.map((paragraph, index) => (
-          <Reveal as="p" key={paragraph.slice(0, 24)} delay={120 + index * 60}>
-            {paragraph}
-          </Reveal>
-        ))}
-      </div>
-
-      <Reveal delay={240} className="mt-9 flex flex-wrap items-center gap-3">
-        <a className="btn" href={resumeFiles[language]} download>
-          {t.hero.resume}
-        </a>
-        <a className="btn" href={`mailto:${profile.email}`}>
-          {t.hero.email}
-        </a>
+      <Reveal as="p" delay={120} className="measure mt-7 text-[1rem] leading-relaxed text-ink-soft">
+        {t.hero.lede}
       </Reveal>
 
-      <Reveal delay={300} className="mt-7 flex flex-wrap gap-x-6 gap-y-2">
+      <Reveal delay={180} className="mt-8">
+        <Link className="btn" to={contactPath}>
+          {t.hero.cta}
+        </Link>
+      </Reveal>
+
+      <Reveal delay={240} className="mt-7 flex flex-wrap gap-x-6 gap-y-2">
         {socials
           .filter((item) => item.id !== 'email')
           .map((item) => (
@@ -51,7 +45,7 @@ export function Hero() {
               href={item.href}
               target="_blank"
               rel="noreferrer"
-              className="label hover:text-ink transition-colors"
+              className="label transition-colors hover:text-ink"
             >
               {item.value}
             </a>

@@ -1,8 +1,8 @@
 # Yahya Kayaal — CV sitesi
 
-`kayaal.is-a.dev` — tek sayfa, üç dilli (English · Türkçe · Русский) özgeçmiş sitesi.
-Sayfadaki her bilgi, depodaki CV'lerden (`public/Kayaal_Yahya_Resume_EN.pdf` ve
-`_RU.pdf`) alınmıştır; uydurma metin yoktur.
+`kayaal.is-a.dev` — iki sayfa, üç dilli (English · Türkçe · Русский) serbest
+çalışma sitesi: ana sayfada iş geçmişi, `/contact` sayfasında iletişim formu.
+Sayfadaki her bilgi Eylül 2026 CV'sinden alınmıştır; uydurma metin yoktur.
 
 **Stack:** React 18 · Vite 6 · Tailwind CSS 4 · lucide-react
 
@@ -24,19 +24,19 @@ npm run build
 
 ---
 
-## CV'yi güncellemek
+## İçeriği güncellemek
 
 CV değiştiğinde yapılacaklar, sırayla:
 
-1. Yeni PDF'leri `public/Kayaal_Yahya_Resume_EN.pdf` ve `..._RU.pdf` olarak değiştirin —
-   hero'daki "Özgeçmiş (PDF)" düğmesi bu dosyaları indirir, dil seçimine göre.
-2. Tarihler, bağlantılar, teknoloji adları ve hangi girdinin listede olduğu
+1. Tarihler, bağlantılar, teknoloji adları ve hangi girdinin listede olduğu
    [`src/data/profile.js`](src/data/profile.js) içindedir.
-3. Cümlelerin kendisi üç dil dosyasında durur ve **üçü de aynı anahtar yapısına** sahiptir:
+2. Cümlelerin kendisi üç dil dosyasında durur ve **üçü de aynı anahtar yapısına** sahiptir:
    [`en.js`](src/i18n/locales/en.js) · [`tr.js`](src/i18n/locales/tr.js) ·
    [`ru.js`](src/i18n/locales/ru.js). Bir girdi eklerken `profile.js` içindeki `id` ile
    üç dosyadaki anahtar aynı olmalı.
-4. Son güncelleme tarihi (footer) `footer.updated` anahtarındadır.
+3. Son güncelleme tarihi (footer) `footer.updated` anahtarındadır.
+
+Sitede CV indirme düğmesi yoktur — PDF yerine sayfanın kendisi özgeçmiş.
 
 ---
 
@@ -44,12 +44,12 @@ CV değiştiğinde yapılacaklar, sırayla:
 
 ```
 src/
-├── App.jsx                 Sayfa iskeleti: header, bölümler, footer
-├── main.jsx                React giriş noktası
+├── App.jsx                 Rotalar (/ ve /contact) + ortak yerleşim
+├── main.jsx                React giriş noktası; router seçimi burada
 ├── index.css               Tasarım sistemi: renk değişkenleri, tipografi,
 │                           .label / .btn / .field / .reveal yardımcıları
 ├── data/profile.js         DİLDEN BAĞIMSIZ VERİ — linkler, tarihler, teknoloji
-│                           adları, bölüm sırası, CV dosya yolları
+│                           adları, bölüm sırası, rota yolu
 ├── i18n/
 │   ├── index.jsx           Dil context'i: algılama, kalıcılık, <html lang> /
 │   │                       <title> / meta senkronizasyonu
@@ -58,13 +58,18 @@ src/
 │   ├── useTheme.js         Açık/koyu tema + localStorage
 │   └── useActiveSection.js Header'daki aktif bölüm takibi
 ├── components/
-│   ├── Header.jsx          Üst satır: isim, bölüm linkleri, dil, tema
+│   ├── Intro.jsx           Açılış: kayaal.is-a.dev harf harf gelir, gider,
+│   │                       altı panel perdeyi kaldırır (tamamı CSS)
+│   ├── Header.jsx          Üst satır: isim, bölüm linkleri, iletişim, dil, tema
 │   ├── Section.jsx         Sayfanın tek yerleşimi: sol etiket + sağ içerik,
 │   │                       ve tek bir CV satırını basan <Entry>
 │   ├── Reveal.jsx          Görünüme girince bir kez soluk geçiş
 │   └── Footer.jsx
-└── sections/               Hero · Experience · Projects · Education · Skills ·
-                            Extras (sertifika/dil/ilgi) · Contact
+├── pages/
+│   ├── Home.jsx            Ana sayfa: tüm bölümler sırayla
+│   └── ContactPage.jsx     /contact: kanallar + çalışan form
+└── sections/               Hero · Experience · Projects · Education ·
+                            Skills · Extras (sertifika/dil/ilgi)
 ```
 
 ---
@@ -78,9 +83,10 @@ src/
   `--c-accent` (koyu petrol) yalnızca bağlantı, odak halkası ve form hatasında kullanılır.
 - **Tipografi.** Literata (yalnızca isim) · IBM Plex Sans (gövde) · JetBrains Mono
   (etiketler, tarihler). Üçünün de Kiril desteği var — Rusça sürüm bunu gerektiriyor.
-- **Hareket.** Tek animasyon: içerik göründüğünde 8px + soluk geçiş, bir kez.
-  Ekranda zaten görünen içerik ilk boyamada tam görünür. "Hareketi azalt" ayarı
-  açıkken hiç hareket olmaz.
+- **Hareket.** İki yerde: açılış perdesi ve içerik göründüğünde bir kez 8px +
+  soluk geçiş. Ekranda zaten görünen içerik ilk boyamada tam görünür.
+  "Hareketi azalt" ayarı açıkken açılış aynı üç vuruşu yalnızca opaklıkla
+  oynar, geri kalan hareket kapanır.
 - **Varsayılan tema açık.** Seçim `localStorage`'da `yk-theme` anahtarında saklanır ve
   `index.html` içindeki küçük script ile ilk boyamadan önce uygulanır.
 
@@ -105,7 +111,7 @@ uygulamasında hazır açılır. Web3Forms anahtarları herkese açık olacak ş
 tasarlanmıştır (tek yönlü, yalnızca yazma, hız sınırlı) — derlenmiş JavaScript'te
 görünmesi normaldir. Servisi değiştirmek isterseniz tek dokunacağınız yer
 [`src/config/contactForm.js`](src/config/contactForm.js) ve
-[`src/sections/Contact.jsx`](src/sections/Contact.jsx) içindeki `handleSubmit`.
+[`src/pages/ContactPage.jsx`](src/pages/ContactPage.jsx) içindeki `handleSubmit`.
 
 **Canlıda:** Vercel panelinde aynı değişkeni (`VITE_WEB3FORMS_KEY`) ekleyip yeniden
 deploy edin. Vite `VITE_` ile başlayan değişkenleri derleme anında koda gömer.
@@ -117,9 +123,11 @@ deploy edin. Vite `VITE_` ile başlayan değişkenleri derleme anında koda göm
 `git push` → Vercel otomatik derler ve `kayaal.is-a.dev` güncellenir.
 Build komutu `npm run build`, çıktı klasörü `dist`.
 
-Site artık tek sayfa olduğu için SPA fallback kuralına gerek yok;
-[`vercel.json`](vercel.json) yalnızca eski `/contact` adresini `/#contact`
-bölümüne kalıcı olarak yönlendirir.
+`/contact` istemci tarafında bir rota olduğu için sunucunun **her URL'e
+`index.html` döndürmesi** gerekir; Vercel kuralı depoda hazır:
+[`vercel.json`](vercel.json). Başka bir sunucuda aynı "SPA fallback" ayarını
+yapın — ya da rewrite yazamadığınız bir yere (paylaşımlı önizleme gibi)
+koyacaksanız `VITE_HASH_ROUTER=true npm run build` ile hash rotalı derleyin.
 
 ---
 
@@ -132,5 +140,5 @@ bölümüne kalıcı olarak yönlendirir.
 - Subscription Hunter'ın Google Play bağlantısı bilinçli olarak verilmedi:
   mağaza sayfası herkese açık olmadığı sürece bağlantı 404 döner. Yayına
   çıktığında `profile.js` içindeki girdiye `store` alanı eklenebilir.
-- Telefon numarası siteye konmadı; CV PDF'inde var. İstenirse
-  `src/data/profile.js` ve iletişim bölümüne eklenebilir.
+- Telefon numarası siteye konmadı; CV'de var. İstenirse `src/data/profile.js`
+  içindeki `socials` dizisine eklenebilir.

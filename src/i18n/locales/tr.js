@@ -7,13 +7,13 @@ export default {
   htmlLang: 'tr',
 
   meta: {
-    title: 'Yahya Kayaal — Python Backend / LLM Uygulamaları',
+    title: 'Yahya Kayaal — Serbest Yazılım Geliştirici',
     description:
-      'Yahya Kayaal — Python backend geliştiricisi, LLM uygulamaları. FastAPI servisleri, PostgreSQL, Flutter uygulamaları, OpenAI API ve LangChain entegrasyonları. ITMO Üniversitesi’nde Yapay Zekâ yüksek lisansı, St. Petersburg.',
+      'Yahya Kayaal — serbest yazılım geliştirici. Web siteleri, mobil uygulamalar ve arkalarındaki backend: React, Flutter, Python ve FastAPI. St. Petersburg merkezli, uzaktan çalışıyor. ITMO Üniversitesi’nde Yapay Zekâ yüksek lisansı.',
   },
 
   name: { full: 'Yahya Kayaal', first: 'Yahya', last: 'Kayaal', monogram: 'YK' },
-  role: 'Python Backend / LLM Uygulamaları',
+  role: 'Serbest yazılım geliştirici',
   location: 'St. Petersburg / İstanbul',
   present: 'devam ediyor',
 
@@ -27,6 +27,7 @@ export default {
 
   a11y: {
     skip: 'İçeriğe geç',
+    primaryNav: 'Ana menü',
     language: 'Dil',
     chooseLanguage: 'Dil seçin',
     toLightMode: 'Açık temaya geç',
@@ -37,12 +38,8 @@ export default {
   },
 
   hero: {
-    lede: [
-      'Python ile backend yazıyorum ve ürünün modelle konuşan tarafını kuruyorum: FastAPI servisleri, altındaki veri ve istek başına maliyeti öngörülebilir kalan LLM entegrasyonları.',
-      'Şu anda St. Petersburg’da ITMO Üniversitesi’nde Yapay Zekâ yüksek lisansı yapıyorum. Öncesinde Ural Federal Üniversitesi’nde Yazılım Mühendisliği — Rusya Devlet bursuyla beş yıl Rusça eğitim —, VK’de staj ve serbest çalışma: sahiplerinin kendi yönettiği panellerle randevu ve portfolyo siteleri.',
-    ],
-    resume: 'Özgeçmiş (PDF)',
-    email: 'Bana yazın',
+    lede: 'Web siteleri, mobil uygulamalar ve arkalarındaki backend — baştan sona.',
+    cta: 'İletişime geçin',
   },
 
   sections: {
@@ -190,7 +187,8 @@ export default {
   },
 
   contact: {
-    lede: 'Backend ve LLM işlerine açığım — Rusya’da ya da uzaktan. En hızlısı e-posta veya Telegram; aşağıdaki form da aynı adrese düşüyor.',
+    title: 'İletişime geçin',
+    lede: 'Neye ihtiyacınız olduğunu yazın — bir site, bir uygulama ya da onun bir parçası; kapsam ve fiyatla dönerim. En hızlısı e-posta veya Telegram; aşağıdaki form da aynı adrese düşüyor.',
     labels: {
       email: 'E-posta',
       telegram: 'Telegram',

@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
-import { sectionIds } from '../data/profile';
+import { contactPath, sectionIds } from '../data/profile';
 import { LANGUAGES, useI18n } from '../i18n';
 import { useActiveSection } from '../hooks/useActiveSection';
 
 /**
- * A single quiet line at the top: name, section links, language, theme.
- * The hairline under it appears only once the page has been scrolled, so
- * the header is invisible against the hero and defined against the text.
+ * A single quiet line at the top: name, sections, contact, language, theme.
+ * The hairline under it appears only once the page has been scrolled, so the
+ * header is invisible against the opening and defined against the text.
  */
 export function Header({ isDark, onToggleTheme }) {
   const { t, language, setLanguage } = useI18n();
-  const active = useActiveSection(sectionIds);
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const activeSection = useActiveSection(sectionIds);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -28,26 +31,40 @@ export function Header({ isDark, onToggleTheme }) {
       }`}
     >
       <div className="shell flex h-14 items-center justify-between gap-4">
-        <a
-          href="#top"
-          className="label !tracking-[0.16em] text-ink transition-colors hover:text-accent"
-        >
+        <Link to="/" className="label !tracking-[0.16em] text-ink transition-colors hover:text-accent">
           {t.name.full}
-        </a>
+        </Link>
 
-        <nav aria-label={t.sections.experience} className="hidden items-center gap-6 md:flex">
-          {sectionIds.map((id) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              aria-current={active === id ? 'true' : undefined}
-              className={`text-[0.8125rem] transition-colors hover:text-ink ${
-                active === id ? 'text-ink' : 'text-muted'
-              }`}
-            >
-              {t.nav[id]}
-            </a>
-          ))}
+        <nav aria-label={t.a11y.primaryNav} className="hidden items-center gap-6 md:flex">
+          {sectionIds.map((id) => {
+            const active = isHome && activeSection === id;
+            const className = `text-[0.8125rem] transition-colors hover:text-ink ${
+              active ? 'text-ink' : 'text-muted'
+            }`;
+
+            // On the home page these are plain anchors, so the browser keeps
+            // its own smooth scrolling; from the contact page they have to go
+            // through the router first.
+            return isHome ? (
+              <a key={id} href={`#${id}`} aria-current={active ? 'true' : undefined} className={className}>
+                {t.nav[id]}
+              </a>
+            ) : (
+              <Link key={id} to={`/#${id}`} className={className}>
+                {t.nav[id]}
+              </Link>
+            );
+          })}
+
+          <Link
+            to={contactPath}
+            aria-current={!isHome ? 'page' : undefined}
+            className={`text-[0.8125rem] transition-colors hover:text-ink ${
+              isHome ? 'text-muted' : 'text-ink'
+            }`}
+          >
+            {t.nav.contact}
+          </Link>
         </nav>
 
         <div className="flex items-center gap-3">

@@ -47,21 +47,21 @@ export function Hero() {
         </Link>
       </Reveal>
 
+      {/* The ways to reach me live here, not on the contact page — that page
+          is for the visitor to write; this is where they find me. */}
       <Reveal delay={240} className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-        {socials
-          .filter((item) => item.id !== 'email')
-          .map((item) => (
-            <a
-              key={item.id}
-              lang="en"
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              className="label transition-colors hover:text-ink"
-            >
-              {item.value}
-            </a>
-          ))}
+        {socials.map((item) => (
+          <a
+            key={item.id}
+            lang="en"
+            href={item.href}
+            target={item.id === 'email' ? undefined : '_blank'}
+            rel="noreferrer"
+            className="label transition-colors hover:text-ink"
+          >
+            {item.value}
+          </a>
+        ))}
       </Reveal>
     </section>
   );

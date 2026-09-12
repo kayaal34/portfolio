@@ -10,8 +10,6 @@ export const profile = {
   email: 'Yahyaeren34@yandex.ru',
   github: 'https://github.com/kayaal34',
   githubHandle: 'github.com/kayaal34',
-  linkedin: 'https://www.linkedin.com/in/yahya-kayaal',
-  linkedinHandle: 'linkedin.com/in/yahya-kayaal',
   telegram: 'https://t.me/kayaal34',
   telegramHandle: '@kayaal34',
   site: 'kayaal.is-a.dev',
@@ -161,9 +159,9 @@ export const certifications = [
 /** Order on the CV: native first. The level itself is written out. */
 export const spokenLanguages = [{ id: 'turkish' }, { id: 'russian' }, { id: 'english' }];
 
+/** Three ways to reach me, shown under the opening. Order is order of preference. */
 export const socials = [
   { id: 'email', href: `mailto:${profile.email}`, value: profile.email },
   { id: 'telegram', href: profile.telegram, value: profile.telegramHandle },
   { id: 'github', href: profile.github, value: profile.githubHandle },
-  { id: 'linkedin', href: profile.linkedin, value: profile.linkedinHandle },
 ];

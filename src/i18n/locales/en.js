@@ -186,13 +186,7 @@ export default {
 
   contact: {
     title: 'Get in touch',
-    lede: 'Tell me what you need built — a site, an app, or a piece of one — and I will come back with a scope and a price. Email or Telegram is quickest; the form below reaches the same inbox.',
-    labels: {
-      email: 'Email',
-      telegram: 'Telegram',
-      github: 'GitHub',
-      linkedin: 'LinkedIn',
-    },
+    lede: 'Tell me what you need built — a site, an app, an LLM system, or a piece of one — and I will come back with a scope and a price.',
     form: {
       name: 'Name',
       email: 'Email',

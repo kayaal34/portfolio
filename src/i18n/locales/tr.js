@@ -185,13 +185,7 @@ export default {
 
   contact: {
     title: 'İletişime geçin',
-    lede: 'Neye ihtiyacınız olduğunu yazın — bir site, bir uygulama ya da onun bir parçası; kapsam ve fiyatla dönerim. En hızlısı e-posta veya Telegram; aşağıdaki form da aynı adrese düşüyor.',
-    labels: {
-      email: 'E-posta',
-      telegram: 'Telegram',
-      github: 'GitHub',
-      linkedin: 'LinkedIn',
-    },
+    lede: 'Neye ihtiyacınız olduğunu yazın — bir site, bir uygulama, bir LLM sistemi ya da onun bir parçası; kapsam ve fiyatla dönerim.',
     form: {
       name: 'Ad',
       email: 'E-posta',

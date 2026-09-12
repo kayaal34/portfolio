@@ -24,15 +24,17 @@ function firstYear(entries) {
 }
 
 /**
- * The home page: the opening, then the CV as four chapters. One is open at a
- * time; the rail on the right and the chapter titles themselves both open
- * them.
+ * The home page: the opening, then the CV as four chapters, all closed until
+ * one is pressed. One is open at a time; the rail on the right and the
+ * chapter titles themselves both open them.
  */
 export function Home() {
   const { t } = useI18n();
   const { hash } = useLocation();
 
-  const [open, setOpen] = useState('experience');
+  // Nothing is open on arrival: the page opens as an index, and a chapter
+  // appears only when it is asked for.
+  const [open, setOpen] = useState(null);
   // When one chapter replaces another, the old one closes instantly: if it
   // animated shut, everything below it would still be moving while the page
   // scrolls to the new one, and the scroll would land in the wrong place.

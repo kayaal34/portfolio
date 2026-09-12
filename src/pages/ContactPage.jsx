@@ -4,17 +4,16 @@ import {
   WEB3FORMS_ENDPOINT,
   isContactFormConfigured,
 } from '../config/contactForm';
-import { profile, socials } from '../data/profile';
+import { profile } from '../data/profile';
 import { useI18n } from '../i18n';
 import { Reveal } from '../components/Reveal';
 
 const EMPTY = { name: '', email: '', message: '' };
 
 /**
- * The contact page: the channels, and a form that actually delivers.
- *
- * Same layout language as the rest of the site — one column, hairlines,
- * mono labels — but on its own URL, so a link can point straight at it.
+ * The contact page: a form that actually delivers, and nothing else. My own
+ * addresses are under the opening on the home page; this page is only for
+ * the visitor to write.
  */
 export function ContactPage() {
   const { t } = useI18n();
@@ -96,29 +95,9 @@ export function ContactPage() {
         {t.contact.lede}
       </Reveal>
 
-      <Reveal delay={180} className="mt-10 border-t border-line-soft pt-6">
-        <dl className="grid gap-2 sm:grid-cols-2 sm:gap-x-10">
-          {socials.map((item) => (
-            <div key={item.id} className="flex items-baseline gap-3">
-              <dt className="label w-20 shrink-0">{t.contact.labels[item.id]}</dt>
-              <dd className="min-w-0 truncate text-[0.9375rem]">
-                <a
-                  className="link"
-                  href={item.href}
-                  target={item.id === 'email' ? undefined : '_blank'}
-                  rel="noreferrer"
-                >
-                  {item.value}
-                </a>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </Reveal>
-
       <Reveal
         as="form"
-        delay={240}
+        delay={180}
         onSubmit={handleSubmit}
         noValidate
         className="mt-10 border-t border-line-soft pt-8"

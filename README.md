@@ -60,7 +60,7 @@ src/
 │   ├── Intro.jsx           Açılış: kayaal.is-a.dev yerine oturur, bekler,
 │   │                       katman sayfanın üstünde erir (tamamı CSS)
 │   ├── Header.jsx          Üst satır: isim; sağda iletişim, dil, tema
-│   ├── Rail.jsx            Sağ kenardaki bölüm navigasyonu (≥1440px)
+│   ├── Rail.jsx            Sağ kenardaki bölüm navigasyonu (≥1536px)
 │   ├── Chapter.jsx         Açılır bölüm: basınca başlık büyür, ekran açılır
 │   ├── Entry.jsx           Tek bir CV satırı (deneyim, proje, eğitim)
 │   ├── Reveal.jsx          Görünüme girince bir kez soluk geçiş
@@ -68,7 +68,7 @@ src/
 ├── pages/
 │   ├── Home.jsx            Ana sayfa: hero + dört bölüm; hangisinin açık
 │   │                       olduğu ve kaydırma burada
-│   └── ContactPage.jsx     /contact: kanallar + çalışan form
+│   └── ContactPage.jsx     /contact: yalnızca çalışan form
 └── sections/               Bölümlerin içeriği: Hero · Experience · Projects ·
                             Education · Skills (sertifika/dil/ilgi dahil)
 ```
@@ -85,9 +85,10 @@ src/
   Bir bölüm diğerinin yerini alırken eskisi animasyonsuz kapanır; aksi hâlde
   kaydırma hâlâ hareket eden bir sayfada yanlış yere iner
   ([`Home.jsx`](src/pages/Home.jsx), [`Chapter.jsx`](src/components/Chapter.jsx)).
-- **Sağ kenar navigasyonu** 1440px ve üstünde görünür; en uzun etiket (Rusça
-  "Избранные проекты") o genişlikte içerikle çakışmıyor. Daha dar ekranda
-  bölüm başlıklarının kendisi navigasyon.
+- **Sağ kenar navigasyonu** 1536px ve üstünde görünür. 14px'te en uzun etiket
+  (Rusça "Избранные проекты", aktif çizgisiyle) 231px; 1440px'te içerikle arasında
+  16px kalıyordu, 1536px'te 64px. Daha dar ekranda bölüm başlıklarının kendisi
+  navigasyon. Açılışta hiçbir bölüm açık değil — basınca açılıyor.
 - **Okuma göstergesi.** Üst çubuğun kendi saç teli çizgisi, sayfada ne kadar
   ilerlediğinize göre soldan sağa doluyor ([`Header.jsx`](src/components/Header.jsx)).
   Ayrı bir ilerleme çubuğu eklenmedi; zaten orada olan çizgi kullanıldı.

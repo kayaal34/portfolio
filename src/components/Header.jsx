@@ -16,13 +16,27 @@ export function Header({ isDark, onToggleTheme }) {
   const isHome = pathname === '/';
   const activeSection = useActiveSection(sectionIds);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+
+      setScrolled(doc.scrollTop > 24);
+      // How far through the page you are, drawn along the header's own
+      // hairline — a reading indicator rather than a bar bolted on top.
+      setProgress(scrollable > 40 ? Math.min(doc.scrollTop / scrollable, 1) : 0);
+    };
+
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [pathname]);
 
   return (
     <header
@@ -30,6 +44,11 @@ export function Header({ isDark, onToggleTheme }) {
         scrolled ? 'border-line-soft' : 'border-transparent'
       }`}
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 -bottom-px h-px origin-left bg-accent/55"
+        style={{ transform: `scaleX(${progress})` }}
+      />
       <div className="shell flex h-14 items-center justify-between gap-4">
         <Link to="/" className="label !tracking-[0.16em] text-ink transition-colors hover:text-accent">
           {t.name.full}

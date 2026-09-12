@@ -11,7 +11,7 @@ export function Hero() {
   const { t } = useI18n();
 
   return (
-    <section id="top" className="shell pt-24 pb-14 md:pt-32 md:pb-20">
+    <section id="top" className="shell pt-28 pb-16 md:pt-40 md:pb-24">
       <Reveal as="p" className="label">
         {t.role}
         <span className="mx-2 text-line">/</span>

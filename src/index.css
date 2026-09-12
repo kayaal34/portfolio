@@ -227,10 +227,11 @@
   }
 
   /* ---------------------------------------------------------------- *
-   * Opening sequence. Three beats: the address arrives letter by
-   * letter, leaves the same way, then six slats lift the curtain off
-   * the page. Timing lives in the delays below — no JS drives it, the
-   * component only unmounts the layer when it is over.
+   * Opening sequence. The address tracks in, holds, and the whole
+   * layer dissolves over the page that is already sitting underneath
+   * it. Two beats, no curtain — the transition should be felt, not
+   * watched. Timing lives here; the component only unmounts the layer
+   * when it is over.
    * ---------------------------------------------------------------- */
   .intro {
     position: fixed;
@@ -238,68 +239,42 @@
     z-index: 200;
     display: grid;
     place-items: center;
-    pointer-events: none;
-  }
-
-  .intro-slats {
-    position: absolute;
-    inset: 0;
-    display: flex;
-  }
-
-  .intro-slat {
-    flex: 1;
     background: var(--c-bg);
-    animation: intro-slat-up 0.55s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-    animation-delay: calc(1.3s + var(--j) * 0.07s);
+    pointer-events: none;
+    animation: intro-dissolve 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 1.15s;
   }
 
   .intro-word {
-    position: relative;
     margin: 0;
     font-family: var(--font-mono);
-    font-size: clamp(0.875rem, 3.2vw, 1.125rem);
-    letter-spacing: 0.24em;
+    font-size: clamp(0.8125rem, 3vw, 1rem);
     color: var(--c-ink);
+    animation: intro-track-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.12s;
   }
 
-  .intro-char {
-    display: inline-block;
-    animation:
-      intro-char-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both,
-      intro-char-out 0.4s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-    animation-delay: calc(0.1s + var(--i) * 0.015s), calc(0.95s + var(--i) * 0.018s);
-  }
-
-  @keyframes intro-char-in {
+  /* Letter-spacing settling into place — the one flourish, and the
+     reason the word does not need to move. */
+  @keyframes intro-track-in {
     from {
       opacity: 0;
-      transform: translateY(0.45em);
+      letter-spacing: 0.42em;
     }
     to {
       opacity: 1;
-      transform: none;
+      letter-spacing: 0.22em;
     }
   }
 
-  @keyframes intro-char-out {
-    from {
-      opacity: 1;
-      transform: none;
-    }
+  @keyframes intro-dissolve {
     to {
       opacity: 0;
-      transform: translateY(-0.35em);
+      visibility: hidden;
     }
   }
 
-  @keyframes intro-slat-up {
-    to {
-      transform: translateY(-101%);
-    }
-  }
-
-  /* Held only while the curtain is up; a page that cannot scroll for
+  /* Held only while the layer is up; a page that cannot scroll for
      longer than that is a page that looks broken. */
   .intro-locked {
     overflow: hidden;
@@ -321,42 +296,25 @@
     transform: none;
   }
 
-  /* The opening still plays — the setting asks for no movement, not for a
-     blank screen — so the same three beats run on opacity alone. These
-     selectors outrank the blanket reset above, which is the point. */
-  .intro-char {
-    animation-name: intro-char-fade-in, intro-char-fade-out;
-    animation-duration: 0.4s, 0.35s !important;
-    animation-delay: calc(0.1s + var(--i) * 0.01s), calc(0.85s + var(--i) * 0.012s);
-  }
-
-  .intro-slat {
-    animation-name: intro-slat-fade;
+  /* The opening still plays — the setting asks for no movement, not for
+     a blank screen — so the word simply fades in and the layer fades
+     out. These selectors outrank the blanket reset above, which is the
+     point. */
+  .intro-word {
+    animation-name: intro-word-fade;
     animation-duration: 0.5s !important;
-    animation-delay: calc(1.15s + var(--j) * 0.05s);
   }
 
-  @keyframes intro-char-fade-in {
+  .intro {
+    animation-duration: 0.6s !important;
+  }
+
+  @keyframes intro-word-fade {
     from {
       opacity: 0;
     }
     to {
       opacity: 1;
-    }
-  }
-
-  @keyframes intro-char-fade-out {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  @keyframes intro-slat-fade {
-    to {
-      opacity: 0;
     }
   }
 }

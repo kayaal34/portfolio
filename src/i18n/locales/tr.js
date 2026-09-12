@@ -38,7 +38,7 @@ export default {
   },
 
   hero: {
-    lede: 'Web siteleri, mobil uygulamalar ve arkalarındaki backend — baştan sona.',
+    lede: 'Web siteleri, mobil uygulamalar, LLM sistemleri — hangi teknolojik çözüme ihtiyacınız varsa yanınızdayım.',
     cta: 'İletişime geçin',
   },
 

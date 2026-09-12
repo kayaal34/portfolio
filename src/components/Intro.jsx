@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import { profile } from '../data/profile';
 
-const SLATS = 6;
-/** Matches the last slat's delay plus its duration in index.css. */
-const TOTAL_MS = 2250;
+/** Matches the layer's delay plus its dissolve in index.css, plus a beat. */
+const TOTAL_MS = 1900;
 
 /**
- * The opening: the site's own address arrives letter by letter, leaves the
- * same way, and six slats lift the curtain off the page.
+ * The opening: the site's own address tracks into place, holds, and the
+ * layer dissolves over the page already sitting underneath it.
  *
  * Everything is CSS — this component only takes the layer out of the
- * document when it is over, so nothing invisible is left sitting on top of
- * the page. Under reduced motion the same beats play on opacity alone
- * (see index.css), so the opening is never simply missing.
+ * document when it is over, so nothing invisible is left on top of the
+ * page. Under reduced motion the word fades instead of tracking in (see
+ * index.css), so the opening is never simply missing.
  */
 export function Intro() {
   const [playing, setPlaying] = useState(true);
@@ -33,19 +32,7 @@ export function Intro() {
 
   return (
     <div className="intro" aria-hidden="true">
-      <div className="intro-slats">
-        {Array.from({ length: SLATS }, (_, index) => (
-          <span key={index} className="intro-slat" style={{ '--j': index }} />
-        ))}
-      </div>
-
-      <p className="intro-word">
-        {Array.from(profile.site, (char, index) => (
-          <span key={index} className="intro-char" style={{ '--i': index }}>
-            {char}
-          </span>
-        ))}
-      </p>
+      <p className="intro-word">{profile.site}</p>
     </div>
   );
 }

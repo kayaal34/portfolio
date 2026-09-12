@@ -39,7 +39,7 @@ export default {
   },
 
   hero: {
-    lede: 'Websites, mobile apps and the backends behind them — built end to end.',
+    lede: 'Websites, mobile apps, LLM systems — whatever technical solution you need, I am the one who builds it with you.',
     cta: 'Get in touch',
   },
 

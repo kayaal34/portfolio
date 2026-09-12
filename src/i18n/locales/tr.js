@@ -46,6 +46,12 @@ export default {
     contact: 'İletişim',
   },
 
+  chapter: {
+    back: 'Ana sayfa',
+    previous: 'Önceki',
+    next: 'Sonraki',
+  },
+
   experience: {
     freelance: {
       role: 'Web Geliştirici',

@@ -16,11 +16,12 @@ export const profile = {
 };
 
 /**
- * Scroll anchors on the home page, in the order they appear. Contact is not
- * among them — it is its own page, because the people who fill in a form
- * arrive looking for it rather than scrolling into it.
+ * The CV's chapters, in order. Each is its own page at /<id>, listed on the
+ * opening screen; contact is a page of its own too, but not a chapter.
  */
-export const sectionIds = ['experience', 'projects', 'education', 'skills'];
+export const chapterIds = ['experience', 'projects', 'education', 'skills'];
+
+export const chapterPath = (id) => `/${id}`;
 
 /** The contact page lives at its own URL. */
 export const contactPath = '/contact';

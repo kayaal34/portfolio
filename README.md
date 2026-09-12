@@ -1,7 +1,8 @@
 # Yahya Kayaal — CV sitesi
 
-`kayaal.is-a.dev` — iki sayfa, üç dilli (English · Türkçe · Русский) serbest
-çalışma sitesi: ana sayfada iş geçmişi, `/contact` sayfasında iletişim formu.
+`kayaal.is-a.dev` — üç dilli (English · Türkçe · Русский) serbest çalışma
+sitesi. Tek ekranlık bir açılış sayfası; CV'nin dört bölümü kendi sayfalarında
+(`/experience`, `/projects`, `/education`, `/skills`); `/contact` sayfasında form.
 Sayfadaki her bilgi Eylül 2026 CV'sinden alınmıştır; uydurma metin yoktur.
 
 **Stack:** React 18 · Vite 6 · Tailwind CSS 4 · lucide-react
@@ -44,7 +45,7 @@ Sitede CV indirme düğmesi yoktur — PDF yerine sayfanın kendisi özgeçmiş.
 
 ```
 src/
-├── App.jsx                 Rotalar (/ ve /contact) + ortak yerleşim
+├── App.jsx                 Rotalar (/, dört bölüm, /contact) + ortak yerleşim
 ├── main.jsx                React giriş noktası; router seçimi burada
 ├── index.css               Tasarım sistemi: renk değişkenleri, tipografi,
 │                           .label / .btn / .field / .reveal yardımcıları
@@ -59,15 +60,16 @@ src/
 ├── components/
 │   ├── Intro.jsx           Açılış: kayaal.is-a.dev yerine oturur, bekler,
 │   │                       katman sayfanın üstünde erir (tamamı CSS)
-│   ├── Header.jsx          Üst satır: isim; sağda iletişim, dil, tema
-│   ├── Rail.jsx            Sağ kenardaki bölüm navigasyonu (≥1536px)
-│   ├── Chapter.jsx         Açılır bölüm: basınca başlık büyür, ekran açılır
+│   ├── Header.jsx          Üst satır: dil, tema; ana sayfa dışında isim
+│   │                       ve iletişim
+│   ├── ChapterIndex.jsx    Açılış ekranının sağındaki büyük bölüm listesi
+│   ├── TransitionLink.jsx  Sayfalar arası geçiş (View Transitions API)
 │   ├── Entry.jsx           Tek bir CV satırı (deneyim, proje, eğitim)
 │   ├── Reveal.jsx          Görünüme girince bir kez soluk geçiş
 │   └── Footer.jsx
 ├── pages/
-│   ├── Home.jsx            Ana sayfa: hero + dört bölüm; hangisinin açık
-│   │                       olduğu ve kaydırma burada
+│   ├── Home.jsx            Açılış ekranı: solda hero, sağda bölüm listesi
+│   ├── ChapterPage.jsx     Bir bölümün sayfası: başlık, içerik, önceki/sonraki
 │   └── ContactPage.jsx     /contact: yalnızca çalışan form
 └── sections/               Bölümlerin içeriği: Hero · Experience · Projects ·
                             Education · Skills (sertifika/dil/ilgi dahil)
@@ -77,18 +79,22 @@ src/
 
 ## Tasarım kararları
 
-- **Bölümler, uzun bir kolon değil.** Ana sayfa bir içindekiler gibi: Deneyim,
-  Projeler, Eğitim, Yetkinlikler. Aynı anda tek bölüm açık (varsayılan Deneyim).
-  Başlığa ya da sağ kenardaki navigasyona basınca başlık büyür (32→52px), içerik
-  açılır ve sayfa bölümü üst çubuğun hemen altına getirir. Açık bölüm en az bir
-  ekran boyudur — "bir ekran açılıyor" hissi bundan.
-  Bir bölüm diğerinin yerini alırken eskisi animasyonsuz kapanır; aksi hâlde
-  kaydırma hâlâ hareket eden bir sayfada yanlış yere iner
-  ([`Home.jsx`](src/pages/Home.jsx), [`Chapter.jsx`](src/components/Chapter.jsx)).
-- **Sağ kenar navigasyonu** 1536px ve üstünde görünür. 14px'te en uzun etiket
-  (Rusça "Избранные проекты", aktif çizgisiyle) 231px; 1440px'te içerikle arasında
-  16px kalıyordu, 1536px'te 64px. Daha dar ekranda bölüm başlıklarının kendisi
-  navigasyon. Açılışta hiçbir bölüm açık değil — basınca açılıyor.
+- **Açılış bir başlık sayfası.** Ana sayfa tek ekran: solda isim, unvanlar,
+  tek cümle, iletişim linki ve üç adres; sağda CV'nin dört bölümü, isimle aynı
+  yazı tipinde büyük (44px'e kadar). Altında hiçbir şey yok, footer da yok.
+  Telefonda iki yarı üst üste gelir.
+- **Her bölüm kendi ekranı.** Bir bölüme basınca sayfa değişir ve bölümün adı
+  listedeki yerinden kalkıp yeni sayfanın başlığına dönüşerek büyür (44→76px).
+  Bunu tarayıcının View Transitions API'si yapıyor: iki sayfadaki başlık aynı
+  `view-transition-name`'i taşıyor, gerisi solarak değişiyor, üst çubuk yerinde
+  duruyor ([`TransitionLink.jsx`](src/components/TransitionLink.jsx)).
+  API'yi desteklemeyen tarayıcıda (bugün Firefox) ya da "hareketi azalt" açıkken
+  normal link gibi çalışır. Tarayıcı 400ms içinde geçişi başlatamazsa (çizim
+  yapmayan arka plan sekmesi gibi) sayfa yine de değişir.
+- **Geçişe giren başlıklar `<Reveal>` içinde değil.** Geçiş yeni sayfayı hemen
+  yakalıyor; opaklığı 0'dan başlayan bir başlık hiçliğe dönüşürdü.
+- **Bölüm sayfasının sonunda** önceki ve sonraki bölüm; son bölümden sonra
+  İletişim. İndekse dönmeden okumaya devam edilebilir.
 - **Okuma göstergesi.** Üst çubuğun kendi saç teli çizgisi, sayfada ne kadar
   ilerlediğinize göre soldan sağa doluyor ([`Header.jsx`](src/components/Header.jsx)).
   Ayrı bir ilerleme çubuğu eklenmedi; zaten orada olan çizgi kullanıldı.

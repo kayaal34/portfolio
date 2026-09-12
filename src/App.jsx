@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
-import { contactPath } from './data/profile';
+import { chapterIds, chapterPath, contactPath } from './data/profile';
 import { I18nProvider, useI18n } from './i18n';
 import { useTheme } from './hooks/useTheme';
 
@@ -10,6 +10,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
 import { Home } from './pages/Home';
+import { ChapterPage } from './pages/ChapterPage';
 import { ContactPage } from './pages/ContactPage';
 
 const SITE_URL = 'https://kayaal.is-a.dev';
@@ -55,6 +56,9 @@ function RouteEffects() {
 function Site() {
   const { t, fading } = useI18n();
   const { isDark, toggleTheme } = useTheme();
+  // The opening screen is one screen and ends there; every other page has a
+  // footer.
+  const isHome = useLocation().pathname === '/';
 
   return (
     <>
@@ -86,13 +90,16 @@ function Site() {
         <main id="main">
           <Routes>
             <Route path="/" element={<Home />} />
+            {chapterIds.map((id) => (
+              <Route key={id} path={chapterPath(id)} element={<ChapterPage id={id} />} />
+            ))}
             <Route path={contactPath} element={<ContactPage />} />
             {/* Unknown URL: home, rather than a dead end. */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 
-        <Footer />
+        {isHome ? null : <Footer />}
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import {
   isContactFormConfigured,
 } from '../config/contactForm';
 import { profile } from '../data/profile';
-import { useI18n } from '../i18n';
+import { useDocumentTitle, useI18n } from '../i18n';
 import { Reveal } from '../components/Reveal';
 
 const EMPTY = { name: '', email: '', message: '' };
@@ -17,6 +17,7 @@ const EMPTY = { name: '', email: '', message: '' };
  */
 export function ContactPage() {
   const { t } = useI18n();
+  useDocumentTitle(`${t.contact.title} — ${t.name.full}`);
   const copy = t.contact.form;
 
   const [values, setValues] = useState(EMPTY);

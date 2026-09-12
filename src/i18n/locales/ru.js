@@ -46,6 +46,12 @@ export default {
     contact: 'Контакты',
   },
 
+  chapter: {
+    back: 'Главная',
+    previous: 'Назад',
+    next: 'Далее',
+  },
+
   experience: {
     freelance: {
       role: 'Веб-разработчик',

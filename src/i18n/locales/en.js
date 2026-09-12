@@ -47,6 +47,12 @@ export default {
     contact: 'Contact',
   },
 
+  chapter: {
+    back: 'Home',
+    previous: 'Previous',
+    next: 'Next',
+  },
+
   experience: {
     freelance: {
       role: 'Web Developer',

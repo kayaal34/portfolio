@@ -1,17 +1,18 @@
-import { Link } from 'react-router-dom';
 import { contactPath, socials } from '../data/profile';
 import { useI18n } from '../i18n';
 import { Reveal } from '../components/Reveal';
+import { TransitionLink } from '../components/TransitionLink';
 
 /**
- * The opening: the name, the two things I am hired as, one sentence about
- * the work, and the ways to reach me. The name is the headline.
+ * The left half of the opening screen: the name, the two things I am hired
+ * as, one sentence about the work, and the ways to reach me. The name is the
+ * headline. Layout (width, placement) belongs to Home.
  */
 export function Hero() {
   const { t } = useI18n();
 
   return (
-    <section id="top" className="shell pt-28 pb-16 md:pt-40 md:pb-24">
+    <section id="top">
       <Reveal
         as="h1"
         className="serif text-[clamp(2.75rem,9vw,5rem)] leading-[0.95] font-normal"
@@ -39,12 +40,12 @@ export function Hero() {
       </Reveal>
 
       <Reveal delay={180} className="mt-9">
-        <Link className="cta" to={contactPath}>
+        <TransitionLink className="cta" to={contactPath}>
           {t.hero.cta}
           <span aria-hidden="true" className="cta-arrow">
             →
           </span>
-        </Link>
+        </TransitionLink>
       </Reveal>
 
       {/* The ways to reach me live here, not on the contact page — that page

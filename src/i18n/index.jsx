@@ -67,11 +67,11 @@ export function I18nProvider({ children }) {
 
   const t = DICTIONARIES[language] ?? DICTIONARIES[DEFAULT_LANGUAGE];
 
-  // Keep the document in sync: <html lang>, <title> and the meta description
-  // all have to follow the active language for SEO and screen readers.
+  // Keep the document in sync: <html lang> and the meta description have to
+  // follow the active language for SEO and screen readers. The <title> is
+  // set by each page (useDocumentTitle), since it differs per page.
   useEffect(() => {
     document.documentElement.lang = t.htmlLang;
-    document.title = t.meta.title;
 
     const description = document.querySelector('meta[name="description"]');
     if (description) description.setAttribute('content', t.meta.description);
@@ -133,6 +133,13 @@ export function useI18n() {
   const context = useContext(I18nContext);
   if (!context) throw new Error('useI18n must be used inside <I18nProvider>');
   return context;
+}
+
+/** Sets the document title for as long as the calling page is mounted. */
+export function useDocumentTitle(title) {
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
 }
 
 /** Shorthand for components that only need the dictionary. */

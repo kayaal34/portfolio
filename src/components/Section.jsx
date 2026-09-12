@@ -62,8 +62,13 @@ export function Entry({
         {period ? <p className="label tabular shrink-0 sm:text-right">{period}</p> : null}
       </div>
 
+      {/* lang="en" on purpose: these are product names, and CSS uppercasing is
+          language-sensitive — under Turkish rules TypeScript would be set as
+          TYPESCRİPT, with the dotted capital. */}
       {stack?.length ? (
-        <p className="label mt-2 normal-case tracking-[0.06em]">{stack.join(' · ')}</p>
+        <p lang="en" className="label mt-2 normal-case tracking-[0.06em]">
+          {stack.join(' · ')}
+        </p>
       ) : null}
 
       {bullets.length ? (

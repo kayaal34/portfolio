@@ -42,6 +42,7 @@ export function Hero() {
           .map((item) => (
             <a
               key={item.id}
+              lang="en"
               href={item.href}
               target="_blank"
               rel="noreferrer"

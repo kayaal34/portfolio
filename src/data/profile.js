@@ -91,6 +91,7 @@ export const projects = [
   {
     id: 'tzReviewer',
     name: 'TZ Reviewer',
+    period: '01.09.2026 — 07.09.2026',
     stack: ['Python'],
     repo: 'https://github.com/kayaal34/aitalenthub-hackathon',
     bullets: 2,

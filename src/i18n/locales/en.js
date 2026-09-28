@@ -105,7 +105,7 @@ export default {
       ],
     },
     tzReviewer: {
-      summary: 'AI Product Hack, MTS case',
+      summary: 'AI Product Hack 2026 · AI Talent Hub, ITMO, Napoleon IT — MTS case',
       bullets: [
         'Developed a specification-review tool in a team of two: parses a technical spec into sections and returns findings at three severity levels (blocker / major / minor).',
         'Cut LLM dependency by moving deterministic checks into rule-based logic, reducing token cost per review.',

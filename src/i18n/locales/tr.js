@@ -104,7 +104,7 @@ export default {
       ],
     },
     tzReviewer: {
-      summary: 'AI Product Hack, MTS vakası',
+      summary: 'AI Product Hack 2026 · AI Talent Hub, ITMO, Napoleon IT — MTS vakası',
       bullets: [
         'İki kişilik ekipte teknik şartname inceleme aracı geliştirdim: şartnameyi bölümlere ayırıyor ve bulguları üç kritiklik seviyesinde (blocker / major / minor) döndürüyor.',
         'Belirlenimci kontrolleri kural tabanlı mantığa taşıyarak LLM bağımlılığını azalttım; inceleme başına token maliyeti düştü.',
